@@ -390,14 +390,17 @@ when I examine your contribution:</p>
 deprecation warnings as I do, I suggest running PyLint as
 <code class="docutils literal notranslate"><span class="pre">pylint3</span> <span class="pre">quicktile</span> <span class="pre">2&gt;/dev/null</span></code>)</p></li>
 </ul>
-<p>While not yet complete enough to be of much use, as it doesn’t yet provide a
-mock window to get QuickTile past the safety check few commands opt out of,
-you are also advised to run what will eventually be a functional test suite:</p>
+<p>While it currently relies on an ugly hack which hard-codes Openbox and
+Zenity as dependencies, and does not yet assert that windows wind up
+in the expected states, you may also find the beginnings of a functional
+test suite useful as a way to exercise the code and check for uncaught
+exceptions:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./test_functional.py -v
 </pre></div>
 </div>
-<p>This is excluded from <code class="file docutils literal notranslate"><span class="pre">run_tests.sh</span></code> because it takes too long to be
-part of a comfortable edit-test cycle.</p>
+<p>Bear in mind that, even once it is more mature, it will remain excluded
+from <code class="file docutils literal notranslate"><span class="pre">run_tests.sh</span></code> because it takes too long to be part of a
+comfortable edit-test cycle.</p>
 <p>In lieu of a proper functional test suite, please manually execute all tiling
 commands which rely on code you’ve touched and watch for misbehaviour.</p>
 </div>
