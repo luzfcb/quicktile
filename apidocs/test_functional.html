@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Functional Tests (test_functional.py) &#8212; QuickTile 0.4 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="X Server Management (functional_harness/x_server.py)" href="functional_harness/x_server.html" />
+    <link rel="prev" title="Unit Tests (test_quicktile.py)" href="test_quicktile.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+    <link rel="canonical" href="http://ssokolow.com/quicktile/apidocs/test_functional.html"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<h1 class="logo"><a href="../index.html">QuickTile</a></h1>
+
+
+
+<p class="blurb">Keyboard-driven Window Tiling for your existing X11 window manager</p>
+
+
+
+
+
+
+
+
+    
+
+<p>
+<a class="badge" href="https://travis-ci.org/ssokolow/quicktile">
+    <img
+        alt="CI Test Status"
+        src="https://secure.travis-ci.org/ssokolow/quicktile.svg?branch=master"
+    />
+</a>
+</p>
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">API Documentation</a><ul>
+  <li><a href="tests.html">Automated Testing Code</a><ul>
+      <li>Previous: <a href="test_quicktile.html" title="previous chapter">Unit Tests (<code class="docutils literal notranslate"><span class="pre">test_quicktile.py</span></code>)</a></li>
+      <li>Next: <a href="functional_harness/x_server.html" title="next chapter">X Server Management (<code class="docutils literal notranslate"><span class="pre">functional_harness/x_server.py</span></code>)</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script><div class="badges">
+    <p><a href="apt:python3,python3-pip,python3-setuptools,python3-gi,python3-xlib,python3-dbus,gir1.2-glib-2.0,gir1.2-gtk-3.0,gir1.2-wnck-3.0" class="btn" title="Install from configured repositories on Debian-based distros"><img src="../_static/img/debian_12.png" alt="Debian"><img src="../_static/img/ubuntu_12.png" alt="Ubuntu"><img src="../_static/img/mint_12.png" alt="Mint"> Install Dependencies</a></p>
+    <p><a href="http://github.com/ssokolow/quicktile/zipball/master" class="btn">Download QuickTile</a></p>
+    <p><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img src="../_static/license.svg" alt="License: GPLv2" /></a></p>
+</div><div class="contrib_box">
+    <h3>Tip Jar</h3>
+    <dl>
+        <dt>Code (Best)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://github.com/ssokolow/quicktile"
+                        title="GitHub Repo"><img
+                        src="../_static/contrib_box/github.png"
+                        alt="GitHub" /></a></li>
+                <li><a href="https://github.com/ssokolow/quicktile/issues"
+                        title="Bug Tracker"><img
+                        src="../_static/contrib_box/bug.png"
+                        alt="Bug Tracker" /></a></li>
+            </ul>
+        </dd>
+        <dt>Publicity (Better)</dt>
+        <dd>Show your friends</dd>
+        <dt>Snacks (Good)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://flattr.com/thing/674146"
+                        title="Flattr"><img
+                        src="../_static/contrib_box/flattr.png"
+                        alt="Flattr" /></a></li>
+                <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="EFWRR7EAQ993S"><input type="image" src="../_static/contrib_box/paypal.png" name="submit" alt="PayPal" title="PayPal"></form></li>
+                <li><a title="BitCoin"
+                    href="bitcoin:1Kp1i3nahunzzFs5a3mMF46uzca4oANH5C?label=QuickTile%20Donations"
+                    ><img
+                    src="../_static/contrib_box/bitcoin.png"
+                    alt="BitCoin"
+                /></a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--
+    bug.png and wrench.png from the Silk Icons set by Mark James, available at
+    http://www.famfamfam.com/lab/icons/silk/
+    are used under the Creative Commons Attribution 2.5 license.
+-->
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-test_functional">
+<span id="functional-tests-test-functional-py"></span><h1>Functional Tests (<code class="docutils literal notranslate"><span class="pre">test_functional.py</span></code>)<a class="headerlink" href="#module-test_functional" title="Permalink to this headline">¶</a></h1>
+<p>Beginnings of a functional test harness for QuickTile</p>
+<dl class="function">
+<dt id="test_functional.main">
+<code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_functional.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_functional.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>The main entry point, compatible with setuptools entry points.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_functional.run_tests">
+<code class="sig-name descname">run_tests</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_functional.html#run_tests"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_functional.run_tests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the old bank of ‘commands don’t crash’ tests</p>
+</dd></dl>
+
+<hr class="docutils" />
+<p>Pending proper tests and assertions, the following sequence of commands is
+executed as an attempt to elicit uncaught exceptions.</p>
+<code class="sig-name descname">TEST_SCRIPT</code><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;monitor-next-all</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;monitor-prev-all</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;monitor-switch-all</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;monitor-prev-all</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;monitor-next</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;monitor-prev</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;monitor-switch</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;monitor-prev</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;bottom</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;bottom-left</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;bottom-right</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;left</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;center</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;right</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;top</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;top-left</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;top-right</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;move-to-bottom</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;move-to-bottom-left</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;move-to-bottom-right</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;move-to-center</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;move-to-left</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;move-to-right</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;move-to-top</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;move-to-top-left</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;move-to-top-right</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;bordered</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;bordered</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;always-above</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;always-above</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;always-below</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;always-below</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;horizontal-maximize</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;horizontal-maximize</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;vertical-maximize</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;vertical-maximize</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;shade</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;shade</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;fullscreen</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;fullscreen</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;all-desktops</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;all-desktops</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;trigger-move</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;trigger-resize</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;workspace-send-down</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;workspace-go-down</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;workspace-send-up</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;workspace-go-up</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;workspace-send-left</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;workspace-go-left</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;workspace-send-right</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;workspace-go-right</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;workspace-send-next</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;workspace-go-next</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;workspace-send-prev</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;workspace-go-prev</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;show-desktop</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;show-desktop</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;maximize</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;maximize</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+ <span class="s1">&#39;minimize</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2009-2020, Stephan Sokolow.
+      
+      |
+      <a href="../_sources/apidocs/test_functional.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/ssokolow/quicktile" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

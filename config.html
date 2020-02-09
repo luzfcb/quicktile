@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Configuration &#8212; QuickTile 0.4 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Command-Line Arguments" href="cli.html" />
+    <link rel="prev" title="Command Reference" href="commands.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+    <link rel="canonical" href="http://ssokolow.com/quicktile/config.html"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<h1 class="logo"><a href="index.html">QuickTile</a></h1>
+
+
+
+<p class="blurb">Keyboard-driven Window Tiling for your existing X11 window manager</p>
+
+
+
+
+
+
+
+
+    
+
+<p>
+<a class="badge" href="https://travis-ci.org/ssokolow/quicktile">
+    <img
+        alt="CI Test Status"
+        src="https://secure.travis-ci.org/ssokolow/quicktile.svg?branch=master"
+    />
+</a>
+</p>
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="commands.html" title="previous chapter">Command Reference</a></li>
+      <li>Next: <a href="cli.html" title="next chapter">Command-Line Arguments</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script><div class="badges">
+    <p><a href="apt:python3,python3-pip,python3-setuptools,python3-gi,python3-xlib,python3-dbus,gir1.2-glib-2.0,gir1.2-gtk-3.0,gir1.2-wnck-3.0" class="btn" title="Install from configured repositories on Debian-based distros"><img src="_static/img/debian_12.png" alt="Debian"><img src="_static/img/ubuntu_12.png" alt="Ubuntu"><img src="_static/img/mint_12.png" alt="Mint"> Install Dependencies</a></p>
+    <p><a href="http://github.com/ssokolow/quicktile/zipball/master" class="btn">Download QuickTile</a></p>
+    <p><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img src="_static/license.svg" alt="License: GPLv2" /></a></p>
+</div><div class="contrib_box">
+    <h3>Tip Jar</h3>
+    <dl>
+        <dt>Code (Best)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://github.com/ssokolow/quicktile"
+                        title="GitHub Repo"><img
+                        src="_static/contrib_box/github.png"
+                        alt="GitHub" /></a></li>
+                <li><a href="https://github.com/ssokolow/quicktile/issues"
+                        title="Bug Tracker"><img
+                        src="_static/contrib_box/bug.png"
+                        alt="Bug Tracker" /></a></li>
+            </ul>
+        </dd>
+        <dt>Publicity (Better)</dt>
+        <dd>Show your friends</dd>
+        <dt>Snacks (Good)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://flattr.com/thing/674146"
+                        title="Flattr"><img
+                        src="_static/contrib_box/flattr.png"
+                        alt="Flattr" /></a></li>
+                <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="EFWRR7EAQ993S"><input type="image" src="_static/contrib_box/paypal.png" name="submit" alt="PayPal" title="PayPal"></form></li>
+                <li><a title="BitCoin"
+                    href="bitcoin:1Kp1i3nahunzzFs5a3mMF46uzca4oANH5C?label=QuickTile%20Donations"
+                    ><img
+                    src="_static/contrib_box/bitcoin.png"
+                    alt="BitCoin"
+                /></a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--
+    bug.png and wrench.png from the Silk Icons set by Mark James, available at
+    http://www.famfamfam.com/lab/icons/silk/
+    are used under the Creative Commons Attribution 2.5 license.
+-->
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#configuration-file-syntax" id="id4">Configuration File Syntax</a></p>
+<ul>
+<li><p><a class="reference internal" href="#general" id="id5"><code class="docutils literal notranslate"><span class="pre">[general]</span></code></a></p>
+<ul>
+<li><p><a class="reference internal" href="#cfg-schema-1" id="id6"><code class="docutils literal notranslate"><span class="pre">cfg_schema</span> <span class="pre">=</span> <span class="pre">1</span></code></a></p></li>
+<li><p><a class="reference internal" href="#columncount-3" id="id7"><code class="docutils literal notranslate"><span class="pre">ColumnCount</span> <span class="pre">=</span> <span class="pre">3</span></code></a></p></li>
+<li><p><a class="reference internal" href="#modmask-ctrl-alt" id="id8"><code class="docutils literal notranslate"><span class="pre">ModMask</span> <span class="pre">=</span> <span class="pre">&lt;Ctrl&gt;&lt;Alt&gt;</span></code></a></p></li>
+<li><p><a class="reference internal" href="#movementswrap-true" id="id9"><code class="docutils literal notranslate"><span class="pre">MovementsWrap</span> <span class="pre">=</span> <span class="pre">True</span></code></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#keys" id="id10"><code class="docutils literal notranslate"><span class="pre">[keys]</span></code></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#keybinding-syntax" id="id11">Keybinding Syntax</a></p>
+<ul>
+<li><p><a class="reference internal" href="#valid-modifier-names" id="id12">Valid Modifier Names</a></p></li>
+<li><p><a class="reference internal" href="#valid-key-names" id="id13">Valid Key Names</a></p>
+<ul>
+<li><p><a class="reference internal" href="#troubleshooting-xev" id="id14">Troubleshooting <strong class="program">xev</strong></a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p>QuickTile’s behaviour is currently controlled by a <code class="docutils literal notranslate"><span class="pre">.ini</span></code>-like configuration
+file stored at <code class="file docutils literal notranslate"><span class="pre">~/.config/quicktile.cfg</span></code>.</p>
+<p>It will be generated/regenerated from a set of defaults when QuickTile is run
+if it does not exist.</p>
+<p>At present, due to the <code class="docutils literal notranslate"><span class="pre">.ini</span></code> format’s inability to handle arbitrary
+hierarchical data, configuration beyond what is listed here requires modifying
+QuickTile’s source code, though it <em>is</em> planned to switch to a new
+configuration format which will remedy this.</p>
+<div class="section" id="configuration-file-syntax">
+<h2><a class="toc-backref" href="#id4">Configuration File Syntax</a><a class="headerlink" href="#configuration-file-syntax" title="Permalink to this headline">¶</a></h2>
+<p>The configuration is split into two sections:</p>
+<div class="section" id="general">
+<h3><a class="toc-backref" href="#id5"><code class="docutils literal notranslate"><span class="pre">[general]</span></code></a><a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h3>
+<p>This section controls everything except keybindings, and currently recognizes
+the following keys:</p>
+<div class="section" id="cfg-schema-1">
+<h4><a class="toc-backref" href="#id6"><code class="docutils literal notranslate"><span class="pre">cfg_schema</span> <span class="pre">=</span> <span class="pre">1</span></code></a><a class="headerlink" href="#cfg-schema-1" title="Permalink to this headline">¶</a></h4>
+<p>This key must be present and set to 1. It was included as a means for QuickTile
+to identify the format of the config file if it becomes necessary to break
+compatibility with the current setup without changing to an entirely new
+file format.</p>
+</div>
+<div class="section" id="columncount-3">
+<span id="columncount"></span><h4><a class="toc-backref" href="#id7"><code class="docutils literal notranslate"><span class="pre">ColumnCount</span> <span class="pre">=</span> <span class="pre">3</span></code></a><a class="headerlink" href="#columncount-3" title="Permalink to this headline">¶</a></h4>
+<p>This controls the number of steps that commands like <a class="reference internal" href="commands.html#top-left"><span class="std std-ref">top-left</span></a>
+will cycle through and is used to derive the column width that steps other than
+“half of the screen” will be multiples of.</p>
+<p>Each preset will have <code class="samp docutils literal notranslate"><span class="pre">1</span> <span class="pre">+</span> <em><span class="pre">columns</span></em></code> steps with the first step occupying
+either half the monitor width or the full width, as appropriate.</p>
+<p>It defaults to 3 for equivalence to WinSplit Revolution but you will probably
+want to increase it if you have a particularly large or wide monitor.</p>
+<p>At present, no provision is made to deduplicate this in the <code class="docutils literal notranslate"><span class="pre">columns=2</span></code> case
+and, for larger multiples of 2, it is considered desirable to have “half
+width” present both at the beginning of the sequence and at its natural
+position in the progression.</p>
+<p>There is currently no equivalent for modifying the number of rows because
+each command hard-codes for a row or span of rows, and until QuickTile’s
+internals are renovated further, it is not possible to define new commands
+without editing the code.</p>
+<p>(However, the code in question is designed to be reasonably simple to edit
+if you need to and can be found in
+<a class="reference internal" href="apidocs/layout.html#quicktile.layout.make_winsplit_positions" title="quicktile.layout.make_winsplit_positions"><code class="xref py py-func docutils literal notranslate"><span class="pre">quicktile.layout.make_winsplit_positions()</span></code></a>.)</p>
+</div>
+<div class="section" id="modmask-ctrl-alt">
+<span id="modmask"></span><h4><a class="toc-backref" href="#id8"><code class="docutils literal notranslate"><span class="pre">ModMask</span> <span class="pre">=</span> <span class="pre">&lt;Ctrl&gt;&lt;Alt&gt;</span></code></a><a class="headerlink" href="#modmask-ctrl-alt" title="Permalink to this headline">¶</a></h4>
+<p>This provides an easy way to set a shared prefix for all QuickTile keybindings.</p>
+<p>For example, setting <code class="docutils literal notranslate"><span class="pre">&lt;Mod4&gt;</span></code> would turn a binding to <code class="docutils literal notranslate"><span class="pre">KP_0</span></code> into
+<kbd class="kbd docutils literal notranslate">Win</kbd> + <kbd class="kbd docutils literal notranslate">Keypad 0</kbd>.</p>
+</div>
+<div class="section" id="movementswrap-true">
+<span id="movementswrap"></span><h4><a class="toc-backref" href="#id9"><code class="docutils literal notranslate"><span class="pre">MovementsWrap</span> <span class="pre">=</span> <span class="pre">True</span></code></a><a class="headerlink" href="#movementswrap-true" title="Permalink to this headline">¶</a></h4>
+<p>This controls whether the <a class="reference internal" href="commands.html#monitor"><span class="std std-ref">monitor-*</span></a>,
+<a class="reference internal" href="commands.html#workspace-go"><span class="std std-ref">workspace-go-*</span></a>, and
+<a class="reference internal" href="commands.html#workspace-send"><span class="std std-ref">workspace-send-*</span></a> commands wrap around when they
+reach the edge of the desktop/workspace.</p>
+<p>(eg. Whether <a class="reference internal" href="commands.html#workspace-go-left"><span class="std std-ref">workspace-go-left</span></a> will take you to the
+rightmost workspace if you call it enough times.)</p>
+</div>
+</div>
+<div class="section" id="keys">
+<span id="id1"></span><h3><a class="toc-backref" href="#id10"><code class="docutils literal notranslate"><span class="pre">[keys]</span></code></a><a class="headerlink" href="#keys" title="Permalink to this headline">¶</a></h3>
+<p>This section has no specific field names but, rather, allows you to map hotkey
+sequences in to QuickTile commands.</p>
+<p>A list of valid commands is available either in the <a class="reference internal" href="commands.html"><span class="doc">Command Reference</span></a> section
+or by running QuickTile with the
+<a class="reference external" href="cli.html#cmdoption-quicktile-show-actions">--show-actions</a> option in a
+terminal.</p>
+<p>Both the keys and values must parse as <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">str</span></code></a>.</p>
+<p>As an example of the correct format, here is the default contents of the
+<code class="docutils literal notranslate"><span class="pre">[keys]</span></code> section as of QuickTile 0.4:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[keys]</span>
+<span class="na">KP_0</span> <span class="o">=</span> <span class="s">maximize</span>
+<span class="na">KP_1</span> <span class="o">=</span> <span class="s">bottom-left</span>
+<span class="na">KP_2</span> <span class="o">=</span> <span class="s">bottom</span>
+<span class="na">KP_3</span> <span class="o">=</span> <span class="s">bottom-right</span>
+<span class="na">KP_4</span> <span class="o">=</span> <span class="s">left</span>
+<span class="na">KP_5</span> <span class="o">=</span> <span class="s">center</span>
+<span class="na">KP_6</span> <span class="o">=</span> <span class="s">right</span>
+<span class="na">KP_7</span> <span class="o">=</span> <span class="s">top-left</span>
+<span class="na">KP_8</span> <span class="o">=</span> <span class="s">top</span>
+<span class="na">KP_9</span> <span class="o">=</span> <span class="s">top-right</span>
+<span class="na">KP_Enter</span> <span class="o">=</span> <span class="s">monitor-switch</span>
+<span class="na">&lt;Shift&gt;KP_1</span> <span class="o">=</span> <span class="s">move-to-bottom-left</span>
+<span class="na">&lt;Shift&gt;KP_2</span> <span class="o">=</span> <span class="s">move-to-bottom</span>
+<span class="na">&lt;Shift&gt;KP_3</span> <span class="o">=</span> <span class="s">move-to-bottom-right</span>
+<span class="na">&lt;Shift&gt;KP_4</span> <span class="o">=</span> <span class="s">move-to-left</span>
+<span class="na">&lt;Shift&gt;KP_5</span> <span class="o">=</span> <span class="s">move-to-center</span>
+<span class="na">&lt;Shift&gt;KP_6</span> <span class="o">=</span> <span class="s">move-to-right</span>
+<span class="na">&lt;Shift&gt;KP_7</span> <span class="o">=</span> <span class="s">move-to-top-left</span>
+<span class="na">&lt;Shift&gt;KP_8</span> <span class="o">=</span> <span class="s">move-to-top</span>
+<span class="na">&lt;Shift&gt;KP_9</span> <span class="o">=</span> <span class="s">move-to-top-right</span>
+<span class="na">V</span> <span class="o">=</span> <span class="s">vertical-maximize</span>
+<span class="na">H</span> <span class="o">=</span> <span class="s">horizontal-maximize</span>
+<span class="na">C</span> <span class="o">=</span> <span class="s">move-to-center</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="keybinding-syntax">
+<span id="id2"></span><h2><a class="toc-backref" href="#id11">Keybinding Syntax</a><a class="headerlink" href="#keybinding-syntax" title="Permalink to this headline">¶</a></h2>
+<p>Both the <code class="docutils literal notranslate"><span class="pre">ModMask</span></code> field and the <code class="docutils literal notranslate"><span class="pre">[keys]</span></code> section use the syntax accepted
+by <a class="reference external" href="https://lazka.github.io/pgi-docs/Gtk-3.0/functions.html#Gtk.accelerator_parse" title="(in Gtk 3.0 v3.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">Gtk.accelerator_parse()</span></code></a> and you can use modifier keys in both places.
+(<code class="docutils literal notranslate"><span class="pre">ModMask</span></code> is prepended to each <code class="docutils literal notranslate"><span class="pre">[keys]</span></code> value before parsing it.)</p>
+<p>GTK+ modifier syntax looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Ctrl</span><span class="o">&gt;&lt;</span><span class="n">Alt</span><span class="o">&gt;</span><span class="n">Delete</span>
+</pre></div>
+</div>
+<p>The important things to keep in mind for using it are:</p>
+<ol class="arabic simple">
+<li><p><strong>Do not</strong> put any spaces inside your keybind string.</p></li>
+<li><p>Modifier names and non-modifier key names are not the same thing.</p></li>
+<li><p>Modifier names are case-insensitive.</p></li>
+<li><p>Key names like <code class="docutils literal notranslate"><span class="pre">Down</span></code> are case-sensitive. (Don’t let the letter keys fool
+you. Those work the way they do because <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">a</span></code> are two separate
+names for the same key.)</p></li>
+</ol>
+<div class="section" id="valid-modifier-names">
+<h3><a class="toc-backref" href="#id12">Valid Modifier Names</a><a class="headerlink" href="#valid-modifier-names" title="Permalink to this headline">¶</a></h3>
+<p>I haven’t found a comprehensive document listing the modifier names
+<a class="reference external" href="https://lazka.github.io/pgi-docs/Gtk-3.0/functions.html#Gtk.accelerator_parse" title="(in Gtk 3.0 v3.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">Gtk.accelerator_parse()</span></code></a> accepts, but here are the names I’m aware of with
+consistent mappings:</p>
+<ul class="simple">
+<li><p>Mappings that should be consistent across pretty much any system:</p>
+<ul>
+<li><p><strong>Control:</strong> <code class="docutils literal notranslate"><span class="pre">&lt;Control&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;Ctrl&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;Ctl&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;Primary&gt;</span></code></p></li>
+<li><p><strong>Shift:</strong> <code class="docutils literal notranslate"><span class="pre">&lt;Shift&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;Shft&gt;</span></code></p></li>
+<li><p><strong>Alt:</strong> <code class="docutils literal notranslate"><span class="pre">&lt;Alt&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;Mod1&gt;</span></code></p></li>
+</ul>
+</li>
+<li><p>Mappings which worked for me but I can’t make any guarantees for:</p>
+<ul>
+<li><p><strong>Windows Key:</strong> <code class="docutils literal notranslate"><span class="pre">&lt;Mod4&gt;</span></code></p></li>
+<li><p><strong>AltGr:</strong> <code class="docutils literal notranslate"><span class="pre">&lt;Mod5&gt;</span></code></p></li>
+</ul>
+</li>
+<li><p>Mappings which are possible but need to be manually set up using
+<code class="docutils literal notranslate"><span class="pre">setxkbmap</span></code> and <code class="docutils literal notranslate"><span class="pre">xmodmap</span></code>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;Mod3&gt;</span></code> (I redefined Caps Lock as <code class="docutils literal notranslate"><span class="pre">Hyper_L</span></code> and bound it to this)</p></li>
+</ul>
+</li>
+<li><p>Modifiers which cause QuickTile to error out deep in <code class="docutils literal notranslate"><span class="pre">python-xlib</span></code> because
+GTK+ maps them to integers beyond the limits of the X11 wire protocol:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;Meta&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;Super&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;Hyper&gt;</span></code></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="valid-key-names">
+<h3><a class="toc-backref" href="#id13">Valid Key Names</a><a class="headerlink" href="#valid-key-names" title="Permalink to this headline">¶</a></h3>
+<p>GTK+ key names are just X11 key symbols so the simplest way to identify the
+name for a key is to use the <em class="manpage"><a class="manpage reference external" href="https://manpages.debian.org/xev(1)">xev(1)</a></em> command. Just run it in a
+terminal and press the key you want. It will print out something like this:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>KeyPress event, serial 41, synthetic NO, window 0x8400001,
+   root 0x291, subw 0x0, time 2976251798, (149,-352), root:(192,460),
+<span class="hll">   state 0x10, keycode 116 (keysym 0xff54, Down), same_screen YES,
+</span>   XLookupString gives 0 bytes:
+   XmbLookupString gives 0 bytes:
+   XFilterEvent returns: False
+</pre></div>
+</div>
+<p>The part you want is the <code class="docutils literal notranslate"><span class="pre">Down</span></code> inside the <code class="docutils literal notranslate"><span class="pre">(keysym</span> <span class="pre">0xff54,</span> <span class="pre">Down)</span></code>.</p>
+<div class="section" id="troubleshooting-xev">
+<h4><a class="toc-backref" href="#id14">Troubleshooting <strong class="program">xev</strong></a><a class="headerlink" href="#troubleshooting-xev" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>If nothing happens, make sure the <em class="manpage"><a class="manpage reference external" href="https://manpages.debian.org/xev(1)">xev(1)</a></em> window (and not the
+terminal) has focus.</p></li>
+<li><p>If pressing the key triggers some messages but you do not see one which says
+<code class="docutils literal notranslate"><span class="pre">KeyPress</span> <span class="pre">event</span></code>, it’s likely that some other program has already grabbed
+that key combination.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>QuickTile will fail to bind keys such as <code class="docutils literal notranslate"><span class="pre">Super_L</span></code> (left Windows
+key) as normal keys if they have been configured to function as modifiers.</p>
+<p>You can use the <em class="manpage"><a class="manpage reference external" href="https://manpages.debian.org/xmodmap(1)">xmodmap(1)</a></em> command to view your current modifier
+assignments.</p>
+</div>
+<hr class="docutils" />
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2009-2020, Stephan Sokolow.
+      
+      |
+      <a href="_sources/config.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/ssokolow/quicktile" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

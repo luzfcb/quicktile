@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Window Manager API Wrapper (wm.py) &#8212; QuickTile 0.4 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Automated Testing Code" href="tests.html" />
+    <link rel="prev" title="Self-Contained Utility Code (util.py)" href="util.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+    <link rel="canonical" href="http://ssokolow.com/quicktile/apidocs/wm.html"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<h1 class="logo"><a href="../index.html">QuickTile</a></h1>
+
+
+
+<p class="blurb">Keyboard-driven Window Tiling for your existing X11 window manager</p>
+
+
+
+
+
+
+
+
+    
+
+<p>
+<a class="badge" href="https://travis-ci.org/ssokolow/quicktile">
+    <img
+        alt="CI Test Status"
+        src="https://secure.travis-ci.org/ssokolow/quicktile.svg?branch=master"
+    />
+</a>
+</p>
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">API Documentation</a><ul>
+      <li>Previous: <a href="util.html" title="previous chapter">Self-Contained Utility Code (<code class="docutils literal notranslate"><span class="pre">util.py</span></code>)</a></li>
+      <li>Next: <a href="tests.html" title="next chapter">Automated Testing Code</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script><div class="badges">
+    <p><a href="apt:python3,python3-pip,python3-setuptools,python3-gi,python3-xlib,python3-dbus,gir1.2-glib-2.0,gir1.2-gtk-3.0,gir1.2-wnck-3.0" class="btn" title="Install from configured repositories on Debian-based distros"><img src="../_static/img/debian_12.png" alt="Debian"><img src="../_static/img/ubuntu_12.png" alt="Ubuntu"><img src="../_static/img/mint_12.png" alt="Mint"> Install Dependencies</a></p>
+    <p><a href="http://github.com/ssokolow/quicktile/zipball/master" class="btn">Download QuickTile</a></p>
+    <p><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img src="../_static/license.svg" alt="License: GPLv2" /></a></p>
+</div><div class="contrib_box">
+    <h3>Tip Jar</h3>
+    <dl>
+        <dt>Code (Best)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://github.com/ssokolow/quicktile"
+                        title="GitHub Repo"><img
+                        src="../_static/contrib_box/github.png"
+                        alt="GitHub" /></a></li>
+                <li><a href="https://github.com/ssokolow/quicktile/issues"
+                        title="Bug Tracker"><img
+                        src="../_static/contrib_box/bug.png"
+                        alt="Bug Tracker" /></a></li>
+            </ul>
+        </dd>
+        <dt>Publicity (Better)</dt>
+        <dd>Show your friends</dd>
+        <dt>Snacks (Good)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://flattr.com/thing/674146"
+                        title="Flattr"><img
+                        src="../_static/contrib_box/flattr.png"
+                        alt="Flattr" /></a></li>
+                <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="EFWRR7EAQ993S"><input type="image" src="../_static/contrib_box/paypal.png" name="submit" alt="PayPal" title="PayPal"></form></li>
+                <li><a title="BitCoin"
+                    href="bitcoin:1Kp1i3nahunzzFs5a3mMF46uzca4oANH5C?label=QuickTile%20Donations"
+                    ><img
+                    src="../_static/contrib_box/bitcoin.png"
+                    alt="BitCoin"
+                /></a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--
+    bug.png and wrench.png from the Silk Icons set by Mark James, available at
+    http://www.famfamfam.com/lab/icons/silk/
+    are used under the Creative Commons Attribution 2.5 license.
+-->
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-quicktile.wm">
+<span id="window-manager-api-wrapper-wm-py"></span><h1>Window Manager API Wrapper (<code class="docutils literal notranslate"><span class="pre">wm.py</span></code>)<a class="headerlink" href="#module-quicktile.wm" title="Permalink to this headline">¶</a></h1>
+<p>Wrapper around libwnck for interacting with the window manager</p>
+<dl class="class">
+<dt id="quicktile.wm.WindowManager">
+<em class="property">class </em><code class="sig-name descname">WindowManager</code><span class="sig-paren">(</span><em class="sig-param">screen=None</em>, <em class="sig-param">x_display=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple API-wrapper class for manipulating window positioning.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>screen</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://lazka.github.io/pgi-docs/Gdk-3.0/classes/Screen.html#Gdk.Screen" title="(in Gdk 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gdk.Screen</span></code></a>]) – The screen to operate on. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">None</span></code></a>, the
+default screen as retrieved by <a class="reference external" href="https://lazka.github.io/pgi-docs/Gdk-3.0/classes/Screen.html#Gdk.Screen.get_default" title="(in Gdk 3.0 v3.0)"><code class="xref any docutils literal notranslate"><span class="pre">Gdk.Screen.get_default</span></code></a> will
+be used.</p></li>
+<li><p><strong>x_display</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Display</span></code>]) – The <code class="docutils literal notranslate"><span class="pre">Xlib.display.Display</span></code> to operate on. If
+<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">None</span></code></a>, a new X connection will be created.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="util.html#quicktile.util.XInitError" title="quicktile.util.XInitError"><strong>XInitError</strong></a> – <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">None</span></code></a> was specified for <code class="docutils literal notranslate"><span class="pre">x_display</span></code> and the
+attempt to open a new X connection failed.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="quicktile.wm.WindowManager._property_prep">
+<code class="sig-name descname">_property_prep</code><span class="sig-paren">(</span><em class="sig-param">win</em>, <em class="sig-param">name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager._property_prep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager._property_prep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Common code for <cite>get_property</cite> and <cite>set_property</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>win</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://lazka.github.io/pgi-docs/Gdk-3.0/classes/Window.html#Gdk.Window" title="(in Gdk 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gdk.Window</span></code></a>, <a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/classes/Window.html#Wnck.Window" title="(in Wnck 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wnck.Window</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – A GTK or Wnck Window object or a raw X11 window ID.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – An atom name or a handle returned by
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">Xlib.display.Display.create_resource_object()</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="quicktile.wm.WindowManager.get_monitor">
+<code class="sig-name descname">get_monitor</code><span class="sig-paren">(</span><em class="sig-param">win</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.get_monitor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.get_monitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a window, retrieve the ID and geometry of the monitor it’s on.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>win</strong> (<a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/classes/Window.html#Wnck.Window" title="(in Wnck 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wnck.Window</span></code></a>) – The window to find the containing monitor for.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference internal" href="util.html#quicktile.util.Rectangle" title="quicktile.util.Rectangle"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rectangle</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">(monitor_id,</span> <span class="pre">geometry)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="quicktile.wm.WindowManager.get_property">
+<code class="sig-name descname">get_property</code><span class="sig-paren">(</span><em class="sig-param">win</em>, <em class="sig-param">name</em>, <em class="sig-param">prop_type</em>, <em class="sig-param">empty=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.get_property"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.get_property" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the value of the X11 property <code class="docutils literal notranslate"><span class="pre">name</span></code> on window <code class="docutils literal notranslate"><span class="pre">win</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>win</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://lazka.github.io/pgi-docs/Gdk-3.0/classes/Window.html#Gdk.Window" title="(in Gdk 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gdk.Window</span></code></a>, <a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/classes/Window.html#Wnck.Window" title="(in Wnck 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wnck.Window</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – A GTK or Wnck Window object or a raw X11 window ID.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – An atom name or a handle returned by
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">Xlib.display.Display.create_resource_object()</span></code>.</p></li>
+<li><p><strong>prop_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – A constant from <code class="xref py py-mod docutils literal notranslate"><span class="pre">Xlib.Xatom</span></code></p></li>
+<li><p><strong>empty</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – The value to return if the property is unset.</p></li>
+</ul>
+</dd>
+</dl>
+<p>As this is a semi-internal API not meriting <em>too</em> much work to make
+pretty, the design follows the underlying <a class="reference external" href="https://tronche.com/gui/x/xlib/window-information/XGetWindowProperty.html">XGetWindowProperty</a> API.</p>
+<p>Some variable names have been changed to avoid colliding with
+Python built-ins while others are abstracted away to present a
+simpler API.</p>
+<p><code class="docutils literal notranslate"><span class="pre">prop_type</span></code> instructs the client library how to correctly un-marshall
+the data it receives.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="quicktile.wm.WindowManager.get_relevant_windows">
+<code class="sig-name descname">get_relevant_windows</code><span class="sig-paren">(</span><em class="sig-param">workspace</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.get_relevant_windows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.get_relevant_windows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for <a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/classes/Screen.html#Wnck.Screen.get_windows" title="(in Wnck 3.0 v3.0)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Wnck.Screen.get_windows()</span></code></a> that filters out windows
+of type <a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/enums.html#Wnck.WindowType.DESKTOP" title="(in Wnck 3.0 v3.0)"><code class="xref any docutils literal notranslate"><span class="pre">Wnck.WindowType.DESKTOP</span></code></a> or <a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/enums.html#Wnck.WindowType.DOCK" title="(in Wnck 3.0 v3.0)"><code class="xref any docutils literal notranslate"><span class="pre">Wnck.WindowType.DOCK</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>workspace</strong> (<a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/classes/Workspace.html#Wnck.Workspace" title="(in Wnck 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wnck.Workspace</span></code></a>) – The virtual desktop to retrieve windows from.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/classes/Window.html#Wnck.Window" title="(in Wnck 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wnck.Window</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="quicktile.wm.WindowManager.get_workspace">
+<code class="sig-name descname">get_workspace</code><span class="sig-paren">(</span><em class="sig-param">window=None</em>, <em class="sig-param">direction=None</em>, <em class="sig-param">wrap_around=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.get_workspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.get_workspace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a workspace (virtual desktop) relative to the one containing
+the given or active window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>window</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/classes/Window.html#Wnck.Window" title="(in Wnck 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wnck.Window</span></code></a>]) – The point of reference. <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">None</span></code></a> for the
+active workspace.</p></li>
+<li><p><strong>direction</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – <p>The direction in which to look, relative to the point
+of reference. Accepts the following types:</p>
+<ul>
+<li><p><a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/enums.html#Wnck.MotionDirection" title="(in Wnck 3.0 v3.0)"><code class="xref any docutils literal notranslate"><span class="pre">Wnck.MotionDirection</span></code></a>: Absolute direction (will not cycle
+around when it reaches the edge)</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">int</span></code></a>: Relative position in the list of workspaces (eg.
+<code class="docutils literal notranslate"><span class="pre">1</span></code> or <code class="docutils literal notranslate"><span class="pre">-2</span></code>).</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">None</span></code></a>: The workspace containing <code class="docutils literal notranslate"><span class="pre">window</span></code></p></li>
+</ul>
+</p></li>
+<li><p><strong>wrap_around</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether relative indexes should wrap around.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/classes/Workspace.html#Wnck.Workspace" title="(in Wnck 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wnck.Workspace</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The workspace object or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">None</span></code></a> if no match was found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="quicktile.wm.WindowManager.is_relevant">
+<em class="property">static </em><code class="sig-name descname">is_relevant</code><span class="sig-paren">(</span><em class="sig-param">window</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.is_relevant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.is_relevant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">False</span></code></a> if the window should be ignored.</p>
+<p>(i.e. If it’s the desktop or a panel)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>window</strong> (<a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/classes/Window.html#Wnck.Window" title="(in Wnck 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wnck.Window</span></code></a>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="quicktile.wm.WindowManager.reposition">
+<code class="sig-name descname">reposition</code><span class="sig-paren">(</span><em class="sig-param">win</em>, <em class="sig-param">geom=None</em>, <em class="sig-param">monitor=Rectangle(x=0</em>, <em class="sig-param">y=0</em>, <em class="sig-param">width=0</em>, <em class="sig-param">height=0)</em>, <em class="sig-param">keep_maximize=False</em>, <em class="sig-param">geometry_mask=&lt;flags WNCK_WINDOW_CHANGE_X | WNCK_WINDOW_CHANGE_Y | WNCK_WINDOW_CHANGE_WIDTH | WNCK_WINDOW_CHANGE_HEIGHT of type Wnck.WindowMoveResizeMask&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.reposition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.reposition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move and resize a window, decorations inclusive, according to the
+provided target window and monitor geometry rectangles.</p>
+<p>If no monitor rectangle is specified, the target position will be
+relative to the desktop as a whole.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>win</strong> (<a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/classes/Window.html#Wnck.Window" title="(in Wnck 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wnck.Window</span></code></a>) – The window to reposition.</p></li>
+<li><p><strong>geom</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="util.html#quicktile.util.Rectangle" title="quicktile.util.Rectangle"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rectangle</span></code></a>]) – The new geometry for the window. Can be left unspecified
+if the intent is to move the window to another monitor without
+repositioning it.</p></li>
+<li><p><strong>monitor</strong> (<a class="reference internal" href="util.html#quicktile.util.Rectangle" title="quicktile.util.Rectangle"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rectangle</span></code></a>) – The frame relative to which <code class="docutils literal notranslate"><span class="pre">geom</span></code> should be
+interpreted. The whole desktop if unspecified.</p></li>
+<li><p><strong>keep_maximize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Whether to re-maximize the window if it had to be
+un-maximized to ensure it would move.</p></li>
+<li><p><strong>geometry_mask</strong> (<a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/flags.html#Wnck.WindowMoveResizeMask" title="(in Wnck 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wnck.WindowMoveResizeMask</span></code></a>) – A set of flags determining which aspects of the
+requested geometry should actually be applied to the window.
+(Allows the same geometry definition to easily be shared between
+operations like move and resize.)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="quicktile.wm.WindowManager.set_property">
+<code class="sig-name descname">set_property</code><span class="sig-paren">(</span><em class="sig-param">win</em>, <em class="sig-param">name</em>, <em class="sig-param">value</em>, <em class="sig-param">prop_type=31</em>, <em class="sig-param">format_size=8</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.set_property"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.set_property" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the value of X11 property <code class="docutils literal notranslate"><span class="pre">name</span></code> on window <code class="docutils literal notranslate"><span class="pre">win</span></code> to the
+contents of <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>win</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://lazka.github.io/pgi-docs/Gdk-3.0/classes/Window.html#Gdk.Window" title="(in Gdk 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gdk.Window</span></code></a>, <a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/classes/Window.html#Wnck.Window" title="(in Wnck 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wnck.Window</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – A GTK or Wnck Window object or a raw X11 window ID.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – An atom name or a handle returned by
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">Xlib.display.Display.create_resource_object()</span></code>.</p></li>
+<li><p><strong>value</strong> – The value to be stored</p></li>
+<li><p><strong>prop_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – A constant from <code class="xref py py-mod docutils literal notranslate"><span class="pre">Xlib.Xatom</span></code></p></li>
+<li><p><strong>format_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – The size of the value in bits.</p></li>
+</ul>
+</dd>
+</dl>
+<p>As this is a semi-internal API not meriting <em>too</em> much work to make
+pretty, the design follows the underlying <a class="reference external" href="https://tronche.com/gui/x/xlib/window-information/XChangeProperty.html">XChangeProperty</a> API, which
+expects a C-style “list of items as a packed sequence of bits with
+out-of-band metadata” data type.</p>
+<p>Some variable names have been changed to avoid colliding with
+Python built-ins while others are abstracted away to present a
+simpler API.</p>
+<p><code class="docutils literal notranslate"><span class="pre">prop_type</span></code> is metadata for the X client library to correctly
+un-marshall the data later and the server doesn’t use it for
+anything.</p>
+<p><code class="docutils literal notranslate"><span class="pre">format_size</span></code> specifies the size of an item in the sequence
+(even if it’s a sequence of length 1) and is also necessary for
+correct operation if the X server decides that it needs to
+byte-swap the values.</p>
+<p>This is why <code class="docutils literal notranslate"><span class="pre">format_size</span></code> is necessary for things where you’d
+think that <code class="docutils literal notranslate"><span class="pre">prop_type</span></code> would be enough to describe the data type.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="quicktile.wm.WindowManager.update_geometry_cache">
+<code class="sig-name descname">update_geometry_cache</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.update_geometry_cache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.update_geometry_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the internal cache of monitor &amp; panel shapes by querying
+them from the desktop and processing them into a
+<a class="reference internal" href="util.html#quicktile.util.UsableRegion" title="quicktile.util.UsableRegion"><code class="xref py py-class docutils literal notranslate"><span class="pre">quicktile.util.UsableRegion</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.8)"><strong>Exception</strong></a> – Unable to retrieve monitor geometries</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="quicktile.wm.persist_maximization">
+<code class="sig-name descname">persist_maximization</code><span class="sig-paren">(</span><em class="sig-param">win</em>, <em class="sig-param">keep_maximize=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#persist_maximization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.persist_maximization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Context manager to persist maximization state after a call to
+<a class="reference internal" href="#quicktile.wm.WindowManager.reposition" title="quicktile.wm.WindowManager.reposition"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">WindowManager.reposition</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>win</strong> (<a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/classes/Window.html#Wnck.Window" title="(in Wnck 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wnck.Window</span></code></a>) – The window to operate on.</p></li>
+<li><p><strong>keep_maximize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – If <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">False</span></code></a>, this decoration becomes a no-op to
+ease writing clean code which needs to support both behaviours.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2009-2020, Stephan Sokolow.
+      
+      |
+      <a href="../_sources/apidocs/wm.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/ssokolow/quicktile" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

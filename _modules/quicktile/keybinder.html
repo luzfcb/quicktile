@@ -1,0 +1,438 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>quicktile.keybinder &#8212; QuickTile 0.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+    <link rel="canonical" href="http://ssokolow.com/quicktile/_modules/quicktile/keybinder.html"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<h1 class="logo"><a href="../../index.html">QuickTile</a></h1>
+
+
+
+<p class="blurb">Keyboard-driven Window Tiling for your existing X11 window manager</p>
+
+
+
+
+
+
+
+
+    
+
+<p>
+<a class="badge" href="https://travis-ci.org/ssokolow/quicktile">
+    <img
+        alt="CI Test Status"
+        src="https://secure.travis-ci.org/ssokolow/quicktile.svg?branch=master"
+    />
+</a>
+</p>
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script><div class="badges">
+    <p><a href="apt:python3,python3-pip,python3-setuptools,python3-gi,python3-xlib,python3-dbus,gir1.2-glib-2.0,gir1.2-gtk-3.0,gir1.2-wnck-3.0" class="btn" title="Install from configured repositories on Debian-based distros"><img src="../../_static/img/debian_12.png" alt="Debian"><img src="../../_static/img/ubuntu_12.png" alt="Ubuntu"><img src="../../_static/img/mint_12.png" alt="Mint"> Install Dependencies</a></p>
+    <p><a href="http://github.com/ssokolow/quicktile/zipball/master" class="btn">Download QuickTile</a></p>
+    <p><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img src="../../_static/license.svg" alt="License: GPLv2" /></a></p>
+</div><div class="contrib_box">
+    <h3>Tip Jar</h3>
+    <dl>
+        <dt>Code (Best)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://github.com/ssokolow/quicktile"
+                        title="GitHub Repo"><img
+                        src="../../_static/contrib_box/github.png"
+                        alt="GitHub" /></a></li>
+                <li><a href="https://github.com/ssokolow/quicktile/issues"
+                        title="Bug Tracker"><img
+                        src="../../_static/contrib_box/bug.png"
+                        alt="Bug Tracker" /></a></li>
+            </ul>
+        </dd>
+        <dt>Publicity (Better)</dt>
+        <dd>Show your friends</dd>
+        <dt>Snacks (Good)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://flattr.com/thing/674146"
+                        title="Flattr"><img
+                        src="../../_static/contrib_box/flattr.png"
+                        alt="Flattr" /></a></li>
+                <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="EFWRR7EAQ993S"><input type="image" src="../../_static/contrib_box/paypal.png" name="submit" alt="PayPal" title="PayPal"></form></li>
+                <li><a title="BitCoin"
+                    href="bitcoin:1Kp1i3nahunzzFs5a3mMF46uzca4oANH5C?label=QuickTile%20Donations"
+                    ><img
+                    src="../../_static/contrib_box/bitcoin.png"
+                    alt="BitCoin"
+                /></a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--
+    bug.png and wrench.png from the Silk Icons set by Mark James, available at
+    http://www.famfamfam.com/lab/icons/silk/
+    are used under the Creative Commons Attribution 2.5 license.
+-->
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for quicktile.keybinder</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Xlib-based global hotkey-binding code&quot;&quot;&quot;</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Stephan Sokolow (deitarion/SSokolow)&quot;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;GNU GPL 2.0 or later&quot;</span>
+
+<span class="c1"># Silence PyLint being flat-out wrong about MyPy type annotations and</span>
+<span class="c1"># complaining about my grouped imports</span>
+<span class="c1"># pylint: disable=unsubscriptable-object,wrong-import-order</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>  <span class="c1"># pylint: disable=redefined-builtin</span>
+
+<span class="kn">import</span> <span class="nn">gi</span>
+<span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span class="s1">&#39;Gtk&#39;</span><span class="p">,</span> <span class="s1">&#39;3.0&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">gi.repository</span> <span class="kn">import</span> <span class="n">GLib</span><span class="p">,</span> <span class="n">Gtk</span><span class="p">,</span> <span class="n">Gdk</span>
+<span class="kn">from</span> <span class="nn">Xlib</span> <span class="kn">import</span> <span class="n">X</span>
+<span class="kn">from</span> <span class="nn">Xlib.display</span> <span class="kn">import</span> <span class="n">Display</span>
+<span class="kn">from</span> <span class="nn">Xlib.error</span> <span class="kn">import</span> <span class="n">BadAccess</span><span class="p">,</span> <span class="n">DisplayConnectionError</span>
+
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">powerset</span><span class="p">,</span> <span class="n">XInitError</span>
+
+<span class="c1"># -- Type-Annotation Imports --</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span>
+                    <span class="n">Union</span><span class="p">)</span>
+
+<span class="c1"># Used only in type comments</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>  <span class="c1"># NOQA pylint: disable=unused-import</span>
+
+<span class="kn">from</span> <span class="nn">Xlib.error</span> <span class="kn">import</span> <span class="n">XError</span>
+<span class="kn">from</span> <span class="nn">Xlib.protocol.event</span> <span class="kn">import</span> <span class="n">KeyPress</span> <span class="k">as</span> <span class="n">XKeyPress</span>
+<span class="kn">from</span> <span class="nn">.commands</span> <span class="kn">import</span> <span class="n">CommandRegistry</span>
+<span class="kn">from</span> <span class="nn">.wm</span> <span class="kn">import</span> <span class="n">WindowManager</span>
+<span class="c1"># --</span>
+
+
+<div class="viewcode-block" id="KeyBinder"><a class="viewcode-back" href="../../apidocs/keybinder.html#quicktile.keybinder.KeyBinder">[docs]</a><span class="k">class</span> <span class="nc">KeyBinder</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A convenience class for wrapping `XGrabKey`_.</span>
+
+<span class="sd">    :param x_display: An Xlib display handle. If :any:`None`, a new connection</span>
+<span class="sd">        will be opened.</span>
+
+<span class="sd">    :raises XInitError: Failed to open a new X connection.</span>
+
+<span class="sd">    .. _XGrabKey: https://tronche.com/gui/x/xlib/input/XGrabKey.html</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#: Modifiers whose state should not affect whether a binding fires</span>
+    <span class="c1">#:</span>
+    <span class="c1">#: .. todo:: Figure out how to set the modifier mask in X11 and use</span>
+    <span class="c1">#:    :func:`Gtk.accelerator_get_default_mod_mask` to feed said code.</span>
+    <span class="n">ignored_modifiers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Mod2Mask&#39;</span><span class="p">,</span> <span class="s1">&#39;LockMask&#39;</span><span class="p">]</span>
+
+    <span class="c1">#: Used in concert with :meth:`Xlib.display.Display.sync` to pass state</span>
+    <span class="c1">#: from :meth:`cb_xerror` to :meth:`bind` so XGrabKey_ failure can be</span>
+    <span class="c1">#: reported.</span>
+    <span class="n">keybind_failed</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_display</span><span class="p">:</span> <span class="n">Display</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xdisp</span> <span class="o">=</span> <span class="n">x_display</span> <span class="ow">or</span> <span class="n">Display</span><span class="p">()</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">UnicodeDecodeError</span><span class="p">,</span> <span class="n">DisplayConnectionError</span><span class="p">)</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">XInitError</span><span class="p">(</span><span class="s2">&quot;python-xlib failed with </span><span class="si">%s</span><span class="s2"> when asked to open&quot;</span>
+                             <span class="s2">&quot; a connection to the X server. Cannot bind keys.&quot;</span>
+                             <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">It&#39;s unclear why this happens, but it is&quot;</span>
+                             <span class="s2">&quot; usually fixed by deleting your ~/.Xauthority&quot;</span>
+                             <span class="s2">&quot; file and rebooting.&quot;</span>
+                             <span class="o">%</span> <span class="n">err</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">xroot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xdisp</span><span class="o">.</span><span class="n">screen</span><span class="p">()</span><span class="o">.</span><span class="n">root</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># type: Dict[Tuple[int, int], Callable]</span>
+
+        <span class="c1"># Resolve these at runtime to avoid NameErrors</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ignored_modifiers</span> <span class="o">=</span> <span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span>
+                                   <span class="bp">self</span><span class="o">.</span><span class="n">ignored_modifiers</span><span class="p">]</span>  <span class="c1"># type: List[int]</span>
+
+        <span class="c1"># We want to receive KeyPress events</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xroot</span><span class="o">.</span><span class="n">change_attributes</span><span class="p">(</span><span class="n">event_mask</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">KeyPressMask</span><span class="p">)</span>
+
+        <span class="c1"># Set up a handler to catch XGrabKey() failures</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xdisp</span><span class="o">.</span><span class="n">set_error_handler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cb_xerror</span><span class="p">)</span>
+
+        <span class="c1"># Merge python-xlib into the GLib event loop</span>
+        <span class="c1"># Source: http://www.pygtk.org/pygtk2tutorial/sec-MonitoringIO.html</span>
+        <span class="n">GLib</span><span class="o">.</span><span class="n">io_add_watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xroot</span><span class="o">.</span><span class="n">display</span><span class="p">,</span> <span class="n">GLib</span><span class="o">.</span><span class="n">PRIORITY_DEFAULT</span><span class="p">,</span>
+                         <span class="n">GLib</span><span class="o">.</span><span class="n">IO_IN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cb_xevent</span><span class="p">)</span>
+
+<div class="viewcode-block" id="KeyBinder.bind"><a class="viewcode-back" href="../../apidocs/keybinder.html#quicktile.keybinder.KeyBinder.bind">[docs]</a>    <span class="k">def</span> <span class="nf">bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">accel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Bind a global key combination to a callback.</span>
+
+<span class="sd">        :param accel: An accelerator as either a string to be parsed by</span>
+<span class="sd">            :func:`Gtk.accelerator_parse` or a tuple as returned by it.)</span>
+<span class="sd">        :param callback: The function to call when the key is pressed.</span>
+
+<span class="sd">        :returns: A boolean indicating whether the provided keybinding was</span>
+<span class="sd">            parsed successfully and didn&#39;t provoke an error from XGrabKey_.</span>
+
+<span class="sd">        .. _XGrabKey: https://tronche.com/gui/x/xlib/input/XGrabKey.html</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parsed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_accel</span><span class="p">(</span><span class="n">accel</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">parsed</span><span class="p">:</span>
+            <span class="n">keycode</span><span class="p">,</span> <span class="n">modmask</span> <span class="o">=</span> <span class="n">parsed</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Ignore modifiers like Mod2 (NumLock) and Lock (CapsLock)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">[(</span><span class="n">keycode</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="n">callback</span>  <span class="c1"># Null modifiers seem to be a risk</span>
+        <span class="k">for</span> <span class="n">mmask</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vary_modmask</span><span class="p">(</span><span class="n">modmask</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ignored_modifiers</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">[(</span><span class="n">keycode</span><span class="p">,</span> <span class="n">mmask</span><span class="p">)]</span> <span class="o">=</span> <span class="n">callback</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xroot</span><span class="o">.</span><span class="n">grab_key</span><span class="p">(</span><span class="n">keycode</span><span class="p">,</span> <span class="n">mmask</span><span class="p">,</span>
+                                <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">GrabModeAsync</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">GrabModeAsync</span><span class="p">)</span>
+
+        <span class="c1"># If we don&#39;t do this, then nothing works.</span>
+        <span class="c1"># I assume it flushes the XGrabKey calls to the server.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xdisp</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+
+        <span class="c1"># React to any cb_xerror that might have resulted from xdisp.sync()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keybind_failed</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">keybind_failed</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Failed to bind key. It may already be in use: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="n">accel</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="KeyBinder.cb_xerror"><a class="viewcode-back" href="../../apidocs/keybinder.html#quicktile.keybinder.KeyBinder.cb_xerror">[docs]</a>    <span class="k">def</span> <span class="nf">cb_xerror</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span> <span class="n">XError</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Callback used to identify when attempts to bind keys fail.</span>
+
+<span class="sd">        :param err: The error that was asynchronously returned.</span>
+<span class="sd">        :param request: Unused. Just to match the required function signature.</span>
+
+<span class="sd">        .. todo:: Make another attempt to get :class:`Xlib.error.CatchError`</span>
+<span class="sd">            working or to retrieve more diagnostic information another way.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="n">BadAccess</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">keybind_failed</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xdisp</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">default_error_handler</span><span class="p">(</span><span class="n">err</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KeyBinder.cb_xevent"><a class="viewcode-back" href="../../apidocs/keybinder.html#quicktile.keybinder.KeyBinder.cb_xevent">[docs]</a>    <span class="k">def</span> <span class="nf">cb_xevent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">:</span> <span class="n">GLib</span><span class="o">.</span><span class="n">IOChannel</span><span class="p">,</span> <span class="n">cond</span><span class="p">:</span> <span class="n">GLib</span><span class="o">.</span><span class="n">IOCondition</span><span class="p">,</span>
+            <span class="n">handle</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Display</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;:func:`GLib.io_add_watch` callback to dispatch X events to more</span>
+<span class="sd">        specific handlers.</span>
+
+<span class="sd">        :param src: Not used. Just needed to satisfy ``GIOFunc`` signature.</span>
+<span class="sd">        :param cond: Not used. Just to needed to satisfy ``GIOFunc`` signature.</span>
+<span class="sd">        :param handle: A handle to the Xlib display object with pending events.</span>
+<span class="sd">            A cached reference will be used if it is :any:`None`.</span>
+<span class="sd">        :rtype: :any:`True`</span>
+<span class="sd">        :returns: Always returns :any:`True` to prevent GLib from unsetting</span>
+<span class="sd">            the watch.</span>
+
+<span class="sd">        .. todo:: Make sure uncaught exceptions in :meth:`cb_xevent` are</span>
+<span class="sd">            prevented from making QuickTile unresponsive in the general case.</span>
+<span class="sd">        .. todo:: Switch to using :data:`python:typing.Literal` in the return</span>
+<span class="sd">            signature once it&#39;s no longer necessary to support Python</span>
+<span class="sd">            versions prior to 3.8.</span>
+<span class="sd">        .. todo:: Move :meth:`cb_xevent` out of keybinder into the core since</span>
+<span class="sd">            Xlib is no longer optional and dispatch should be shared with</span>
+<span class="sd">            :mod:`quicktile.wm` for responding to panel reservation changes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">handle</span> <span class="o">=</span> <span class="n">handle</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">xroot</span><span class="o">.</span><span class="n">display</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">handle</span><span class="o">.</span><span class="n">pending_events</span><span class="p">()):</span>
+            <span class="n">xevent</span> <span class="o">=</span> <span class="n">handle</span><span class="o">.</span><span class="n">next_event</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">xevent</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">X</span><span class="o">.</span><span class="n">KeyPress</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">handle_keypress</span><span class="p">(</span><span class="n">xevent</span><span class="p">)</span>
+
+        <span class="c1"># Necessary for proper function</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="KeyBinder.handle_keypress"><a class="viewcode-back" href="../../apidocs/keybinder.html#quicktile.keybinder.KeyBinder.handle_keypress">[docs]</a>    <span class="k">def</span> <span class="nf">handle_keypress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xevent</span><span class="p">:</span> <span class="n">XKeyPress</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Resolve :class:`Xlib.protocol.event.KeyPress` events to the</span>
+<span class="sd">        :class:`quicktile.commands.CommandRegistry` commands associated with</span>
+<span class="sd">        them and then call the commands.</span>
+
+
+<span class="sd">        .. todo:: Use a proper ``index`` argument for</span>
+<span class="sd">            :meth:`Xlib.display.Display.keycode_to_keysym` in</span>
+<span class="sd">            :meth:`handle_keypress`&#39;s debug messaging.</span>
+<span class="sd">        .. todo:: Only call the code to look up a human-readable name for a</span>
+<span class="sd">            key event if the log level is high enough that it won&#39;t be wasted.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">keysig</span> <span class="o">=</span> <span class="p">(</span><span class="n">xevent</span><span class="o">.</span><span class="n">detail</span><span class="p">,</span> <span class="n">xevent</span><span class="o">.</span><span class="n">state</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">keysig</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Received an event for an unrecognized keybind: &quot;</span>
+                          <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">xevent</span><span class="o">.</span><span class="n">detail</span><span class="p">,</span> <span class="n">xevent</span><span class="o">.</span><span class="n">state</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Display a meaningful debug message</span>
+        <span class="n">ksym</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xdisp</span><span class="o">.</span><span class="n">keycode_to_keysym</span><span class="p">(</span><span class="n">keysig</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">gmod</span> <span class="o">=</span> <span class="n">Gdk</span><span class="o">.</span><span class="n">ModifierType</span><span class="p">(</span><span class="n">keysig</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">kbstr</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">accelerator_name</span><span class="p">(</span><span class="n">ksym</span><span class="p">,</span> <span class="n">gmod</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Received keybind: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">kbstr</span><span class="p">)</span>
+
+        <span class="c1"># Call the associated callback</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">[</span><span class="n">keysig</span><span class="p">]()</span></div>
+
+<div class="viewcode-block" id="KeyBinder.parse_accel"><a class="viewcode-back" href="../../apidocs/keybinder.html#quicktile.keybinder.KeyBinder.parse_accel">[docs]</a>    <span class="k">def</span> <span class="nf">parse_accel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">accel</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;Convert an :ref:`accelerator string &lt;keybinding-syntax&gt;` into the</span>
+<span class="sd">        form XGrabKey_ needs.</span>
+
+<span class="sd">        :param accel: The accelerator string.</span>
+<span class="sd">        :returns: ``(keycode, modifier_mask)`` or :any:`None` on failure.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">keysym</span><span class="p">,</span> <span class="n">modmask</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">accelerator_parse</span><span class="p">(</span><span class="n">accel</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">accelerator_valid</span><span class="p">(</span><span class="n">keysym</span><span class="p">,</span> <span class="n">modmask</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Invalid keybinding: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">accel</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">modmask</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="o">**</span><span class="mi">16</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Modifier out of range for XGrabKey &quot;</span>
+                          <span class="s2">&quot;(int(modmask) &gt; 65535). &quot;</span>
+                          <span class="s2">&quot;Did you use &lt;Super&gt; instead of &lt;Mod4&gt;?&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Convert to what XGrabKey expects</span>
+        <span class="n">keycode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xdisp</span><span class="o">.</span><span class="n">keysym_to_keycode</span><span class="p">(</span><span class="n">keysym</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">modmask</span><span class="p">,</span> <span class="n">Gdk</span><span class="o">.</span><span class="n">ModifierType</span><span class="p">):</span>
+            <span class="n">modmask</span> <span class="o">=</span> <span class="n">modmask</span><span class="o">.</span><span class="n">real</span>
+
+        <span class="k">return</span> <span class="n">keycode</span><span class="p">,</span> <span class="n">modmask</span></div>
+
+<div class="viewcode-block" id="KeyBinder._vary_modmask"><a class="viewcode-back" href="../../apidocs/keybinder.html#quicktile.keybinder.KeyBinder._vary_modmask">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_vary_modmask</span><span class="p">(</span>
+            <span class="n">modmask</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Gdk</span><span class="o">.</span><span class="n">ModifierType</span><span class="p">],</span>
+            <span class="n">ignored</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Gdk</span><span class="o">.</span><span class="n">ModifierType</span><span class="p">]]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Generate all possible variations on ``modmask`` that need to be</span>
+<span class="sd">        taken into consideration if we can&#39;t properly ignore the modifiers in</span>
+<span class="sd">        ``ignored``. (Typically NumLock and CapsLock)</span>
+
+<span class="sd">        :param modmask: An integer or :any:`Gdk.ModifierType` bitfield to be</span>
+<span class="sd">            combinatorically grown.</span>
+<span class="sd">        :param ignored: Integer or :any:`Gdk.ModifierType` modifiers to be</span>
+<span class="sd">            combined with ``modmask``.</span>
+
+<span class="sd">        :returns: The :any:`power set &lt;quicktile.util.powerset&gt;` of ``ignored``</span>
+<span class="sd">            with ``modmask`` bitwise ORed onto each entry.</span>
+
+<span class="sd">        .. todo:: Decide whether to make this :meth:`_vary_modmask` public when</span>
+<span class="sd">            I turn off documenting private members.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">ignored</span> <span class="ow">in</span> <span class="n">powerset</span><span class="p">(</span><span class="n">ignored</span><span class="p">):</span>
+            <span class="n">imask</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span> <span class="o">|</span> <span class="n">y</span><span class="p">),</span> <span class="n">ignored</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">modmask</span> <span class="o">|</span> <span class="n">imask</span></div></div>
+
+
+<div class="viewcode-block" id="init"><a class="viewcode-back" href="../../apidocs/keybinder.html#quicktile.keybinder.init">[docs]</a><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">modmask</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+         <span class="n">mappings</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+         <span class="n">commands</span><span class="p">:</span> <span class="n">CommandRegistry</span><span class="p">,</span>
+         <span class="n">winman</span><span class="p">:</span> <span class="n">WindowManager</span><span class="p">,</span>
+         <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">KeyBinder</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Initialize the keybinder and bind the requested mappings</span>
+
+<span class="sd">    :param modmask: A valid set of modifiers as accepted by</span>
+<span class="sd">        :func:`Gtk.accelerator_parse`, ``none``, an empty string, or</span>
+<span class="sd">        :any:`None`.</span>
+<span class="sd">    :param mappings: A dict mapping :ref:`accelerator strings</span>
+<span class="sd">        &lt;keybinding-syntax&gt;` to command names.</span>
+<span class="sd">    :param commands: The command registry used to map command names to</span>
+<span class="sd">        functions.</span>
+<span class="sd">    :param winman: The interface commands should use to take action.</span>
+<span class="sd">    :returns: An instance of :class:`KeyBinder` or :any:`None` if ``winman``</span>
+<span class="sd">        didn&#39;t already have an X connection and attempting to open a new one</span>
+<span class="sd">        met with failure.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Allow modmask to be empty for keybinds which don&#39;t share a common prefix</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">modmask</span> <span class="ow">or</span> <span class="n">modmask</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;none&#39;</span><span class="p">:</span>
+        <span class="n">modmask</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">keybinder</span> <span class="o">=</span> <span class="n">KeyBinder</span><span class="p">(</span><span class="n">x_display</span><span class="o">=</span><span class="n">winman</span><span class="o">.</span><span class="n">x_display</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">XInitError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># TODO: Take a mapping dict with pre-modmasked keys</span>
+        <span class="c1">#       and pre-closured commands</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">mappings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">func</span><span class="o">=</span><span class="n">func</span><span class="p">):</span>
+                <span class="sd">&quot;&quot;&quot;Closure to resolve `func` and call it on a</span>
+<span class="sd">                   `WindowManager` instance&quot;&quot;&quot;</span>
+                <span class="n">commands</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">winman</span><span class="p">)</span>
+
+            <span class="n">keybinder</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">modmask</span> <span class="o">+</span> <span class="n">key</span><span class="p">,</span> <span class="n">call</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">keybinder</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2009-2020, Stephan Sokolow.
+      
+    </div>
+
+    
+    <a href="https://github.com/ssokolow/quicktile" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

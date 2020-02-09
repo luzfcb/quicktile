@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>functional_harness.env_general &#8212; QuickTile 0.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+    <link rel="canonical" href="http://ssokolow.com/quicktile/_modules/functional_harness/env_general.html"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<h1 class="logo"><a href="../../index.html">QuickTile</a></h1>
+
+
+
+<p class="blurb">Keyboard-driven Window Tiling for your existing X11 window manager</p>
+
+
+
+
+
+
+
+
+    
+
+<p>
+<a class="badge" href="https://travis-ci.org/ssokolow/quicktile">
+    <img
+        alt="CI Test Status"
+        src="https://secure.travis-ci.org/ssokolow/quicktile.svg?branch=master"
+    />
+</a>
+</p>
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script><div class="badges">
+    <p><a href="apt:python3,python3-pip,python3-setuptools,python3-gi,python3-xlib,python3-dbus,gir1.2-glib-2.0,gir1.2-gtk-3.0,gir1.2-wnck-3.0" class="btn" title="Install from configured repositories on Debian-based distros"><img src="../../_static/img/debian_12.png" alt="Debian"><img src="../../_static/img/ubuntu_12.png" alt="Ubuntu"><img src="../../_static/img/mint_12.png" alt="Mint"> Install Dependencies</a></p>
+    <p><a href="http://github.com/ssokolow/quicktile/zipball/master" class="btn">Download QuickTile</a></p>
+    <p><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img src="../../_static/license.svg" alt="License: GPLv2" /></a></p>
+</div><div class="contrib_box">
+    <h3>Tip Jar</h3>
+    <dl>
+        <dt>Code (Best)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://github.com/ssokolow/quicktile"
+                        title="GitHub Repo"><img
+                        src="../../_static/contrib_box/github.png"
+                        alt="GitHub" /></a></li>
+                <li><a href="https://github.com/ssokolow/quicktile/issues"
+                        title="Bug Tracker"><img
+                        src="../../_static/contrib_box/bug.png"
+                        alt="Bug Tracker" /></a></li>
+            </ul>
+        </dd>
+        <dt>Publicity (Better)</dt>
+        <dd>Show your friends</dd>
+        <dt>Snacks (Good)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://flattr.com/thing/674146"
+                        title="Flattr"><img
+                        src="../../_static/contrib_box/flattr.png"
+                        alt="Flattr" /></a></li>
+                <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="EFWRR7EAQ993S"><input type="image" src="../../_static/contrib_box/paypal.png" name="submit" alt="PayPal" title="PayPal"></form></li>
+                <li><a title="BitCoin"
+                    href="bitcoin:1Kp1i3nahunzzFs5a3mMF46uzca4oANH5C?label=QuickTile%20Donations"
+                    ><img
+                    src="../../_static/contrib_box/bitcoin.png"
+                    alt="BitCoin"
+                /></a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--
+    bug.png and wrench.png from the Silk Icons set by Mark James, available at
+    http://www.famfamfam.com/lab/icons/silk/
+    are used under the Creative Commons Attribution 2.5 license.
+-->
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for functional_harness.env_general</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Assorted context managers for setting up the test environment&quot;&quot;&quot;</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Stephan Sokolow (deitarion/SSokolow)&quot;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;MIT&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">subprocess</span>  <span class="c1"># nosec</span>
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+
+<span class="c1"># Silence PyLint being flat-out wrong about MyPy type annotations</span>
+<span class="c1"># pylint: disable=unsubscriptable-object</span>
+
+<span class="c1"># -- Type-Annotation Imports --</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Generator</span>  <span class="c1"># NOQA</span>
+
+
+<div class="viewcode-block" id="background_proc"><a class="viewcode-back" href="../../apidocs/functional_harness/env_general.html#functional_harness.env_general.background_proc">[docs]</a><span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">background_proc</span><span class="p">(</span><span class="n">argv</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+                    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Context manager for scoping the lifetime of a ``subprocess.Popen`` call</span>
+
+<span class="sd">    :param argv: The command to be executed</span>
+<span class="sd">    :param verbose: If :any:`False`, redirect the X server&#39;s ``stdout`` and</span>
+<span class="sd">        ``stderr`` to :file:`/dev/null`</span>
+<span class="sd">    :param args: Positional arguments to pass to :class:`subprocess.Popen`</span>
+<span class="sd">    :param kwargs: Keyword arguments to pass to :class:`subprocess.Popen`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="n">popen_obj</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">argv</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># nosec</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">popen_obj</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">argv</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
+            <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">STDOUT</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">DEVNULL</span><span class="p">,</span>
+            <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">popen_obj</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="env_vars"><a class="viewcode-back" href="../../apidocs/functional_harness/env_general.html#functional_harness.env_general.env_vars">[docs]</a><span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">env_vars</span><span class="p">(</span><span class="n">new</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Context manager to temporarily change environment variables</span>
+
+<span class="sd">    :param new: Items to be added to :any:`os.environ` for the lifetime of the</span>
+<span class="sd">        context manager.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">old_vals</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">new</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+                <span class="n">old_vals</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+
+        <span class="k">yield</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">old_vals</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2009-2020, Stephan Sokolow.
+      
+    </div>
+
+    
+    <a href="https://github.com/ssokolow/quicktile" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

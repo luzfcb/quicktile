@@ -1,0 +1,1102 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>quicktile.util &#8212; QuickTile 0.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+    <link rel="canonical" href="http://ssokolow.com/quicktile/_modules/quicktile/util.html"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<h1 class="logo"><a href="../../index.html">QuickTile</a></h1>
+
+
+
+<p class="blurb">Keyboard-driven Window Tiling for your existing X11 window manager</p>
+
+
+
+
+
+
+
+
+    
+
+<p>
+<a class="badge" href="https://travis-ci.org/ssokolow/quicktile">
+    <img
+        alt="CI Test Status"
+        src="https://secure.travis-ci.org/ssokolow/quicktile.svg?branch=master"
+    />
+</a>
+</p>
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script><div class="badges">
+    <p><a href="apt:python3,python3-pip,python3-setuptools,python3-gi,python3-xlib,python3-dbus,gir1.2-glib-2.0,gir1.2-gtk-3.0,gir1.2-wnck-3.0" class="btn" title="Install from configured repositories on Debian-based distros"><img src="../../_static/img/debian_12.png" alt="Debian"><img src="../../_static/img/ubuntu_12.png" alt="Ubuntu"><img src="../../_static/img/mint_12.png" alt="Mint"> Install Dependencies</a></p>
+    <p><a href="http://github.com/ssokolow/quicktile/zipball/master" class="btn">Download QuickTile</a></p>
+    <p><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img src="../../_static/license.svg" alt="License: GPLv2" /></a></p>
+</div><div class="contrib_box">
+    <h3>Tip Jar</h3>
+    <dl>
+        <dt>Code (Best)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://github.com/ssokolow/quicktile"
+                        title="GitHub Repo"><img
+                        src="../../_static/contrib_box/github.png"
+                        alt="GitHub" /></a></li>
+                <li><a href="https://github.com/ssokolow/quicktile/issues"
+                        title="Bug Tracker"><img
+                        src="../../_static/contrib_box/bug.png"
+                        alt="Bug Tracker" /></a></li>
+            </ul>
+        </dd>
+        <dt>Publicity (Better)</dt>
+        <dd>Show your friends</dd>
+        <dt>Snacks (Good)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://flattr.com/thing/674146"
+                        title="Flattr"><img
+                        src="../../_static/contrib_box/flattr.png"
+                        alt="Flattr" /></a></li>
+                <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="EFWRR7EAQ993S"><input type="image" src="../../_static/contrib_box/paypal.png" name="submit" alt="PayPal" title="PayPal"></form></li>
+                <li><a title="BitCoin"
+                    href="bitcoin:1Kp1i3nahunzzFs5a3mMF46uzca4oANH5C?label=QuickTile%20Donations"
+                    ><img
+                    src="../../_static/contrib_box/bitcoin.png"
+                    alt="BitCoin"
+                /></a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--
+    bug.png and wrench.png from the Silk Icons set by Mark James, available at
+    http://www.famfamfam.com/lab/icons/silk/
+    are used under the Creative Commons Attribution 2.5 license.
+-->
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for quicktile.util</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Helper functions and classes&quot;&quot;&quot;</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Stephan Sokolow (deitarion/SSokolow)&quot;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;GNU GPL 2.0 or later&quot;</span>
+
+<span class="c1"># Silence PyLint being flat-out wrong about MyPy type annotations and</span>
+<span class="c1"># complaining about my grouped imports</span>
+<span class="c1"># pylint: disable=unsubscriptable-object,invalid-sequence-index</span>
+<span class="c1"># pylint: disable=wrong-import-order</span>
+
+<span class="kn">import</span> <span class="nn">math</span><span class="o">,</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">IntEnum</span><span class="p">,</span> <span class="n">unique</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span><span class="p">,</span> <span class="n">combinations</span>
+
+<span class="kn">import</span> <span class="nn">gi</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>  <span class="c1"># pylint: disable=redefined-builtin</span>
+<span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span class="s1">&#39;Gdk&#39;</span><span class="p">,</span> <span class="s1">&#39;3.0&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">gi.repository</span> <span class="kn">import</span> <span class="n">Gdk</span>
+
+<span class="c1"># -- Type-Annotation Imports --</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span>
+                    <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">)</span>
+
+<span class="c1"># Only in type comments</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>  <span class="c1"># NOQA pylint: disable=unused-import</span>
+
+<span class="c1"># pylint: disable=C0103</span>
+<span class="n">PercentRectTuple</span> <span class="o">=</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+<span class="n">GeomTuple</span> <span class="o">=</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+
+<span class="c1"># FIXME: Replace */** with a dict so I can be strict here</span>
+<span class="n">CommandCB</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+
+<span class="c1"># --</span>
+
+<span class="c1"># TODO: Re-add log.debug() calls in strategic places</span>
+
+
+<div class="viewcode-block" id="Edge"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.Edge">[docs]</a><span class="nd">@unique</span>
+<span class="k">class</span> <span class="nc">Edge</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Constants used by :meth:`StrutPartial.as_rects` to communicate</span>
+<span class="sd">    information :class:`UsableRegion` needs to properly handle panel</span>
+<span class="sd">    reservations on interior edges.</span>
+
+<span class="sd">    The values of the enum&#39;s members correspond to the tuple indexes in</span>
+<span class="sd">    StrutPartial.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">LEFT</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">RIGHT</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">TOP</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">BOTTOM</span> <span class="o">=</span> <span class="mi">4</span></div>
+
+
+<div class="viewcode-block" id="Gravity"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.Gravity">[docs]</a><span class="k">class</span> <span class="nc">Gravity</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>  <span class="c1"># pylint: disable=too-few-public-methods</span>
+    <span class="sd">&quot;&quot;&quot;Gravity definitions used by :class:`Rectangle`&quot;&quot;&quot;</span>
+    <span class="n">TOP_LEFT</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">TOP</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">TOP_RIGHT</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">LEFT</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">CENTER</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">RIGHT</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">BOTTOM_LEFT</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">BOTTOM</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">BOTTOM_RIGHT</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="clamp_idx"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.clamp_idx">[docs]</a><span class="k">def</span> <span class="nf">clamp_idx</span><span class="p">(</span><span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">stop</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">wrap</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Ensure a 0-based index is within a given range [0, stop).</span>
+
+<span class="sd">    Uses the same half-open range convention as Python slices.</span>
+
+<span class="sd">    :param idx: The value to adjust.</span>
+<span class="sd">    :param stop: The value to ensure ``idx`` is below.</span>
+<span class="sd">    :param wrap: If :any:`True`, wrap around rather than saturating.</span>
+
+<span class="sd">    :returns: The adjusted value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">wrap</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">idx</span> <span class="o">%</span> <span class="n">stop</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="euclidean_dist"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.euclidean_dist">[docs]</a><span class="k">def</span> <span class="nf">euclidean_dist</span><span class="p">(</span><span class="n">vec1</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">vec2</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Calculate the `euclidean distance`_ between two points</span>
+
+<span class="sd">    :param vec1: The first coordinate point.</span>
+<span class="sd">    :param vec2: The second coordinate point.</span>
+<span class="sd">    :returns: The euclidean distance between the two points.</span>
+
+<span class="sd">    .. warning:: This uses :func:`zip`. If one coordinate is of a higher</span>
+<span class="sd">        dimensionality than the other, it will be silently truncated to match.</span>
+
+<span class="sd">    .. todo:: Consider explicitly supporting :class:`Rectangle` so this can</span>
+<span class="sd">        cleanly take two rectangles and compare their centers without</span>
+<span class="sd">        boilerplate.</span>
+
+<span class="sd">    .. _euclidean distance: https://en.wikipedia.org/wiki/Euclidean_distance</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">coord1</span> <span class="o">-</span> <span class="n">coord2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">coord1</span><span class="p">,</span> <span class="n">coord2</span><span class="p">)</span>
+        <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">vec1</span><span class="p">),</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">vec2</span><span class="p">))</span>
+    <span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="powerset"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.powerset">[docs]</a><span class="k">def</span> <span class="nf">powerset</span><span class="p">(</span><span class="n">iterable</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot;Return an iterator over the power set of the given iterable.</span>
+
+<span class="sd">    .. doctest::</span>
+
+<span class="sd">        &gt;&gt;&gt; list(powerset([1,2,3]))</span>
+<span class="sd">        [(), (1,), (2,), (3,), (1, 2), (1, 3), (2, 3), (1, 2, 3)]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">combinations</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span></div>
+
+<span class="c1"># TODO: Narrow down the type signature</span>
+
+
+<div class="viewcode-block" id="fmt_table"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.fmt_table">[docs]</a><span class="k">def</span> <span class="nf">fmt_table</span><span class="p">(</span><span class="n">rows</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">List</span><span class="p">]],</span>
+              <span class="n">headers</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+              <span class="n">group_by</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Format a collection as a textual table.</span>
+
+<span class="sd">    :param rows: A dict or iterable of lists representing a sequence of rows.</span>
+<span class="sd">        If a dict is provided, it will be :func:`sorted` using Python&#39;s default</span>
+<span class="sd">        collation behaviour to ensure consistent output.</span>
+<span class="sd">    :param headers: Header labels for the columns</span>
+<span class="sd">    :param group_by: Index of the column to group results by.</span>
+
+<span class="sd">    .. doctest::</span>
+
+<span class="sd">        &gt;&gt;&gt; print(fmt_table([(&quot;Foo&quot;, &quot;Wun&quot;), (&quot;Bar&quot;, &quot;Too&quot;)],</span>
+<span class="sd">        ...                 (&quot;Things&quot;, &quot;Numbers&quot;)))</span>
+<span class="sd">        Things Numbers</span>
+<span class="sd">        ------ -------</span>
+<span class="sd">         Foo     Wun</span>
+<span class="sd">         Bar     Too</span>
+
+<span class="sd">        &gt;&gt;&gt; print(fmt_table({&quot;Foo&quot;: &quot;Wun&quot;, &quot;Bar&quot;: &quot;Too&quot;},</span>
+<span class="sd">        ...                 (&quot;Things&quot;, &quot;Numbers&quot;)))</span>
+<span class="sd">        Things Numbers</span>
+<span class="sd">        ------ -------</span>
+<span class="sd">         Bar     Too</span>
+<span class="sd">         Foo     Wun</span>
+
+<span class="sd">    .. warning:: This uses :func:`zip` to combine things. The number of columns</span>
+<span class="sd">        displayed will be defined by the row with the fewest columns.</span>
+
+<span class="sd">    .. todo:: Refactor :func:`fmt_table`. Even I don&#39;t fully understand what</span>
+<span class="sd">        my past self wrote by now.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># type: List[str]</span>
+
+    <span class="c1"># Ensure that, internally, we have a list of lists</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="c1"># MyPy complains but testing shows this works</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">rows</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>  <span class="c1"># type: ignore</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">]</span>
+
+    <span class="c1"># Group rows if requested</span>
+    <span class="n">groups</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># type: Dict[str, List[Any]]</span>
+    <span class="k">if</span> <span class="n">group_by</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">headers</span><span class="p">)</span>
+        <span class="n">headers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">group_by</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+            <span class="n">group</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">group_by</span><span class="p">)</span>
+            <span class="n">groups</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">groups</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rows</span>
+
+    <span class="c1"># Identify how much space needs to be allocated for each column</span>
+    <span class="n">col_maxlens</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">pos</span><span class="p">,</span> <span class="n">header</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">headers</span><span class="p">):</span>
+        <span class="n">maxlen</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">pos</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">rows</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">pos</span><span class="p">)</span>
+        <span class="n">col_maxlens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">maxlen</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">header</span><span class="p">)))</span>
+
+    <span class="k">def</span> <span class="nf">fmt_row</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">min_width</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>  <span class="c1"># TODO: Type signature</span>
+        <span class="sd">&quot;&quot;&quot;Format a fmt_table row&quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">width</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">col_maxlens</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s%s</span><span class="s1"> &#39;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="n">indent</span><span class="p">,</span> <span class="n">label</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">pad</span><span class="p">)))</span>
+
+        <span class="n">_width</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">result</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">_width</span> <span class="o">&lt;</span> <span class="n">min_width</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pad</span> <span class="o">*</span> <span class="p">(</span><span class="n">min_width</span> <span class="o">-</span> <span class="n">_width</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="n">result</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="c1"># Print the headers and divider</span>
+    <span class="n">group_width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">)</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">fmt_row</span><span class="p">(</span><span class="n">headers</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">fmt_row</span><span class="p">([</span><span class="s1">&#39;&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">headers</span><span class="p">),</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">min_width</span><span class="o">=</span><span class="n">group_width</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">groups</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">group</span><span class="p">:</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">group</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">[</span><span class="n">group</span><span class="p">]:</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">fmt_row</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+<span class="c1"># Internal StrutPartial parent. Exposed so ePyDoc doesn&#39;t complain</span>
+<span class="n">_StrutPartial</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;_StrutPartial&#39;</span><span class="p">,</span> <span class="s1">&#39;left right top bottom &#39;</span>
+        <span class="s1">&#39;left_start_y left_end_y right_start_y right_end_y &#39;</span>
+        <span class="s1">&#39;top_start_x top_end_x bottom_start_x bottom_end_x&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="StrutPartial"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.StrutPartial">[docs]</a><span class="k">class</span> <span class="nc">StrutPartial</span><span class="p">(</span><span class="n">_StrutPartial</span><span class="p">):</span>
+    <span class="c1"># pylint: disable=line-too-long</span>
+    <span class="sd">&quot;&quot;&quot;A simple wrapper for a sequence taken from `_NET_WM_STRUT_PARTIAL`_.</span>
+<span class="sd">    (or `_NET_WM_STRUT`_ thanks to default parameters)</span>
+
+<span class="sd">    Purpose:</span>
+<span class="sd">    Minimize the chances of screwing up indexing into `_NET_WM_STRUT_PARTIAL`_</span>
+
+<span class="sd">    Method:</span>
+<span class="sd">        - This namedtuple was created by copy-pasting the definition string</span>
+<span class="sd">          from `_NET_WM_STRUT_PARTIAL`_ and then manually deleting the commas</span>
+<span class="sd">          from it if necessary.</span>
+<span class="sd">        - A :meth:`__new__ &lt;object.__new__&gt;` was added to create</span>
+<span class="sd">          :class:`StrutPartial` instances from `_NET_WM_STRUT`_ data by</span>
+<span class="sd">          providing default values for the missing fields.</span>
+
+<span class="sd">    :param int left: Thickness of the window&#39;s panel reservation on the</span>
+<span class="sd">        desktop&#39;s left  edge in pixels.</span>
+<span class="sd">    :param int right: Thickness of the window&#39;s panel reservation on the</span>
+<span class="sd">        desktop&#39;s right  edge in pixels.</span>
+<span class="sd">    :param int top: Thickness of the window&#39;s panel reservation on the</span>
+<span class="sd">        desktop&#39;s top  edge in pixels.</span>
+<span class="sd">    :param int bottom: Thickness of the window&#39;s panel reservation on the</span>
+<span class="sd">        desktop&#39;s bottom edge in pixels.</span>
+<span class="sd">    :param int left_start=0: Position of the left panel&#39;s top edge in pixels.</span>
+<span class="sd">    :param int left_end=sys.maxsize: Position of the left panel&#39;s bottom edge</span>
+<span class="sd">        in pixels.</span>
+<span class="sd">    :param int right_start=0: Position of the right panel&#39;s top edge in pixels.</span>
+<span class="sd">    :param int right_end=sys.maxsize: Position of the right panel&#39;s bottom edge</span>
+<span class="sd">        in pixels.</span>
+<span class="sd">    :param int top_start=0: Position of the top panel&#39;s left edge in pixels.</span>
+<span class="sd">    :param int top_end=sys.maxsize: Position of the top panel&#39;s right edge</span>
+<span class="sd">        in pixels.</span>
+<span class="sd">    :param int bottom_start=0: Position of the bottom panel&#39;s left edge in</span>
+<span class="sd">        pixels.</span>
+<span class="sd">    :param int bottom_end=sys.maxsize: Position of the bottom panel&#39;s right</span>
+<span class="sd">        edge in pixels.</span>
+
+<span class="sd">    .. _`_NET_WM_STRUT`: https://specifications.freedesktop.org/wm-spec/1.3/ar01s05.html#NETWMSTRUT</span>
+<span class="sd">    .. _`_NET_WM_STRUT_PARTIAL`: https://specifications.freedesktop.org/wm-spec/1.3/ar01s05.html#NETWMSTRUTPARTIAL</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># NOQA</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># pylint: disable=R0913</span>
+            <span class="n">left_start_y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">left_end_y</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span><span class="p">,</span>
+            <span class="n">right_start_y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">right_end_y</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span><span class="p">,</span>
+            <span class="n">top_start_x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">top_end_x</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span><span class="p">,</span>
+            <span class="n">bottom_start_x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bottom_end_x</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__bases__</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span>
+            <span class="n">left_start_y</span><span class="p">,</span> <span class="n">left_end_y</span><span class="p">,</span> <span class="n">right_start_y</span><span class="p">,</span> <span class="n">right_end_y</span><span class="p">,</span>
+            <span class="n">top_start_x</span><span class="p">,</span> <span class="n">top_end_x</span><span class="p">,</span> <span class="n">bottom_start_x</span><span class="p">,</span> <span class="n">bottom_end_x</span><span class="p">)</span>
+
+<div class="viewcode-block" id="StrutPartial.as_rects"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.StrutPartial.as_rects">[docs]</a>    <span class="k">def</span> <span class="nf">as_rects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">desktop_rect</span><span class="p">:</span> <span class="s1">&#39;Rectangle&#39;</span>
+                 <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;List[Tuple[Edge, Rectangle]]&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Resolve self into absolute coordinates relative to ``desktop_rect``</span>
+
+<span class="sd">        Note that struts are relative to the bounding box of the whole desktop,</span>
+<span class="sd">        not the edges of individual screens.</span>
+
+<span class="sd">        (ie. if you have two 1280x1024 monitors and a 1920x1080 monitor in a</span>
+<span class="sd">        row, with all the tops lined up and a 22px panel spanning all of them</span>
+<span class="sd">        on the bottom, the strut reservations for the 1280x1024 monitors will</span>
+<span class="sd">        be :code:`22 + (1080 - 1024) = 56px` to account for the dead space</span>
+<span class="sd">        below the 1024px-tall monitors.)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span>
+            <span class="c1"># Left</span>
+            <span class="p">(</span><span class="n">Edge</span><span class="o">.</span><span class="n">LEFT</span><span class="p">,</span> <span class="n">Rectangle</span><span class="p">(</span>
+                <span class="n">x</span><span class="o">=</span><span class="n">desktop_rect</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+                <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">left_start_y</span><span class="p">,</span>
+                <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span>
+                <span class="n">y2</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">left_end_y</span><span class="p">)</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">desktop_rect</span><span class="p">)),</span>
+            <span class="c1"># Right</span>
+            <span class="p">(</span><span class="n">Edge</span><span class="o">.</span><span class="n">RIGHT</span><span class="p">,</span> <span class="n">Rectangle</span><span class="p">(</span>
+                <span class="n">x</span><span class="o">=</span><span class="n">desktop_rect</span><span class="o">.</span><span class="n">x2</span><span class="p">,</span>
+                <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">right_start_y</span><span class="p">,</span>
+                <span class="n">width</span><span class="o">=-</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">,</span>
+                <span class="n">y2</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">right_end_y</span><span class="p">)</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">desktop_rect</span><span class="p">)),</span>
+            <span class="c1"># Top</span>
+            <span class="p">(</span><span class="n">Edge</span><span class="o">.</span><span class="n">TOP</span><span class="p">,</span> <span class="n">Rectangle</span><span class="p">(</span>
+                <span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">top_start_x</span><span class="p">,</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">desktop_rect</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+                <span class="n">x2</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">top_end_x</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="p">)</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">desktop_rect</span><span class="p">)),</span>
+            <span class="c1"># Bottom</span>
+            <span class="p">(</span><span class="n">Edge</span><span class="o">.</span><span class="n">BOTTOM</span><span class="p">,</span> <span class="n">Rectangle</span><span class="p">(</span>
+                <span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bottom_start_x</span><span class="p">,</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">desktop_rect</span><span class="o">.</span><span class="n">y2</span><span class="p">,</span>
+                <span class="n">x2</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bottom_end_x</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=-</span><span class="bp">self</span><span class="o">.</span><span class="n">bottom</span><span class="p">)</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">desktop_rect</span><span class="p">)),</span>
+        <span class="p">)</span> <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span></div></div>
+
+<span class="c1"># Keep _StrutPartial from showing up in automated documentation</span>
+<span class="k">del</span> <span class="n">_StrutPartial</span>
+
+<span class="c1"># Internal Rectangle parent. Exposed so ePyDoc doesn&#39;t complain</span>
+<span class="n">_Rectangle</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;_Rectangle&#39;</span><span class="p">,</span> <span class="s1">&#39;x y width height&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Rectangle"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.Rectangle">[docs]</a><span class="k">class</span> <span class="nc">Rectangle</span><span class="p">(</span><span class="n">_Rectangle</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A representation of a rectangle with some useful methods</span>
+
+<span class="sd">    Fundamentally, this is a named tuple of the form ``(x, y, width, height)``</span>
+<span class="sd">    with some extra methods and properties to make it more useful.</span>
+
+<span class="sd">    It supports being initialized with any mixture of ``x``, ``width``, or</span>
+<span class="sd">    ``x2`` and ``y``, ``height`` or ``y2`` as long as sufficient information</span>
+<span class="sd">    is provided to define a rectangle, and the constructor will ensure that the</span>
+<span class="sd">    resulting width and height are always positive by adjusting ``x`` and ``y``</span>
+
+<span class="sd">    :param int x=None:</span>
+<span class="sd">    :param int y=None:</span>
+<span class="sd">    :param int width=None:</span>
+<span class="sd">    :param int height=None:</span>
+<span class="sd">    :param int x2=None:</span>
+<span class="sd">    :param int y2=None:</span>
+<span class="sd">    :raises ValueError: An invalid set of arguments was provided at</span>
+<span class="sd">        construction. (eg. ``width`` *and* ``x2``)</span>
+
+<span class="sd">    .. doctest::</span>
+
+<span class="sd">        &gt;&gt;&gt; Rectangle(5, 2, -10, y2=10)</span>
+<span class="sd">        Rectangle(x=-5, y=2, width=10, height=8)</span>
+<span class="sd">        &gt;&gt;&gt; Rectangle(x2=10, y2=12, width=5, height=6)</span>
+<span class="sd">        Rectangle(x=5, y=6, width=5, height=6)</span>
+<span class="sd">        &gt;&gt;&gt; Rectangle(x2=10, y2=12, width=-5, height=-6)</span>
+<span class="sd">        Rectangle(x=10, y=12, width=5, height=6)</span>
+
+<span class="sd">    .. warning:: Many of the methods on this type assume the correct use of</span>
+<span class="sd">        :meth:`to_gravity` and :meth:`from_gravity` and may give nonsensical</span>
+<span class="sd">        answers if given rectangles which do not have top-left gravity.</span>
+
+<span class="sd">        External users of this API are advised to contact the author to</span>
+<span class="sd">        ensure any changes to make it more mistake-proof are made in a</span>
+<span class="sd">        coordinated fashion.</span>
+
+<span class="sd">    .. todo:: Figure out how to get :code:`__new__` to auto-apidoc properly.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="c1"># pylint: disable=too-many-arguments</span>
+    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">x2</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y2</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="c1"># -- Check for a valid combination of arguments --</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Exactly one of x, width, or x2 must be None&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Exactly one of y, height, or y2 must be None&quot;</span><span class="p">)</span>
+
+        <span class="c1"># -- Ensure we have all parameters present --</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">x2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">x</span>
+        <span class="k">elif</span> <span class="n">x2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">width</span>
+        <span class="k">elif</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">x2</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">width</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unreachable&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">y2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="n">y2</span> <span class="o">-</span> <span class="n">y</span>
+        <span class="k">elif</span> <span class="n">y2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">y2</span> <span class="o">-</span> <span class="n">height</span>
+        <span class="k">elif</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">y2</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">height</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unreachable&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Swap (x1, y1) and (x2, y2) as appropriate to invert negative sizes</span>
+        <span class="k">if</span> <span class="n">width</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">width</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">height</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">y</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+
+        <span class="c1"># Ensure values are integers, and that width and height are</span>
+        <span class="c1"># not None beyond this point</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+
+        <span class="c1"># MyPy complains but this is thoroughly unit-tested as working</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__bases__</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span>  <span class="c1"># type: ignore</span>
+            <span class="bp">cls</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">xy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>  <span class="c1"># pylint: disable=invalid-name</span>
+        <span class="sd">&quot;&quot;&quot;Convenience helper to retrieve an ``(x, y)`` tuple&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">x2</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>  <span class="c1"># pylint: disable=invalid-name</span>
+        <span class="sd">&quot;&quot;&quot;X coordinate of the bottom-right corner assuming top-left gravity&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">y2</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>  <span class="c1"># pylint: disable=invalid-name</span>
+        <span class="sd">&quot;&quot;&quot;Y coordinate of the bottom-right corner assuming top-left gravity&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Convenience helper for calculating area of the rectangle&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Rectangle.closest_of"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.Rectangle.closest_of">[docs]</a>    <span class="k">def</span> <span class="nf">closest_of</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candidates</span><span class="p">:</span> <span class="s1">&#39;List[Rectangle]&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Rectangle&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Find and return the rectangle that ``self`` is closest to.</span>
+
+<span class="sd">        (Unified definition of how to resolve edge cases in various operations</span>
+<span class="sd">        in the most intuitive way possible.)</span>
+
+<span class="sd">        Based on empirical testing, the following definition of closeness has</span>
+<span class="sd">        been chosen:</span>
+
+<span class="sd">        1. Choose the rectangle with the largest area area of</span>
+<span class="sd">           overlap. (``self.intersect(candidate).area``)</span>
+<span class="sd">        2. To break ties (eg. all motions result in no overlap), choose the</span>
+<span class="sd">           motion with the shortest :func:`euclidean_dist` between the two</span>
+<span class="sd">           rectangles&#39; centers.</span>
+
+<span class="sd">        (Using the center points is important when considering operations which</span>
+<span class="sd">        both move and resize a rectangle.)</span>
+
+<span class="sd">        :param candidates: Rectangles to consider for closeness.</span>
+
+<span class="sd">        .. todo:: Refactor the tests so they don&#39;t only test :meth:`closest_of`</span>
+<span class="sd">           indirectly and don&#39;t engage in needless duplication.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">choices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">candidate</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
+            <span class="n">overlap</span> <span class="o">=</span> <span class="n">candidate</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="n">p_self</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_gravity</span><span class="p">(</span><span class="n">Gravity</span><span class="o">.</span><span class="n">CENTER</span><span class="p">)</span><span class="o">.</span><span class="n">to_point</span><span class="p">()</span>
+            <span class="n">p_candidate</span> <span class="o">=</span> <span class="n">candidate</span><span class="o">.</span><span class="n">to_gravity</span><span class="p">(</span><span class="n">Gravity</span><span class="o">.</span><span class="n">CENTER</span><span class="p">)</span><span class="o">.</span><span class="n">to_point</span><span class="p">()</span>
+            <span class="n">euc_dist</span> <span class="o">=</span> <span class="n">euclidean_dist</span><span class="p">(</span><span class="n">p_self</span><span class="o">.</span><span class="n">xy</span><span class="p">,</span> <span class="n">p_candidate</span><span class="o">.</span><span class="n">xy</span><span class="p">)</span>
+
+            <span class="n">choices</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">overlap</span><span class="o">.</span><span class="n">area</span><span class="p">,</span> <span class="o">-</span><span class="n">euc_dist</span><span class="p">,</span> <span class="n">candidate</span><span class="p">))</span>
+
+        <span class="c1"># Return choice with largest overlap, breaking ties with the smallest</span>
+        <span class="c1"># euclidean distance</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">choices</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Rectangle.moved_into"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.Rectangle.moved_into">[docs]</a>    <span class="k">def</span> <span class="nf">moved_into</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;Rectangle&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Rectangle&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Attempt to return a new :class:`Rectangle` of the same width and</span>
+<span class="sd">        height that does not exceed the bounds of `other`.</span>
+
+<span class="sd">        If ``self`` is wider/taller than ``other``, line up the left/top edge</span>
+<span class="sd">        as appropriate and allow the rest to overflow right/down-ward.</span>
+
+<span class="sd">        It is your responsibility to call :meth:`intersect` afterward if you</span>
+<span class="sd">        would like to clip the rectangle to fit.</span>
+
+<span class="sd">        .. doctest::</span>
+
+<span class="sd">            &gt;&gt;&gt; parent = Rectangle(0, 0, 40, 40)</span>
+<span class="sd">            &gt;&gt;&gt; Rectangle(10, 10, 10, 10).moved_into(parent)</span>
+<span class="sd">            Rectangle(x=10, y=10, width=10, height=10)</span>
+<span class="sd">            &gt;&gt;&gt; Rectangle(50, 10, 10, 10).moved_into(parent)</span>
+<span class="sd">            Rectangle(x=30, y=10, width=10, height=10)</span>
+<span class="sd">            &gt;&gt;&gt; Rectangle(50, 10, 50, 10).moved_into(parent)</span>
+<span class="sd">            Rectangle(x=0, y=10, width=50, height=10)</span>
+<span class="sd">            &gt;&gt;&gt; Rectangle(50, 10, 10, 50).moved_into(parent)</span>
+<span class="sd">            Rectangle(x=30, y=0, width=10, height=50)</span>
+
+<span class="sd">        :param other: The rectangle to move inside</span>
+<span class="sd">        :raises TypeError: ``other`` was not a :class:`Rectangle`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Rectangle</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Expected &#39;Rectangle&#39;, got </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="bp">self</span>
+
+        <span class="c1"># Slide left or right (prefer aligning left edges if too wide)</span>
+        <span class="k">if</span> <span class="n">new</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">x</span><span class="p">:</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="n">new</span><span class="o">.</span><span class="n">_replace</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">other</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">new</span><span class="o">.</span><span class="n">x2</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">x2</span><span class="p">:</span>
+            <span class="c1"># TODO: Rework Rectangle so x can be omitted as long as width</span>
+            <span class="c1">#       and x2 are supplied.</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span>
+                <span class="n">x</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">x2</span> <span class="o">-</span> <span class="n">new</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="n">new</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+                <span class="n">width</span><span class="o">=</span><span class="n">new</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">new</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+
+        <span class="c1"># Slide up or down (prefer aligning tops if too tall)</span>
+        <span class="k">if</span> <span class="n">new</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">y</span><span class="p">:</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="n">new</span><span class="o">.</span><span class="n">_replace</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">other</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">new</span><span class="o">.</span><span class="n">y2</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">y2</span><span class="p">:</span>
+            <span class="c1"># TODO: Rework Rectangle so y can be omitted as long as height</span>
+            <span class="c1">#       and y2 are supplied.</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span>
+                <span class="n">x</span><span class="o">=</span><span class="n">new</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">y2</span> <span class="o">-</span> <span class="n">new</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                <span class="n">width</span><span class="o">=</span><span class="n">new</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">new</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">new</span></div>
+
+<div class="viewcode-block" id="Rectangle.moved_off_of"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.Rectangle.moved_off_of">[docs]</a>    <span class="k">def</span> <span class="nf">moved_off_of</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;Rectangle&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Rectangle&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a copy of ``self`` that has been moved as little as possible</span>
+<span class="sd">        such that it no longer overlaps ``other``.</span>
+
+<span class="sd">        This will move the rectangle either horizontally or vertically but not</span>
+<span class="sd">        both and will rely on :meth:`closest_of` to choose a direction.</span>
+
+<span class="sd">        .. doctest::</span>
+
+<span class="sd">           &gt;&gt;&gt; panel = Rectangle(0, 0, 20, 600)</span>
+<span class="sd">           &gt;&gt;&gt; Rectangle(10, 10, 600, 400).moved_off_of(panel)</span>
+<span class="sd">           Rectangle(x=20, y=10, width=600, height=400)</span>
+
+<span class="sd">        .. note:: If no change is needed, this will take advantage of the</span>
+<span class="sd">            immutability of tuple subclasses by returning a reference to</span>
+<span class="sd">            ``self`` without making a copy.</span>
+
+<span class="sd">        .. warning:: This has no conception of &quot;inside/outside the desktop&quot;</span>
+<span class="sd">            and may shove a window out of bounds if you don&#39;t first ensure that</span>
+<span class="sd">            it&#39;s mostly on the correct side of a panel using something like</span>
+<span class="sd">            :meth:`moved_into`.</span>
+
+<span class="sd">        .. todo:: Decide whether it&#39;s worth it to add support for some kind of</span>
+<span class="sd">            ``constrain_within`` or ``preferred_direction`` argument to</span>
+<span class="sd">            :meth:`moved_off_of`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If there&#39;s no overlap, just trust in a tuple&#39;s immutability</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">closest_of</span><span class="p">([</span>
+            <span class="n">Rectangle</span><span class="p">(</span>  <span class="c1"># Push left</span>
+                <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">x2</span><span class="o">=</span><span class="n">other</span><span class="o">.</span><span class="n">x</span><span class="p">),</span>
+            <span class="n">Rectangle</span><span class="p">(</span>  <span class="c1"># Push right</span>
+                <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">other</span><span class="o">.</span><span class="n">x2</span><span class="p">),</span>
+            <span class="n">Rectangle</span><span class="p">(</span>  <span class="c1"># Push up</span>
+                <span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">y2</span><span class="o">=</span><span class="n">other</span><span class="o">.</span><span class="n">y</span><span class="p">),</span>
+            <span class="n">Rectangle</span><span class="p">(</span>  <span class="c1"># Push down</span>
+                <span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">other</span><span class="o">.</span><span class="n">y2</span><span class="p">),</span>
+        <span class="p">])</span></div>
+
+<div class="viewcode-block" id="Rectangle.intersect"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.Rectangle.intersect">[docs]</a>    <span class="k">def</span> <span class="nf">intersect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;Rectangle&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Rectangle&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;The intersection of two rectangles, assuming top-left gravity.</span>
+
+<span class="sd">        :raises TypeError: ``other`` was not a :class:`Rectangle`</span>
+
+<span class="sd">        .. doctest::</span>
+
+<span class="sd">            &gt;&gt;&gt; rect1 = Rectangle(0, 0, 40, 40)</span>
+<span class="sd">            &gt;&gt;&gt; Rectangle(20, 20, 50, 60).intersect(rect1)</span>
+<span class="sd">            Rectangle(x=20, y=20, width=20, height=20)</span>
+
+<span class="sd">        .. todo:: I forgot to handle the case where the rectangles have no</span>
+<span class="sd">            overlap for :meth:`intersect`. I&#39;ll need to think about the most</span>
+<span class="sd">            useful interpretation of that condition.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Rectangle</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Can only intersect with Rectangles&quot;</span><span class="p">)</span>
+
+        <span class="c1"># pylint: disable=invalid-name</span>
+        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x2</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">x2</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y2</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">y2</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">Rectangle</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Rectangle.subtract"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.Rectangle.subtract">[docs]</a>    <span class="k">def</span> <span class="nf">subtract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;Rectangle&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Rectangle&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a copy of ``self`` which has been shrunk along one axis</span>
+<span class="sd">        such that it no longer overlaps ``other``.</span>
+
+<span class="sd">        The edge to cut away is determined by calling :meth:`moved_off_of` and</span>
+<span class="sd">        then :meth:`intersect`-ing ``self`` with the result.</span>
+
+<span class="sd">        (In effect, it will generate candidate rectangles for all four possible</span>
+<span class="sd">        directions and then use :meth:`closest_of` to choose the one that</span>
+<span class="sd">        results in the smallest change.)</span>
+
+<span class="sd">        .. doctest::</span>
+
+<span class="sd">           &gt;&gt;&gt; panel = Rectangle(0, 0, 20, 600)</span>
+<span class="sd">           &gt;&gt;&gt; Rectangle(10, 10, 600, 400).subtract(panel)</span>
+<span class="sd">           Rectangle(x=20, y=10, width=590, height=400)</span>
+
+<span class="sd">        .. note:: If there is no overlap, this will take advantage of the</span>
+<span class="sd">            immutability of tuple subclasses by returning a reference to</span>
+<span class="sd">            ``self`` without making a copy.</span>
+
+<span class="sd">        .. warning:: This has no conception of &quot;inside/outside the desktop&quot;</span>
+<span class="sd">            and may make it entirely out-of-bounds rather than entirely</span>
+<span class="sd">            in-bounds if you don&#39;t first ensure that the target rectangle is</span>
+<span class="sd">            more in-bounds than out-of-bounds.</span>
+
+<span class="sd">        .. todo:: Decide whether it&#39;s worth it to add support for some kind of</span>
+<span class="sd">            ``constrain_within`` or ``preferred_direction`` argument to</span>
+<span class="sd">            :meth:`subtract`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">moved_off_of</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">result</span> <span class="o">!=</span> <span class="bp">self</span> <span class="k">else</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Rectangle.__bool__"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.Rectangle.__bool__">[docs]</a>    <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;A rectangle is truthy if it has a nonzero area&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Rectangle.__contains__"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.Rectangle.__contains__">[docs]</a>    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;A Rectangle is ``in`` another if one is *entirely* within the other.</span>
+
+<span class="sd">        If ``other`` is not a :class:`Rectangle`, this will always return</span>
+<span class="sd">        :any:`False`.</span>
+
+<span class="sd">        If you need to check for overlap, check whether</span>
+<span class="sd">        :meth:`intersect` is truthy.</span>
+
+<span class="sd">        This assumes top-left gravity.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Rectangle</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Assume __new__ normalized for non-negative width and height to allow</span>
+        <span class="c1"># a simple, clean formulation of this test</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">x2</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x2</span><span class="p">)</span> <span class="ow">and</span>
+                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="n">other</span><span class="o">.</span><span class="n">y2</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y2</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Rectangle.union"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.Rectangle.union">[docs]</a>    <span class="k">def</span> <span class="nf">union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s1">&#39;Rectangle&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Rectangle&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Assuming top-left gravity, return the smallest rectangle that both</span>
+<span class="sd">        ``self`` and ``other`` fit inside. (ie. the bounding box)</span>
+
+<span class="sd">        :raises TypeError: ``other`` was not a :class:`Rectangle`</span>
+
+<span class="sd">        .. doctest::</span>
+
+<span class="sd">            &gt;&gt;&gt; Rectangle(0, 0, 1, 1).union(Rectangle(5, 5, 1, 1))</span>
+<span class="sd">            Rectangle(x=0, y=0, width=6, height=6)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Rectangle</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Can only intersect with Rectangles&quot;</span><span class="p">)</span>
+
+        <span class="c1"># pylint: disable=invalid-name</span>
+        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">x</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x2</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">x2</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y2</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">y2</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">Rectangle</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Rectangle.from_relative"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.Rectangle.from_relative">[docs]</a>    <span class="k">def</span> <span class="nf">from_relative</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_rect</span><span class="p">:</span> <span class="s1">&#39;Rectangle&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Rectangle&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Interpret self as relative to ``other_rect`` and make it absolute.</span>
+
+<span class="sd">        (eg. Convert a window position that&#39;s relative to a given monitor&#39;s</span>
+<span class="sd">        top-left corner into one that&#39;s relative to the desktop as a whole)</span>
+
+<span class="sd">        This assumes top-left gravity.</span>
+
+<span class="sd">        :param other_rect: The reference frame to which this rectangle&#39;s</span>
+<span class="sd">            x and y coordinates should be interpreted as relative to.</span>
+<span class="sd">        :returns: An absolute-coordinates version of this rectangle.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_replace</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">other_rect</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+                             <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">other_rect</span><span class="o">.</span><span class="n">y</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Rectangle.to_relative"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.Rectangle.to_relative">[docs]</a>    <span class="k">def</span> <span class="nf">to_relative</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_rect</span><span class="p">:</span> <span class="s1">&#39;Rectangle&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Rectangle&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Interpret self as absolute and make it relative to ``other_rect``.</span>
+
+<span class="sd">        (eg. Convert a window position that&#39;s relative to the top-left corner</span>
+<span class="sd">        of the desktop as a whole into one that&#39;s relative to a single monitor)</span>
+
+<span class="sd">        This assumes top-left gravity.</span>
+
+<span class="sd">        :param other_rect: The reference frame to make this rectangle&#39;s</span>
+<span class="sd">            x and y coordinates relative to.</span>
+<span class="sd">        :returns: A relative-coordinates version of this rectangle.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_replace</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">other_rect</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+                             <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">other_rect</span><span class="o">.</span><span class="n">y</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Rectangle.to_point"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.Rectangle.to_point">[docs]</a>    <span class="k">def</span> <span class="nf">to_point</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Rectangle&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a copy of this :class:`Rectangle` with zero width and height.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_replace</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Rectangle.from_gravity"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.Rectangle.from_gravity">[docs]</a>    <span class="k">def</span> <span class="nf">from_gravity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gravity</span><span class="p">):</span>  <span class="c1"># (Gravity) -&gt; Rectangle</span>
+        <span class="sd">&quot;&quot;&quot;Treat ``x`` and ``y`` as not referring to top-left corner and</span>
+<span class="sd">        return a copy of ``self`` with them translated them so they do.</span>
+
+<span class="sd">        .. note:: Almost every :class:`Rectangle` method assumes top-left</span>
+<span class="sd">            gravity, so this should be the first thing done.</span>
+
+<span class="sd">        .. note:: This is intended for working in pixel values and will</span>
+<span class="sd">            round any results to the nearest integer.</span>
+
+<span class="sd">        .. todo:: Think about how to refactor :class:`Rectangle` to guard</span>
+<span class="sd">            against gravity conversion mistakes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_replace</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">gravity</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span>
+            <span class="n">y</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="n">gravity</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Rectangle.to_gravity"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.Rectangle.to_gravity">[docs]</a>    <span class="k">def</span> <span class="nf">to_gravity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gravity</span><span class="p">):</span>  <span class="c1"># (Gravity) -&gt; Rectangle</span>
+        <span class="sd">&quot;&quot;&quot;Reverse the effect of :meth:`from_gravity`</span>
+
+<span class="sd">        Less concisely, this will interpret `self`&#39;s ``x`` and ``y`` members as</span>
+<span class="sd">        referring to the top-left corner of the rectangle and then return a</span>
+<span class="sd">        copy with them translated to refer to another point.</span>
+
+<span class="sd">        .. note:: Almost every :class:`Rectangle` method assumes top-left</span>
+<span class="sd">            gravity, so this should be the last thing done.</span>
+
+<span class="sd">        .. note:: This is intended for working in pixel values and will</span>
+<span class="sd">            round any results to the nearest integer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_replace</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">gravity</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span>
+            <span class="n">y</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="n">gravity</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Rectangle.from_gdk"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.Rectangle.from_gdk">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_gdk</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">gdk_rect</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Factory function to convert from a :class:`Gdk.Rectangle`</span>
+
+<span class="sd">        This assumes top-left gravity.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">gdk_rect</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">gdk_rect</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+                   <span class="n">width</span><span class="o">=</span><span class="n">gdk_rect</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">gdk_rect</span><span class="o">.</span><span class="n">height</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Rectangle.to_gdk"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.Rectangle.to_gdk">[docs]</a>    <span class="k">def</span> <span class="nf">to_gdk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Helper to easily create a :class:`Gdk.Rectangle` from a</span>
+<span class="sd">        :class:`Rectangle`.</span>
+
+<span class="sd">        This assumes top-left gravity.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">gdk_rect</span> <span class="o">=</span> <span class="n">Gdk</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">()</span>
+        <span class="n">gdk_rect</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">gdk_rect</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">gdk_rect</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
+        <span class="n">gdk_rect</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span>
+        <span class="k">return</span> <span class="n">gdk_rect</span></div></div>
+
+<span class="c1"># Keep _Rectangle from showing up in automated documentation</span>
+<span class="k">del</span> <span class="n">_Rectangle</span>
+
+
+<div class="viewcode-block" id="UsableRegion"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.UsableRegion">[docs]</a><span class="k">class</span> <span class="nc">UsableRegion</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A representation of the usable portion of a desktop</span>
+
+<span class="sd">    This stores a set of monitors and a set of :class:`StrutPartial` instances</span>
+<span class="sd">    and can be used to clip or move window rectangles to fit within the usable</span>
+<span class="sd">    space.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_monitors_raw</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># type: List[Rectangle]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_monitors</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># type: List[Rectangle]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_struts</span> <span class="o">=</span> <span class="p">[]</span>    <span class="c1"># type: List[StrutPartial]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_strut_rects</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># type: List[Rectangle]</span>
+
+    <span class="c1"># TODO: Subscribe to monitor hotplugging in the code which calls this</span>
+<div class="viewcode-block" id="UsableRegion.set_monitors"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.UsableRegion.set_monitors">[docs]</a>    <span class="k">def</span> <span class="nf">set_monitors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">monitor_rects</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Rectangle</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;Set the list of monitor rectangles from which to calculate usable</span>
+<span class="sd">        regions&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_monitors_raw</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">monitor_rects</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">()</span></div>
+
+    <span class="c1"># TODO: Subscribe to changes to panel geometry in the code which calls this</span>
+<div class="viewcode-block" id="UsableRegion.set_panels"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.UsableRegion.set_panels">[docs]</a>    <span class="k">def</span> <span class="nf">set_panels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">panel_struts</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">StrutPartial</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;Set the list of desktop struts to excluded from the usable regions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_struts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">panel_struts</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="UsableRegion._update"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.UsableRegion._update">[docs]</a>    <span class="k">def</span> <span class="nf">_update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check input values and regenerate internal caches</span>
+
+<span class="sd">        This is internal code shared by :meth:`set_monitors` and</span>
+<span class="sd">        :meth:`set_panels`.</span>
+
+<span class="sd">        :raises TypeError: The internal list of monitors contains an entry</span>
+<span class="sd">            that is not a :class:`Rectangle` or the internal list of struts</span>
+<span class="sd">            contains an entry that is not a :class:`StrutPartial`.</span>
+
+<span class="sd">        .. todo:: Disable documenting private members once I&#39;ve refactored the</span>
+<span class="sd">            others which currently should be documented.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Assert that all monitors are Rectangles</span>
+        <span class="c1"># and all Struts are StrutPartials</span>
+        <span class="k">for</span> <span class="n">rect</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_monitors_raw</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rect</span><span class="p">,</span> <span class="n">Rectangle</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;monitors must be of type Rectangle&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">strut</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_struts</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">strut</span><span class="p">,</span> <span class="n">StrutPartial</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;struts must be of type StrutPartial&quot;</span><span class="p">)</span>
+                <span class="c1"># ...so they can be re-calculated on resolution change</span>
+
+        <span class="c1"># Exclude monitors with zero area</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_monitors</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_monitors_raw</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+
+        <span class="c1"># Calculate the desktop rectangle (and ensure it extends to (0, 0))</span>
+        <span class="n">desktop_rect</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_monitors</span><span class="p">,</span>
+            <span class="n">Rectangle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+        <span class="c1"># Resolve the struts to Rectangles relative to desktop_rect</span>
+        <span class="n">strut_rects</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># type: List[Rectangle]</span>
+        <span class="k">for</span> <span class="n">strut</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_struts</span><span class="p">:</span>
+            <span class="c1"># TODO: Test for off-by-one bugs</span>
+            <span class="c1"># TODO: Think of a more efficient way to do this</span>
+            <span class="k">for</span> <span class="n">strut_pair</span> <span class="ow">in</span> <span class="n">strut</span><span class="o">.</span><span class="n">as_rects</span><span class="p">(</span><span class="n">desktop_rect</span><span class="p">):</span>
+                    <span class="n">strut_rects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_trim_strut</span><span class="p">(</span><span class="n">strut_pair</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_strut_rects</span> <span class="o">=</span> <span class="n">strut_rects</span></div>
+
+<div class="viewcode-block" id="UsableRegion._trim_strut"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.UsableRegion._trim_strut">[docs]</a>    <span class="k">def</span> <span class="nf">_trim_strut</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strut</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Edge</span><span class="p">,</span> <span class="n">Rectangle</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Rectangle</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Trim a strut rectangle to just the monitor it applies to&quot;&quot;&quot;</span>
+        <span class="n">edge</span><span class="p">,</span> <span class="n">strut_rect</span> <span class="o">=</span> <span class="n">strut</span>
+
+        <span class="k">for</span> <span class="n">monitor</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_monitors</span><span class="p">:</span>
+            <span class="n">overlap</span> <span class="o">=</span> <span class="n">monitor</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">strut_rect</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">overlap</span><span class="p">):</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Gotta do this manually unless I decide to add support for</span>
+            <span class="c1"># subtract taking a directional hint so it doesn&#39;t chop off the</span>
+            <span class="c1"># wrong end.</span>
+            <span class="k">if</span> <span class="n">overlap</span><span class="o">.</span><span class="n">width</span> <span class="o">==</span> <span class="n">monitor</span><span class="o">.</span><span class="n">width</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">edge</span> <span class="o">==</span> <span class="n">Edge</span><span class="o">.</span><span class="n">LEFT</span><span class="p">:</span>
+                    <span class="n">strut_rect</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">monitor</span><span class="o">.</span><span class="n">x2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">strut_rect</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+                        <span class="n">width</span><span class="o">=</span><span class="n">strut_rect</span><span class="o">.</span><span class="n">x2</span> <span class="o">-</span> <span class="n">monitor</span><span class="o">.</span><span class="n">x2</span><span class="p">,</span>
+                        <span class="n">height</span><span class="o">=</span><span class="n">strut_rect</span><span class="o">.</span><span class="n">height</span>
+                                           <span class="p">)</span>
+                <span class="k">elif</span> <span class="n">edge</span> <span class="o">==</span> <span class="n">Edge</span><span class="o">.</span><span class="n">RIGHT</span><span class="p">:</span>
+                    <span class="n">strut_rect</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">strut_rect</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">strut_rect</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+                        <span class="n">width</span><span class="o">=</span><span class="n">monitor</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">strut_rect</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+                        <span class="n">height</span><span class="o">=</span><span class="n">strut_rect</span><span class="o">.</span><span class="n">height</span>
+                                           <span class="p">)</span>
+            <span class="k">if</span> <span class="n">overlap</span><span class="o">.</span><span class="n">height</span> <span class="o">==</span> <span class="n">monitor</span><span class="o">.</span><span class="n">height</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">edge</span> <span class="o">==</span> <span class="n">Edge</span><span class="o">.</span><span class="n">TOP</span><span class="p">:</span>
+                    <span class="n">strut_rect</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">strut_rect</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">monitor</span><span class="o">.</span><span class="n">y2</span><span class="p">,</span>
+                        <span class="n">width</span><span class="o">=</span><span class="n">strut_rect</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+                        <span class="n">height</span><span class="o">=</span><span class="n">strut_rect</span><span class="o">.</span><span class="n">y2</span> <span class="o">-</span> <span class="n">monitor</span><span class="o">.</span><span class="n">y2</span><span class="p">,</span>
+                                           <span class="p">)</span>
+                <span class="k">elif</span> <span class="n">edge</span> <span class="o">==</span> <span class="n">Edge</span><span class="o">.</span><span class="n">BOTTOM</span><span class="p">:</span>
+                    <span class="n">strut_rect</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">strut_rect</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">strut_rect</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+                        <span class="n">height</span><span class="o">=</span><span class="n">monitor</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">strut_rect</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+                        <span class="n">width</span><span class="o">=</span><span class="n">strut_rect</span><span class="o">.</span><span class="n">width</span>
+                                           <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">strut_rect</span></div>
+
+<div class="viewcode-block" id="UsableRegion.clip_to_usable_region"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.UsableRegion.clip_to_usable_region">[docs]</a>    <span class="k">def</span> <span class="nf">clip_to_usable_region</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rect</span><span class="p">:</span> <span class="n">Rectangle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Rectangle</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Given a rectangle, return a copy that has been shrunk to fit inside</span>
+<span class="sd">        the usable region of the monitor.</span>
+
+<span class="sd">        This is defined as a rectangle that:</span>
+
+<span class="sd">        1. Does not extend outside the monitor</span>
+<span class="sd">        2. Does not overlap any panels</span>
+
+<span class="sd">        The output rectangle will not extend outside the bounds of the input</span>
+<span class="sd">        rectangle.</span>
+
+<span class="sd">        See :meth:`Rectangle.subtract` for more information on how corner</span>
+<span class="sd">        overlaps between windows and panels are resolved.</span>
+
+<span class="sd">        :param rect: A rectangle representing desired window geometry that</span>
+<span class="sd">            should be shrunk to not overlap any panels or None if there was</span>
+<span class="sd">            no overlap.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">monitor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_monitor_for</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">monitor</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">rect</span> <span class="o">=</span> <span class="n">rect</span><span class="o">.</span><span class="n">intersect</span><span class="p">(</span><span class="n">monitor</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">panel</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strut_rects</span><span class="p">:</span>
+            <span class="n">rect</span> <span class="o">=</span> <span class="n">rect</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">panel</span><span class="p">)</span>
+
+        <span class="c1"># Apparently MyPy can&#39;t see through custom __bool__ implementations</span>
+        <span class="k">return</span> <span class="n">rect</span> <span class="ow">or</span> <span class="kc">None</span>  <span class="c1"># type: ignore</span></div>
+
+<div class="viewcode-block" id="UsableRegion.move_to_usable_region"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.UsableRegion.move_to_usable_region">[docs]</a>    <span class="k">def</span> <span class="nf">move_to_usable_region</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rect</span><span class="p">:</span> <span class="n">Rectangle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Rectangle</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Given a rectangle, return a copy that has been moved to be entirely</span>
+<span class="sd">        within the nearest monitor and to not overlap any panels.&quot;&quot;&quot;</span>
+
+        <span class="n">monitor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_monitor_for</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">monitor</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">rect</span> <span class="o">=</span> <span class="n">rect</span><span class="o">.</span><span class="n">moved_into</span><span class="p">(</span><span class="n">monitor</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">panel</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strut_rects</span><span class="p">:</span>
+            <span class="n">rect</span> <span class="o">=</span> <span class="n">rect</span><span class="o">.</span><span class="n">moved_off_of</span><span class="p">(</span><span class="n">panel</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">rect</span></div>
+
+<div class="viewcode-block" id="UsableRegion.find_monitor_for"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.UsableRegion.find_monitor_for">[docs]</a>    <span class="k">def</span> <span class="nf">find_monitor_for</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rect</span><span class="p">:</span> <span class="n">Rectangle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Rectangle</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Find the **full** (including space reserved for panels)</span>
+<span class="sd">        :class:`Rectangle` for the monitor containing ``rect`` using</span>
+<span class="sd">        :meth:`Rectangle.closest_of`.</span>
+
+<span class="sd">        :param rect: A rectangle (possibly of zero width and height),</span>
+<span class="sd">            representing a point of reference for the monitor search.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_monitors</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">rect</span><span class="o">.</span><span class="n">closest_of</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_monitors</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="UsableRegion.__bool__"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.UsableRegion.__bool__">[docs]</a>    <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;A :class:`UsableRegion` is truthy if it has at least one monitor</span>
+<span class="sd">        with nonzero area.</span>
+
+<span class="sd">        .. todo:: Is it worth it to also verify that panel reservations have</span>
+<span class="sd">           not eaten up the entirety of a monitor in :meth:`__bool__`?</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_monitors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span>
+            <span class="nb">all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_monitors</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="UsableRegion.__repr__"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.UsableRegion.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Override :any:`repr` to be more useful for debugging.</span>
+
+<span class="sd">        .. doctest::</span>
+
+<span class="sd">            &gt;&gt;&gt; print(repr(UsableRegion()))</span>
+<span class="sd">            Region(&lt;Monitors=[], Struts=[]&gt;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;Region(&lt;Monitors=</span><span class="si">{!r}</span><span class="s2">, Struts=</span><span class="si">{!r}</span><span class="s2">&gt;)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_monitors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_struts</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="XInitError"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.XInitError">[docs]</a><span class="k">class</span> <span class="nc">XInitError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raised when something outside our control causes the X11 connection to</span>
+<span class="sd">       fail.</span>
+
+<span class="sd">    .. todo:: Rework the use of this to use</span>
+<span class="sd">        :code:`raise XInitError(...) from err`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="XInitError.__str__"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.XInitError.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Augment :any:`str` output to clarify that a user should look</span>
+<span class="sd">        outside QuickTile for the cause.</span>
+
+
+<span class="sd">        .. code-block::</span>
+
+<span class="sd">            XInitError: Hello, I am your usual exception message</span>
+<span class="sd">                (The cause of this error lies outside of QuickTile)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n\t</span><span class="s2">(The cause of this error lies outside of QuickTile)&quot;</span> <span class="o">%</span>
+                <span class="ne">Exception</span><span class="o">.</span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div></div>
+
+<span class="c1"># vim: set sw=4 sts=4 expandtab :</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2009-2020, Stephan Sokolow.
+      
+    </div>
+
+    
+    <a href="https://github.com/ssokolow/quicktile" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

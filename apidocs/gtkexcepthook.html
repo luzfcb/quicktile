@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>GUI Exception Handler (gtkexcepthook.py) &#8212; QuickTile 0.4 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Internal Global Hotkey Support (keybinder.py)" href="keybinder.html" />
+    <link rel="prev" title="D-Bus Interface (dbus_api.py)" href="dbus_api.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+    <link rel="canonical" href="http://ssokolow.com/quicktile/apidocs/gtkexcepthook.html"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<h1 class="logo"><a href="../index.html">QuickTile</a></h1>
+
+
+
+<p class="blurb">Keyboard-driven Window Tiling for your existing X11 window manager</p>
+
+
+
+
+
+
+
+
+    
+
+<p>
+<a class="badge" href="https://travis-ci.org/ssokolow/quicktile">
+    <img
+        alt="CI Test Status"
+        src="https://secure.travis-ci.org/ssokolow/quicktile.svg?branch=master"
+    />
+</a>
+</p>
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">API Documentation</a><ul>
+      <li>Previous: <a href="dbus_api.html" title="previous chapter">D-Bus Interface (<code class="docutils literal notranslate"><span class="pre">dbus_api.py</span></code>)</a></li>
+      <li>Next: <a href="keybinder.html" title="next chapter">Internal Global Hotkey Support (<code class="docutils literal notranslate"><span class="pre">keybinder.py</span></code>)</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script><div class="badges">
+    <p><a href="apt:python3,python3-pip,python3-setuptools,python3-gi,python3-xlib,python3-dbus,gir1.2-glib-2.0,gir1.2-gtk-3.0,gir1.2-wnck-3.0" class="btn" title="Install from configured repositories on Debian-based distros"><img src="../_static/img/debian_12.png" alt="Debian"><img src="../_static/img/ubuntu_12.png" alt="Ubuntu"><img src="../_static/img/mint_12.png" alt="Mint"> Install Dependencies</a></p>
+    <p><a href="http://github.com/ssokolow/quicktile/zipball/master" class="btn">Download QuickTile</a></p>
+    <p><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img src="../_static/license.svg" alt="License: GPLv2" /></a></p>
+</div><div class="contrib_box">
+    <h3>Tip Jar</h3>
+    <dl>
+        <dt>Code (Best)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://github.com/ssokolow/quicktile"
+                        title="GitHub Repo"><img
+                        src="../_static/contrib_box/github.png"
+                        alt="GitHub" /></a></li>
+                <li><a href="https://github.com/ssokolow/quicktile/issues"
+                        title="Bug Tracker"><img
+                        src="../_static/contrib_box/bug.png"
+                        alt="Bug Tracker" /></a></li>
+            </ul>
+        </dd>
+        <dt>Publicity (Better)</dt>
+        <dd>Show your friends</dd>
+        <dt>Snacks (Good)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://flattr.com/thing/674146"
+                        title="Flattr"><img
+                        src="../_static/contrib_box/flattr.png"
+                        alt="Flattr" /></a></li>
+                <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="EFWRR7EAQ993S"><input type="image" src="../_static/contrib_box/paypal.png" name="submit" alt="PayPal" title="PayPal"></form></li>
+                <li><a title="BitCoin"
+                    href="bitcoin:1Kp1i3nahunzzFs5a3mMF46uzca4oANH5C?label=QuickTile%20Donations"
+                    ><img
+                    src="../_static/contrib_box/bitcoin.png"
+                    alt="BitCoin"
+                /></a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--
+    bug.png and wrench.png from the Silk Icons set by Mark James, available at
+    http://www.famfamfam.com/lab/icons/silk/
+    are used under the Creative Commons Attribution 2.5 license.
+-->
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-quicktile.gtkexcepthook">
+<span id="gui-exception-handler-gtkexcepthook-py"></span><h1>GUI Exception Handler (<code class="docutils literal notranslate"><span class="pre">gtkexcepthook.py</span></code>)<a class="headerlink" href="#module-quicktile.gtkexcepthook" title="Permalink to this headline">¶</a></h1>
+<p>Graphical exception handler for PyGTK applications</p>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gtkexcepthook</span>
+<span class="n">gtkexcepthook</span><span class="o">.</span><span class="n">enable</span><span class="p">(</span><span class="n">optional_reporting_callback</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">©2003 Gustavo J A M Carneiro gjc at inescporto.pt</div>
+<div class="line">©2004-2005 Filip Van Raemdonck</div>
+<div class="line">©2009, 2011, 2017, 2019 Stephan Sokolow</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">daa</span><span class="o">.</span><span class="n">com</span><span class="o">.</span><span class="n">au</span><span class="o">/</span><span class="n">pipermail</span><span class="o">/</span><span class="n">pygtk</span><span class="o">/</span><span class="mi">2003</span><span class="o">-</span><span class="n">August</span><span class="o">/</span><span class="mf">005775.</span><span class="n">html</span>
+<span class="n">Message</span><span class="o">-</span><span class="n">ID</span><span class="p">:</span> <span class="o">&lt;</span><span class="mf">1062087716.1196</span><span class="o">.</span><span class="mf">5.</span><span class="n">camel</span><span class="nd">@emperor</span><span class="o">.</span><span class="n">homelinux</span><span class="o">.</span><span class="n">net</span><span class="o">&gt;</span>
+<span class="s2">&quot;The license is whatever you want.&quot;</span>
+</pre></div>
+</div>
+<p>Contains changes merged back from <a class="reference external" href="https://gist.github.com/ssokolow/f5219e4c8e4bddbba4d08101969445d1">qtexcepthook.py</a>, a Qt 5 port of
+<code class="file docutils literal notranslate"><span class="pre">gtkexcepthook.py</span></code> by Stephan Sokolow ©2019.</p>
+<dl class="simple">
+<dt>Changes from Van Raemdonck version:</dt><dd><ul class="simple">
+<li><p>Ported to PyGI and GTK 3.x</p></li>
+<li><p>Refactored code for maintainability and added MyPy type annotations</p></li>
+<li><p>Switched from auto-enable to <a class="reference internal" href="#quicktile.gtkexcepthook.enable" title="quicktile.gtkexcepthook.enable"><code class="xref any py py-func docutils literal notranslate"><span class="pre">gtkexcepthook.enable</span></code></a> to silence PyFlakes
+false positives. (Borrowed naming convention from cgitb)</p></li>
+<li><p>Split out traceback import to silence PyFlakes warning.</p></li>
+<li><p>Started to resolve PyLint complaints</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="api-documentation">
+<h2>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="quicktile.gtkexcepthook.ExceptionHandler">
+<em class="property">class </em><code class="sig-name descname">ExceptionHandler</code><span class="sig-paren">(</span><em class="sig-param">reporting_cb=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#ExceptionHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.ExceptionHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>GTK-based graphical exception handler</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reporting_cb</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>], <code class="docutils literal notranslate"><span class="pre">None</span></code>]]) – A callback to be exposed via a <span class="guilabel">Report…</span>
+button which will receive the formatted traceback as a string.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="quicktile.gtkexcepthook.ExceptionHandler.__call__">
+<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">exctyp</em>, <em class="sig-param">value</em>, <em class="sig-param">tback</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#ExceptionHandler.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.ExceptionHandler.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Custom <a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.excepthook" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">sys.excepthook</span></code></a> callback which displays a GTK dialog</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tback</strong> (<a class="reference external" href="https://docs.python.org/3/library/types.html#types.TracebackType" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TracebackType</span></code></a>) – </p></li>
+<li><p><strong>exctyp</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/exceptions.html#BaseException" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseException</span></code></a>]) – </p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/exceptions.html#BaseException" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseException</span></code></a>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="quicktile.gtkexcepthook.ExceptionHandler.make_details_dialog">
+<em class="property">static </em><code class="sig-name descname">make_details_dialog</code><span class="sig-paren">(</span><em class="sig-param">parent</em>, <em class="sig-param">text</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#ExceptionHandler.make_details_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.ExceptionHandler.make_details_dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize and return the details dialog</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<a class="reference external" href="https://lazka.github.io/pgi-docs/Gtk-3.0/classes/MessageDialog.html#Gtk.MessageDialog" title="(in Gtk 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gtk.MessageDialog</span></code></a>) – A reference to the dialog from <a class="reference internal" href="#quicktile.gtkexcepthook.ExceptionHandler.make_info_dialog" title="quicktile.gtkexcepthook.ExceptionHandler.make_info_dialog"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">make_info_dialog</span></code></a>.</p></li>
+<li><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The contents of the formatted traceback.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://lazka.github.io/pgi-docs/Gtk-3.0/classes/MessageDialog.html#Gtk.MessageDialog" title="(in Gtk 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gtk.MessageDialog</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="quicktile.gtkexcepthook.ExceptionHandler.make_info_dialog">
+<code class="sig-name descname">make_info_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#ExceptionHandler.make_info_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.ExceptionHandler.make_info_dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize and return the top-level dialog</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://lazka.github.io/pgi-docs/Gtk-3.0/classes/MessageDialog.html#Gtk.MessageDialog" title="(in Gtk 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gtk.MessageDialog</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="quicktile.gtkexcepthook.Scope">
+<em class="property">class </em><code class="sig-name descname">Scope</code><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#Scope"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.Scope" title="Permalink to this definition">¶</a></dt>
+<dd><p>The scope of a variable looked up by <a class="reference internal" href="#quicktile.gtkexcepthook.lookup" title="quicktile.gtkexcepthook.lookup"><code class="xref any py py-func docutils literal notranslate"><span class="pre">lookup</span></code></a></p>
+<dl class="attribute">
+<dt id="quicktile.gtkexcepthook.Scope.Builtin">
+<code class="sig-name descname">Builtin</code><em class="property"> = 1</em><a class="headerlink" href="#quicktile.gtkexcepthook.Scope.Builtin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="quicktile.gtkexcepthook.Scope.Global">
+<code class="sig-name descname">Global</code><em class="property"> = 2</em><a class="headerlink" href="#quicktile.gtkexcepthook.Scope.Global" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="quicktile.gtkexcepthook.Scope.Local">
+<code class="sig-name descname">Local</code><em class="property"> = 3</em><a class="headerlink" href="#quicktile.gtkexcepthook.Scope.Local" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="quicktile.gtkexcepthook.Scope.NONE">
+<code class="sig-name descname">NONE</code><em class="property"> = None</em><a class="headerlink" href="#quicktile.gtkexcepthook.Scope.NONE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="quicktile.gtkexcepthook.analyse">
+<code class="sig-name descname">analyse</code><span class="sig-paren">(</span><em class="sig-param">exctyp</em>, <em class="sig-param">value</em>, <em class="sig-param">tracebk</em>, <em class="sig-param">context_lines=3</em>, <em class="sig-param">max_width=80</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#analyse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.analyse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a traceback, including the contents of variables in each
+stack frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exctyp</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/exceptions.html#BaseException" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseException</span></code></a>]) – Used for class name.</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/exceptions.html#BaseException" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseException</span></code></a>) – Used for exception message.</p></li>
+<li><p><strong>tracebk</strong> (<a class="reference external" href="https://docs.python.org/3/library/types.html#types.TracebackType" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TracebackType</span></code></a>) – Used for everything else.</p></li>
+<li><p><strong>context_lines</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – See the <code class="docutils literal notranslate"><span class="pre">context</span></code> argument to
+<a class="reference external" href="https://docs.python.org/3/library/inspect.html#inspect.getinnerframes" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">inspect.getinnerframes</span></code></a></p></li>
+<li><p><strong>max_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Width to hard word-wrap to.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/io.html#io.StringIO" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringIO</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The formatted traceback</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="quicktile.gtkexcepthook.enable">
+<code class="sig-name descname">enable</code><span class="sig-paren">(</span><em class="sig-param">reporting_cb=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#enable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.enable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call this to set gtkexcepthook as the default exception handler</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reporting_cb</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>], <code class="docutils literal notranslate"><span class="pre">None</span></code>]]) – <p>If provided, this callback will be exposed in the
+dialog as a <span class="guilabel">Report…</span> button.</p>
+<p>The function will receive the same formatted traceback visible via
+the <span class="guilabel">Details…</span> button.</p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="quicktile.gtkexcepthook.gather_vars">
+<code class="sig-name descname">gather_vars</code><span class="sig-paren">(</span><em class="sig-param">frame_rec</em>, <em class="sig-param">local_vars</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#gather_vars"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.gather_vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract all the local variables from the given traceback frame using
+<a class="reference internal" href="#quicktile.gtkexcepthook.lookup" title="quicktile.gtkexcepthook.lookup"><code class="xref py py-func docutils literal notranslate"><span class="pre">lookup()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frame_rec</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">FrameInfo</span></code>) – A frame info object originally retrieved via
+<a class="reference external" href="https://docs.python.org/3/library/inspect.html#inspect.getinnerframes" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">inspect.getinnerframes</span></code></a>.</p></li>
+<li><p><strong>local_vars</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – A cached locals dict originally retrieved via
+<a class="reference external" href="https://docs.python.org/3/library/inspect.html#inspect.getargvalues" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">inspect.getargvalues</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dict of the local variables.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="quicktile.gtkexcepthook.lookup">
+<code class="sig-name descname">lookup</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">frame</em>, <em class="sig-param">local_vars</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#lookup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.lookup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the value for a given name in the given frame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Name of the variable to look up.</p></li>
+<li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/types.html#types.FrameType" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">FrameType</span></code></a>) – A frame object originally retrieved via
+<a class="reference external" href="https://docs.python.org/3/library/inspect.html#inspect.getinnerframes" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">inspect.getinnerframes</span></code></a>.</p></li>
+<li><p><strong>local_vars</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – A cached locals dict originally retrieved via
+<a class="reference external" href="https://docs.python.org/3/library/inspect.html#inspect.getargvalues" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">inspect.getargvalues</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference internal" href="#quicktile.gtkexcepthook.Scope" title="quicktile.gtkexcepthook.Scope"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scope</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A tuple of a <a class="reference internal" href="#quicktile.gtkexcepthook.Scope" title="quicktile.gtkexcepthook.Scope"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Scope</span></code></a> and the requested value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="quicktile.gtkexcepthook.tokenize_frame">
+<code class="sig-name descname">tokenize_frame</code><span class="sig-paren">(</span><em class="sig-param">frame_rec</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#tokenize_frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.tokenize_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generator which produces a lexical token stream from a frame record</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>frame_rec</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">FrameInfo</span></code>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generator" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TokenInfo</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2009-2020, Stephan Sokolow.
+      
+      |
+      <a href="../_sources/apidocs/gtkexcepthook.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/ssokolow/quicktile" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

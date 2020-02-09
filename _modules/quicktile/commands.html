@@ -1,0 +1,732 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>quicktile.commands &#8212; QuickTile 0.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+    <link rel="canonical" href="http://ssokolow.com/quicktile/_modules/quicktile/commands.html"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<h1 class="logo"><a href="../../index.html">QuickTile</a></h1>
+
+
+
+<p class="blurb">Keyboard-driven Window Tiling for your existing X11 window manager</p>
+
+
+
+
+
+
+
+
+    
+
+<p>
+<a class="badge" href="https://travis-ci.org/ssokolow/quicktile">
+    <img
+        alt="CI Test Status"
+        src="https://secure.travis-ci.org/ssokolow/quicktile.svg?branch=master"
+    />
+</a>
+</p>
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script><div class="badges">
+    <p><a href="apt:python3,python3-pip,python3-setuptools,python3-gi,python3-xlib,python3-dbus,gir1.2-glib-2.0,gir1.2-gtk-3.0,gir1.2-wnck-3.0" class="btn" title="Install from configured repositories on Debian-based distros"><img src="../../_static/img/debian_12.png" alt="Debian"><img src="../../_static/img/ubuntu_12.png" alt="Ubuntu"><img src="../../_static/img/mint_12.png" alt="Mint"> Install Dependencies</a></p>
+    <p><a href="http://github.com/ssokolow/quicktile/zipball/master" class="btn">Download QuickTile</a></p>
+    <p><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img src="../../_static/license.svg" alt="License: GPLv2" /></a></p>
+</div><div class="contrib_box">
+    <h3>Tip Jar</h3>
+    <dl>
+        <dt>Code (Best)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://github.com/ssokolow/quicktile"
+                        title="GitHub Repo"><img
+                        src="../../_static/contrib_box/github.png"
+                        alt="GitHub" /></a></li>
+                <li><a href="https://github.com/ssokolow/quicktile/issues"
+                        title="Bug Tracker"><img
+                        src="../../_static/contrib_box/bug.png"
+                        alt="Bug Tracker" /></a></li>
+            </ul>
+        </dd>
+        <dt>Publicity (Better)</dt>
+        <dd>Show your friends</dd>
+        <dt>Snacks (Good)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://flattr.com/thing/674146"
+                        title="Flattr"><img
+                        src="../../_static/contrib_box/flattr.png"
+                        alt="Flattr" /></a></li>
+                <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="EFWRR7EAQ993S"><input type="image" src="../../_static/contrib_box/paypal.png" name="submit" alt="PayPal" title="PayPal"></form></li>
+                <li><a title="BitCoin"
+                    href="bitcoin:1Kp1i3nahunzzFs5a3mMF46uzca4oANH5C?label=QuickTile%20Donations"
+                    ><img
+                    src="../../_static/contrib_box/bitcoin.png"
+                    alt="BitCoin"
+                /></a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--
+    bug.png and wrench.png from the Silk Icons set by Mark James, available at
+    http://www.famfamfam.com/lab/icons/silk/
+    are used under the Creative Commons Attribution 2.5 license.
+-->
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for quicktile.commands</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Available window-management commands</span>
+
+<span class="sd">.. todo:: Replace varargs with a dict so ``CommandCBWrapper`` can be strict.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Stephan Sokolow (deitarion/SSokolow)&quot;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;GNU GPL 2.0 or later&quot;</span>
+
+<span class="c1"># Silence PyLint being flat-out wrong about MyPy type annotations and</span>
+<span class="c1"># complaining about my grouped imports</span>
+<span class="c1"># pylint: disable=unsubscriptable-object,invalid-sequence-index</span>
+<span class="c1"># pylint: disable=wrong-import-order</span>
+
+<span class="kn">import</span> <span class="nn">logging</span><span class="o">,</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+
+<span class="kn">from</span> <span class="nn">Xlib</span> <span class="kn">import</span> <span class="n">Xatom</span>
+
+<span class="kn">import</span> <span class="nn">gi</span>
+<span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span class="s1">&#39;Gdk&#39;</span><span class="p">,</span> <span class="s1">&#39;3.0&#39;</span><span class="p">)</span>
+<span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span class="s1">&#39;Wnck&#39;</span><span class="p">,</span> <span class="s1">&#39;3.0&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">gi.repository</span> <span class="kn">import</span> <span class="n">Gdk</span><span class="p">,</span> <span class="n">GdkX11</span><span class="p">,</span> <span class="n">Wnck</span>
+<span class="kn">from</span> <span class="nn">gi.repository.Wnck</span> <span class="kn">import</span> <span class="n">MotionDirection</span>
+
+<span class="kn">from</span> <span class="nn">.layout</span> <span class="kn">import</span> <span class="n">resolve_fractional_geom</span><span class="p">,</span> <span class="n">GravityLayout</span>
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">Rectangle</span><span class="p">,</span> <span class="n">clamp_idx</span><span class="p">,</span> <span class="n">fmt_table</span>
+
+<span class="c1"># -- Type-Annotation Imports --</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">.wm</span> <span class="kn">import</span> <span class="n">WindowManager</span>
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">CommandCB</span><span class="p">,</span> <span class="n">Gravity</span>
+
+<span class="c1">#: MyPy type alias for what gets stored in `CommandRegistry`</span>
+<span class="n">CommandCBWrapper</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>  <span class="c1"># pylint: disable=invalid-name</span>
+<span class="c1"># --</span>
+
+
+<div class="viewcode-block" id="CommandRegistry"><a class="viewcode-back" href="../../apidocs/commands.html#quicktile.commands.CommandRegistry">[docs]</a><span class="k">class</span> <span class="nc">CommandRegistry</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Lookup and dispatch boilerplate for window management commands.&quot;&quot;&quot;</span>
+
+    <span class="c1">#: Fields to be added to the ``state`` argument when calling commands</span>
+    <span class="n">extra_state</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># type: Dict[str, Any]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">commands</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># type: Dict[str, CommandCBWrapper]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="p">{}</span>      <span class="c1"># type: Dict[str, str]</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">commands</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">name</span>
+
+<div class="viewcode-block" id="CommandRegistry.__str__"><a class="viewcode-back" href="../../apidocs/commands.html#quicktile.commands.CommandRegistry.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Pretty-print a table of registered commands&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">fmt_table</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">help</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;Known Commands&#39;</span><span class="p">,</span> <span class="s1">&#39;desc&#39;</span><span class="p">),</span> <span class="n">group_by</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CommandRegistry.get_window_meta"><a class="viewcode-back" href="../../apidocs/commands.html#quicktile.commands.CommandRegistry.get_window_meta">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_window_meta</span><span class="p">(</span>
+            <span class="n">window</span><span class="p">:</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">winman</span><span class="p">:</span> <span class="n">WindowManager</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gather information about ``window`` to pass to the command</span>
+
+<span class="sd">        :param window: The window to inspect.</span>
+<span class="sd">        :param state: The metadata dict to :meth:`dict.update` with gathered</span>
+<span class="sd">            values.</span>
+<span class="sd">        :returns: A boolean indicating success or failure.</span>
+
+<span class="sd">        .. todo:: Is the MPlayer safety hack in :meth:`get_window_meta` still</span>
+<span class="sd">            necessary with the refactored window-handling code?</span>
+<span class="sd">        .. todo:: Can the :func:`logging.debug` call in :meth:`get_window_meta`</span>
+<span class="sd">            be reworked to call :meth:`Wnck.Window.get_name` lazily?</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Bail out early on None or things like the desktop window</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">winman</span><span class="o">.</span><span class="n">is_relevant</span><span class="p">(</span><span class="n">window</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">win_rect</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="o">*</span><span class="n">window</span><span class="o">.</span><span class="n">get_geometry</span><span class="p">())</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Operating on window </span><span class="si">%r</span><span class="s2"> with title </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s2"> &quot;</span>
+                      <span class="s2">&quot;and geometry </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">window</span><span class="o">.</span><span class="n">get_name</span><span class="p">(),</span> <span class="n">win_rect</span><span class="p">)</span>
+
+        <span class="n">monitor_id</span><span class="p">,</span> <span class="n">monitor_geom</span> <span class="o">=</span> <span class="n">winman</span><span class="o">.</span><span class="n">get_monitor</span><span class="p">(</span><span class="n">window</span><span class="p">)</span>
+
+        <span class="c1"># MPlayer safety hack</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">winman</span><span class="o">.</span><span class="n">usable_region</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Received a worthless value for largest &quot;</span>
+                          <span class="s2">&quot;rectangular subset of desktop (</span><span class="si">%r</span><span class="s2">). Doing &quot;</span>
+                          <span class="s2">&quot;nothing.&quot;</span><span class="p">,</span> <span class="n">winman</span><span class="o">.</span><span class="n">usable_region</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">state</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+            <span class="s2">&quot;monitor_id&quot;</span><span class="p">:</span> <span class="n">monitor_id</span><span class="p">,</span>
+            <span class="s2">&quot;monitor_geom&quot;</span><span class="p">:</span> <span class="n">monitor_geom</span><span class="p">,</span>
+        <span class="p">})</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="CommandRegistry.add"><a class="viewcode-back" href="../../apidocs/commands.html#quicktile.commands.CommandRegistry.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">p_args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">p_kwargs</span><span class="p">:</span> <span class="n">Any</span>
+            <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">CommandCB</span><span class="p">],</span> <span class="n">CommandCB</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Decorator to wrap a function in boilerplate and add it to the</span>
+<span class="sd">            command registry under the given name.</span>
+
+<span class="sd">            :note: The ``windowless`` parameter allows a command to be</span>
+<span class="sd">                registered as not requiring an active window.</span>
+
+<span class="sd">            :param name: The name to register the command for lookup by.</span>
+<span class="sd">            :param p_args: Positional arguments to prepend to all calls made</span>
+<span class="sd">                via ``name``.</span>
+<span class="sd">            :param p_kwargs: Keyword arguments to prepend to all calls made</span>
+<span class="sd">                via ``name``.</span>
+<span class="sd">            :param bool windowless: Allow the command to be invoked when no</span>
+<span class="sd">                relevant active window can be retrieved.</span>
+
+<span class="sd">            :raises AssertionError: Raised if the wrapped function has no</span>
+<span class="sd">                docstring.</span>
+
+<span class="sd">            .. todo:: Refactor :meth:`add` to make it less of an ugly pile.</span>
+<span class="sd">            .. todo:: Rethink the return value expected of command functions.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">decorate</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">CommandCB</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CommandCB</span><span class="p">:</span>
+            <span class="sd">&quot;&quot;&quot;Closure used to allow decorator to take arguments&quot;&quot;&quot;</span>
+            <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+            <span class="c1"># pylint: disable=missing-docstring</span>
+            <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">winman</span><span class="p">:</span> <span class="n">WindowManager</span><span class="p">,</span>
+                        <span class="n">window</span><span class="p">:</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+                        <span class="o">**</span><span class="n">kwargs</span>
+                        <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+                <span class="n">window</span> <span class="o">=</span> <span class="n">window</span> <span class="ow">or</span> <span class="n">winman</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">get_active_window</span><span class="p">()</span>
+
+                <span class="n">state</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="n">state</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extra_state</span><span class="p">)</span>
+                <span class="n">state</span><span class="p">[</span><span class="s2">&quot;cmd_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+
+                <span class="c1"># FIXME: Refactor to avoid this hack</span>
+                <span class="n">windowless</span> <span class="o">=</span> <span class="n">p_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;windowless&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s1">&#39;windowless&#39;</span> <span class="ow">in</span> <span class="n">p_kwargs</span><span class="p">:</span>
+                    <span class="k">del</span> <span class="n">p_kwargs</span><span class="p">[</span><span class="s1">&#39;windowless&#39;</span><span class="p">]</span>
+
+                <span class="c1"># Bail out early on None or things like the desktop window</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">windowless</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_window_meta</span><span class="p">(</span>
+                        <span class="n">window</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">winman</span><span class="p">)):</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;No window and windowless=False&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">None</span>
+
+                <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">p_args</span> <span class="o">+</span> <span class="n">args</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">p_kwargs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+                <span class="c1"># TODO: Factor out this hack</span>
+                <span class="k">if</span> <span class="s1">&#39;cmd_idx&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                    <span class="n">state</span><span class="p">[</span><span class="s1">&#39;cmd_idx&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cmd_idx&#39;</span><span class="p">]</span>
+                    <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cmd_idx&#39;</span><span class="p">]</span>
+
+                <span class="n">func</span><span class="p">(</span><span class="n">winman</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">commands</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Redefining existing command: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">commands</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">wrapper</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">func</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;All commands must have a docstring: &quot;</span>
+                                     <span class="s2">&quot;</span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">func</span><span class="p">)</span>
+            <span class="n">help_str</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="vm">__doc__</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;. &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">help</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">help_str</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Return the unwrapped function so decorators can be stacked</span>
+            <span class="c1"># to define multiple commands using the same code with different</span>
+            <span class="c1"># arguments</span>
+            <span class="k">return</span> <span class="n">func</span>
+        <span class="k">return</span> <span class="n">decorate</span></div>
+
+<div class="viewcode-block" id="CommandRegistry.add_many"><a class="viewcode-back" href="../../apidocs/commands.html#quicktile.commands.CommandRegistry.add_many">[docs]</a>    <span class="k">def</span> <span class="nf">add_many</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span>
+                 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">CommandCB</span><span class="p">],</span> <span class="n">CommandCB</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Convenience decorator to call :meth:`add` repeatedly to assing</span>
+<span class="sd">           multiple command names to the same function which differ only in</span>
+<span class="sd">           their arguments.</span>
+
+<span class="sd">           :param command_map: A dict mapping command names to lists of</span>
+<span class="sd">                arguments.</span>
+
+<span class="sd">           .. todo:: Refactor and redesign :meth:`add_many` for better</span>
+<span class="sd">              maintainability.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: What&#39;s the type signature on `decorate`?</span>
+        <span class="k">def</span> <span class="nf">decorate</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;Closure used to allow decorator to take arguments&quot;&quot;&quot;</span>
+            <span class="k">for</span> <span class="n">pos</span><span class="p">,</span> <span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">arglist</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">command_map</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">cmd_idx</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="o">*</span><span class="n">arglist</span><span class="p">)(</span><span class="n">func</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">func</span>
+        <span class="k">return</span> <span class="n">decorate</span></div>
+
+<div class="viewcode-block" id="CommandRegistry.call"><a class="viewcode-back" href="../../apidocs/commands.html#quicktile.commands.CommandRegistry.call">[docs]</a>    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">winman</span><span class="p">:</span> <span class="n">WindowManager</span><span class="p">,</span>
+            <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Look up a registered command by name and execute it.</span>
+
+<span class="sd">        :param command: The name of the command to execute.</span>
+<span class="sd">        :param args: Positional arguments to pass to the command.</span>
+<span class="sd">        :param kwargs: Keyword arguments to pass to the command.</span>
+
+<span class="sd">        .. todo:: Allow commands to report success or failure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">cmd</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing command &#39;</span><span class="si">%s</span><span class="s2">&#39; with arguments </span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+                          <span class="n">command</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+
+            <span class="c1"># Workaround for #107 until I&#39;m ready to solve it properly</span>
+            <span class="n">winman</span><span class="o">.</span><span class="n">update_geometry_cache</span><span class="p">()</span>
+
+            <span class="n">cmd</span><span class="p">(</span><span class="n">winman</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unrecognized command: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div></div>
+
+
+<span class="c1">#: The instance of :class:`CommandRegistry` to be used in 99.9% of use cases.</span>
+<span class="n">commands</span> <span class="o">=</span> <span class="n">CommandRegistry</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="cycle_dimensions"><a class="viewcode-back" href="../../apidocs/commands.html#quicktile.commands.cycle_dimensions">[docs]</a><span class="k">def</span> <span class="nf">cycle_dimensions</span><span class="p">(</span><span class="n">winman</span><span class="p">:</span> <span class="n">WindowManager</span><span class="p">,</span>
+                     <span class="n">win</span><span class="p">:</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="p">,</span>
+                     <span class="n">state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+                     <span class="o">*</span><span class="n">dimensions</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
+                     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Rectangle</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Cycle the active window through a list of positions and shapes.</span>
+
+<span class="sd">    Takes one step each time this function is called.</span>
+
+<span class="sd">    Keeps track of its position by storing the index in an X11 property on</span>
+<span class="sd">    ``win`` named ``_QUICKTILE_CYCLE_POS``.</span>
+
+<span class="sd">    :param dimensions: A list of tuples representing window geometries as</span>
+<span class="sd">        floating-point values between 0 and 1, inclusive.</span>
+<span class="sd">    :param win: The window to operate on.</span>
+<span class="sd">    :returns: The new window dimensions.</span>
+
+<span class="sd">    .. todo:: Refactor :func:`cycle_dimensions` to be less of a big pile.</span>
+<span class="sd">    .. todo:: Consider replacing the ``dimensions`` argument to</span>
+<span class="sd">        :func:`cycle_dimensions` with a custom type.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">monitor_rect</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;monitor_geom&#39;</span><span class="p">]</span>
+    <span class="n">win_rect_rel</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="o">*</span><span class="n">win</span><span class="o">.</span><span class="n">get_geometry</span><span class="p">())</span><span class="o">.</span><span class="n">to_relative</span><span class="p">(</span><span class="n">monitor_rect</span><span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Selected preset sequence:</span><span class="se">\n\t</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">)</span>
+
+    <span class="c1"># Resolve proportional (eg. 0.5) and preserved (None) coordinates</span>
+    <span class="n">dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">resolve_fractional_geom</span><span class="p">(</span><span class="n">i</span> <span class="ow">or</span> <span class="n">win_rect_rel</span><span class="p">,</span> <span class="n">monitor_rect</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dimensions</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">dims</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Selected preset sequence resolves to these monitor-relative&quot;</span>
+                  <span class="s2">&quot; pixel dimensions:</span><span class="se">\n\t</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dims</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cmd_idx</span><span class="p">,</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">winman</span><span class="o">.</span><span class="n">get_property</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="s1">&#39;_QUICKTILE_CYCLE_POS&#39;</span><span class="p">,</span>
+                                           <span class="n">Xatom</span><span class="o">.</span><span class="n">INTEGER</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Got saved cycle position: </span><span class="si">%r</span><span class="s2">, </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cmd_idx</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>  <span class="c1"># TODO: Is TypeError still possible?</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Restarting cycle position sequence&quot;</span><span class="p">)</span>
+        <span class="n">cmd_idx</span><span class="p">,</span> <span class="n">pos</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">cmd_idx</span> <span class="o">==</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cmd_idx&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">winman</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="s1">&#39;_QUICKTILE_CYCLE_POS&#39;</span><span class="p">,</span>
+        <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cmd_idx&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">pos</span><span class="p">],</span>
+        <span class="n">prop_type</span><span class="o">=</span><span class="n">Xatom</span><span class="o">.</span><span class="n">INTEGER</span><span class="p">,</span> <span class="n">format_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: Optional[Rectangle]</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="o">*</span><span class="n">dims</span><span class="p">[</span><span class="n">pos</span><span class="p">])</span><span class="o">.</span><span class="n">from_relative</span><span class="p">(</span><span class="n">monitor_rect</span><span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Target preset is </span><span class="si">%s</span><span class="s2"> relative to monitor </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                  <span class="n">result</span><span class="p">,</span> <span class="n">monitor_rect</span><span class="p">)</span>
+
+    <span class="c1"># If we&#39;re overlapping a panel, fall back to a monitor-specific</span>
+    <span class="c1"># analogue to _NET_WORKAREA to prevent overlapping any panels and</span>
+    <span class="c1"># risking the WM potentially meddling with the result of resposition()</span>
+    <span class="n">test_result</span> <span class="o">=</span> <span class="n">winman</span><span class="o">.</span><span class="n">usable_region</span><span class="o">.</span><span class="n">clip_to_usable_region</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">test_result</span> <span class="o">!=</span> <span class="n">result</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">test_result</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Result exceeds usable (non-rectangular) region of &quot;</span>
+                      <span class="s2">&quot;desktop. (overlapped a non-fullwidth panel?) Reducing &quot;</span>
+                      <span class="s2">&quot;to within largest usable rectangle: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">test_result</span><span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Calling reposition() with default gravity and dimensions &quot;</span>
+                  <span class="s2">&quot;</span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+    <span class="n">winman</span><span class="o">.</span><span class="n">reposition</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="cycle_monitors"><a class="viewcode-back" href="../../apidocs/commands.html#quicktile.commands.cycle_monitors">[docs]</a><span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;monitor-switch&#39;</span><span class="p">,</span> <span class="n">force_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;monitor-next&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;monitor-prev&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cycle_monitors</span><span class="p">(</span><span class="n">winman</span><span class="p">:</span> <span class="n">WindowManager</span><span class="p">,</span>  <span class="c1"># pylint: disable=too-many-arguments</span>
+                   <span class="n">win</span><span class="p">:</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="p">,</span>
+                   <span class="n">state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+                   <span class="n">step</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                   <span class="n">force_wrap</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                   <span class="n">n_monitors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span>
+                   <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Cycle the active window between monitors.</span>
+
+<span class="sd">    Attempts to preserve each window&#39;s position but will ensure that it doesn&#39;t</span>
+<span class="sd">    get placed outside the available space on the target monitor.</span>
+
+<span class="sd">    :param win: The window to operate on.</span>
+<span class="sd">    :param step: How many monitors to step forward or backward.</span>
+<span class="sd">    :param force_wrap: If :any`True`, this will override setting</span>
+<span class="sd">        :ref:`MovementsWrap &lt;MovementsWrap&gt;` to :any:`False`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">old_mon_id</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">winman</span><span class="o">.</span><span class="n">get_monitor</span><span class="p">(</span><span class="n">win</span><span class="p">)</span>
+    <span class="n">n_monitors</span> <span class="o">=</span> <span class="n">n_monitors</span> <span class="ow">or</span> <span class="n">winman</span><span class="o">.</span><span class="n">gdk_screen</span><span class="o">.</span><span class="n">get_n_monitors</span><span class="p">()</span>
+    <span class="n">do_wrapping</span> <span class="o">=</span> <span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;config&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">getboolean</span><span class="p">(</span><span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="s1">&#39;MovementsWrap&#39;</span><span class="p">)</span> <span class="ow">or</span>
+                   <span class="n">force_wrap</span><span class="p">)</span>
+
+    <span class="n">new_mon_id</span> <span class="o">=</span> <span class="n">clamp_idx</span><span class="p">(</span><span class="n">old_mon_id</span> <span class="o">+</span> <span class="n">step</span><span class="p">,</span> <span class="n">n_monitors</span><span class="p">,</span> <span class="n">do_wrapping</span><span class="p">)</span>
+    <span class="n">new_mon_geom</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="o">.</span><span class="n">from_gdk</span><span class="p">(</span>
+        <span class="n">winman</span><span class="o">.</span><span class="n">gdk_screen</span><span class="o">.</span><span class="n">get_monitor_geometry</span><span class="p">(</span><span class="n">new_mon_id</span><span class="p">))</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Moving window to monitor </span><span class="si">%s</span><span class="s2">, which has geometry </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                  <span class="n">new_mon_id</span><span class="p">,</span> <span class="n">new_mon_geom</span><span class="p">)</span>
+
+    <span class="n">winman</span><span class="o">.</span><span class="n">reposition</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">new_mon_geom</span><span class="p">,</span> <span class="n">keep_maximize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="cycle_monitors_all"><a class="viewcode-back" href="../../apidocs/commands.html#quicktile.commands.cycle_monitors_all">[docs]</a><span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;monitor-switch-all&#39;</span><span class="p">,</span> <span class="n">force_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;monitor-prev-all&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;monitor-next-all&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cycle_monitors_all</span><span class="p">(</span>
+        <span class="n">winman</span><span class="p">:</span> <span class="n">WindowManager</span><span class="p">,</span>
+        <span class="n">win</span><span class="p">:</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="p">,</span>
+        <span class="n">state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">step</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">force_wrap</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Cycle all windows between monitors.</span>
+
+<span class="sd">    (Apply :func:`cycle_monitors` to all windows.)</span>
+
+<span class="sd">    Attempts to preserve each window&#39;s position but will ensure that it doesn&#39;t</span>
+<span class="sd">    get placed outside the available space on the target monitor.</span>
+
+<span class="sd">    :param win: The window to operate on.</span>
+<span class="sd">    :param step: Passed to :func:`cycle_monitors`</span>
+<span class="sd">    :param force_wrap: Passed to :func:`cycle_monitors`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Have to specify types in the description pending a fix for</span>
+    <span class="c1"># https://github.com/agronholm/sphinx-autodoc-typehints/issues/124</span>
+
+    <span class="n">n_monitors</span> <span class="o">=</span> <span class="n">winman</span><span class="o">.</span><span class="n">gdk_screen</span><span class="o">.</span><span class="n">get_n_monitors</span><span class="p">()</span>
+    <span class="n">curr_workspace</span> <span class="o">=</span> <span class="n">win</span><span class="o">.</span><span class="n">get_workspace</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">curr_workspace</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;get_workspace() returned None&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">for</span> <span class="n">window</span> <span class="ow">in</span> <span class="n">winman</span><span class="o">.</span><span class="n">get_relevant_windows</span><span class="p">(</span><span class="n">curr_workspace</span><span class="p">):</span>
+        <span class="n">cycle_monitors</span><span class="p">(</span><span class="n">winman</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">force_wrap</span><span class="p">,</span> <span class="n">n_monitors</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="move_to_position"><a class="viewcode-back" href="../../apidocs/commands.html#quicktile.commands.move_to_position">[docs]</a><span class="nd">@commands</span><span class="o">.</span><span class="n">add_many</span><span class="p">({</span><span class="s1">&#39;move-to-</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">):</span> <span class="p">[</span><span class="n">variant</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">variant</span> <span class="ow">in</span> <span class="n">GravityLayout</span><span class="o">.</span><span class="n">GRAVITIES</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
+<span class="k">def</span> <span class="nf">move_to_position</span><span class="p">(</span><span class="n">winman</span><span class="p">:</span> <span class="n">WindowManager</span><span class="p">,</span>
+                     <span class="n">win</span><span class="p">:</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="p">,</span>
+                     <span class="n">state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+                     <span class="n">gravity</span><span class="p">:</span> <span class="n">Gravity</span><span class="p">,</span>
+                     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Move the active window to a position on the screen, preserving its</span>
+<span class="sd">    dimensions.</span>
+
+<span class="sd">    :param win: The window to operate on.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">monitor_rect</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;monitor_geom&#39;</span><span class="p">]</span>
+    <span class="n">win_rect</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="o">*</span><span class="n">win</span><span class="o">.</span><span class="n">get_geometry</span><span class="p">())</span>
+
+    <span class="c1"># Build a target rectangle</span>
+    <span class="c1"># TODO: Think about ways to refactor scaling for better maintainability</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">gravity</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">monitor_rect</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">gravity</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">monitor_rect</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">win_rect</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">win_rect</span><span class="o">.</span><span class="n">height</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">from_gravity</span><span class="p">(</span><span class="n">gravity</span><span class="p">)</span><span class="o">.</span><span class="n">from_relative</span><span class="p">(</span><span class="n">monitor_rect</span><span class="p">)</span>
+
+    <span class="c1"># Push it out from under any panels</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Clipping rectangle </span><span class="si">%r</span><span class="se">\n\t</span><span class="s2">to usable region </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span>
+                  <span class="n">target</span><span class="p">,</span> <span class="n">winman</span><span class="o">.</span><span class="n">usable_region</span><span class="p">)</span>
+    <span class="n">confined_target</span> <span class="o">=</span> <span class="n">winman</span><span class="o">.</span><span class="n">usable_region</span><span class="o">.</span><span class="n">move_to_usable_region</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+
+    <span class="c1"># Actually reposition the window</span>
+    <span class="c1"># (and be doubly-sure we&#39;re not going to resize it by accident)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Calling reposition() with dimensions </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">confined_target</span><span class="p">)</span>
+    <span class="n">winman</span><span class="o">.</span><span class="n">reposition</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="n">confined_target</span><span class="p">,</span> <span class="n">keep_maximize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">geometry_mask</span><span class="o">=</span><span class="n">Wnck</span><span class="o">.</span><span class="n">WindowMoveResizeMask</span><span class="o">.</span><span class="n">X</span> <span class="o">|</span>
+                      <span class="n">Wnck</span><span class="o">.</span><span class="n">WindowMoveResizeMask</span><span class="o">.</span><span class="n">Y</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="toggle_decorated"><a class="viewcode-back" href="../../apidocs/commands.html#quicktile.commands.toggle_decorated">[docs]</a><span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;bordered&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">toggle_decorated</span><span class="p">(</span>
+    <span class="n">winman</span><span class="p">:</span> <span class="n">WindowManager</span><span class="p">,</span>
+    <span class="n">win</span><span class="p">:</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="p">,</span>
+    <span class="n">state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>  <span class="c1"># pylint: disable=unused-argument</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Toggle window decoration state on the active window.</span>
+
+<span class="sd">    :param win: The window to operate on.</span>
+<span class="sd">    :param state: Unused</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Have to specify types in the description pending a fix for</span>
+    <span class="c1"># https://github.com/agronholm/sphinx-autodoc-typehints/issues/124</span>
+
+    <span class="c1"># TODO: Switch to setting this via python-xlib</span>
+    <span class="n">display</span> <span class="o">=</span> <span class="n">winman</span><span class="o">.</span><span class="n">gdk_screen</span><span class="o">.</span><span class="n">get_display</span><span class="p">()</span>
+    <span class="n">win</span> <span class="o">=</span> <span class="n">GdkX11</span><span class="o">.</span><span class="n">X11Window</span><span class="o">.</span><span class="n">foreign_new_for_display</span><span class="p">(</span><span class="n">display</span><span class="p">,</span> <span class="n">win</span><span class="o">.</span><span class="n">get_xid</span><span class="p">())</span>
+    <span class="n">win</span><span class="o">.</span><span class="n">set_decorations</span><span class="p">(</span><span class="n">Gdk</span><span class="o">.</span><span class="n">WMDecoration</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="k">if</span> <span class="n">win</span><span class="o">.</span><span class="n">get_decorations</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span> <span class="n">Gdk</span><span class="o">.</span><span class="n">WMDecoration</span><span class="o">.</span><span class="n">ALL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="toggle_desktop"><a class="viewcode-back" href="../../apidocs/commands.html#quicktile.commands.toggle_desktop">[docs]</a><span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;show-desktop&#39;</span><span class="p">,</span> <span class="n">windowless</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">toggle_desktop</span><span class="p">(</span>
+        <span class="n">winman</span><span class="p">:</span> <span class="n">WindowManager</span><span class="p">,</span>
+        <span class="n">win</span><span class="p">:</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="p">,</span>      <span class="c1"># pylint: disable=unused-argument</span>
+        <span class="n">state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>  <span class="c1"># pylint: disable=unused-argument</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Toggle &quot;all windows minimized&quot; to view the desktop.</span>
+
+<span class="sd">    :param win: Unused</span>
+<span class="sd">    :param state: Unused</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">target</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">winman</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">get_showing_desktop</span><span class="p">()</span>
+    <span class="n">winman</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">toggle_showing_desktop</span><span class="p">(</span><span class="n">target</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="toggle_state"><a class="viewcode-back" href="../../apidocs/commands.html#quicktile.commands.toggle_state">[docs]</a><span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;all-desktops&#39;</span><span class="p">,</span> <span class="s1">&#39;pin&#39;</span><span class="p">,</span> <span class="s1">&#39;is_pinned&#39;</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;fullscreen&#39;</span><span class="p">,</span> <span class="s1">&#39;set_fullscreen&#39;</span><span class="p">,</span> <span class="s1">&#39;is_fullscreen&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;vertical-maximize&#39;</span><span class="p">,</span> <span class="s1">&#39;maximize_vertically&#39;</span><span class="p">,</span>
+                                   <span class="s1">&#39;is_maximized_vertically&#39;</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;horizontal-maximize&#39;</span><span class="p">,</span> <span class="s1">&#39;maximize_horizontally&#39;</span><span class="p">,</span>
+                                     <span class="s1">&#39;is_maximized_horizontally&#39;</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;maximize&#39;</span><span class="p">,</span> <span class="s1">&#39;maximize&#39;</span><span class="p">,</span> <span class="s1">&#39;is_maximized&#39;</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;minimize&#39;</span><span class="p">,</span> <span class="s1">&#39;minimize&#39;</span><span class="p">,</span> <span class="s1">&#39;is_minimized&#39;</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;always-above&#39;</span><span class="p">,</span> <span class="s1">&#39;make_above&#39;</span><span class="p">,</span> <span class="s1">&#39;is_above&#39;</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;always-below&#39;</span><span class="p">,</span> <span class="s1">&#39;make_below&#39;</span><span class="p">,</span> <span class="s1">&#39;is_below&#39;</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;shade&#39;</span><span class="p">,</span> <span class="s1">&#39;shade&#39;</span><span class="p">,</span> <span class="s1">&#39;is_shaded&#39;</span><span class="p">)</span>
+<span class="c1"># pylint: disable=too-many-arguments</span>
+<span class="k">def</span> <span class="nf">toggle_state</span><span class="p">(</span>
+        <span class="n">winman</span><span class="p">:</span> <span class="n">WindowManager</span><span class="p">,</span>  <span class="c1"># pylint: disable=unused-argument</span>
+        <span class="n">win</span><span class="p">:</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="p">,</span>
+        <span class="n">state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>  <span class="c1"># pylint: disable=unused-argument</span>
+        <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">check</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">takes_bool</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Toggle window state on the active window.</span>
+
+<span class="sd">    This is an abstraction to unify a bunch of different :class:`Wnck.Window`</span>
+<span class="sd">    methods behind a common wrapper.</span>
+
+<span class="sd">    :param winman: Unused</span>
+<span class="sd">    :param win: The window to operate on.</span>
+<span class="sd">    :param state: Unused</span>
+<span class="sd">    :param command: The method name to be conditionally</span>
+<span class="sd">        prefixed with ``un``, resolved from ``win``, and called.</span>
+<span class="sd">    :param check: The method name to be called on ``win`` to check</span>
+<span class="sd">        whether ``command`` should be prefixed with ``un``.</span>
+<span class="sd">    :param takes_bool: If :any:`True`, pass :any:`True` or :any:`False` to</span>
+<span class="sd">        ``check`` rather thank conditionally prefixing it with ``un``</span>
+<span class="sd">        before resolving.</span>
+
+<span class="sd">    .. todo:: When I&#39;m willing to break the external API (command names),</span>
+<span class="sd">        rename ``vertical-maximize`` and ``horizontal-maximize`` to</span>
+<span class="sd">        ``maximize-vertical`` and ``maximize-horizontal`` for consistency.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="n">check</span><span class="p">)()</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Calling action &#39;</span><span class="si">%s</span><span class="s2">&#39; with state &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">takes_bool</span><span class="p">:</span>
+        <span class="nb">getattr</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="n">command</span><span class="p">)(</span><span class="n">target</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">getattr</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">target</span> <span class="k">else</span> <span class="s1">&#39;un&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">command</span><span class="p">)()</span></div>
+
+
+<div class="viewcode-block" id="trigger_keyboard_action"><a class="viewcode-back" href="../../apidocs/commands.html#quicktile.commands.trigger_keyboard_action">[docs]</a><span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;trigger-move&#39;</span><span class="p">,</span> <span class="s1">&#39;move&#39;</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;trigger-resize&#39;</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">trigger_keyboard_action</span><span class="p">(</span>
+        <span class="n">winman</span><span class="p">:</span> <span class="n">WindowManager</span><span class="p">,</span>  <span class="c1"># pylint: disable=unused-argument</span>
+        <span class="n">win</span><span class="p">:</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="p">,</span>
+        <span class="n">state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>  <span class="c1"># pylint: disable=unused-argument</span>
+        <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Ask the Window Manager to begin a keyboard-driven operation.</span>
+
+<span class="sd">    :param winman: Unused</span>
+<span class="sd">    :param win: The window to operate on.</span>
+<span class="sd">    :param state: Unused</span>
+<span class="sd">    :param command: The string to be appended to ``keyboard_`` and used as a</span>
+<span class="sd">        method name to look up on ``win``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nb">getattr</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="s1">&#39;keyboard_&#39;</span> <span class="o">+</span> <span class="n">command</span><span class="p">)()</span></div>
+
+
+<div class="viewcode-block" id="workspace_go"><a class="viewcode-back" href="../../apidocs/commands.html#quicktile.commands.workspace_go">[docs]</a><span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;workspace-go-next&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">windowless</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;workspace-go-prev&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">windowless</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;workspace-go-up&#39;</span><span class="p">,</span> <span class="n">MotionDirection</span><span class="o">.</span><span class="n">UP</span><span class="p">,</span> <span class="n">windowless</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;workspace-go-down&#39;</span><span class="p">,</span> <span class="n">MotionDirection</span><span class="o">.</span><span class="n">DOWN</span><span class="p">,</span> <span class="n">windowless</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;workspace-go-left&#39;</span><span class="p">,</span> <span class="n">MotionDirection</span><span class="o">.</span><span class="n">LEFT</span><span class="p">,</span> <span class="n">windowless</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;workspace-go-right&#39;</span><span class="p">,</span> <span class="n">MotionDirection</span><span class="o">.</span><span class="n">RIGHT</span><span class="p">,</span> <span class="n">windowless</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">workspace_go</span><span class="p">(</span>
+        <span class="n">winman</span><span class="p">:</span> <span class="n">WindowManager</span><span class="p">,</span>
+        <span class="n">win</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="p">],</span>  <span class="c1"># pylint: disable=unused-argument</span>
+        <span class="n">state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">motion</span><span class="p">:</span> <span class="n">MotionDirection</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Switch the active workspace.</span>
+
+<span class="sd">    (Integer values for ``motion`` may cause wrap-around behaviour depending</span>
+<span class="sd">    on the value of :ref:`MovementsWrap &lt;MovementsWrap&gt;`.)</span>
+
+<span class="sd">    :param state: Used to access the :ref:`MovementsWrap &lt;MovementsWrap&gt;`</span>
+<span class="sd">        configuration key.</span>
+<span class="sd">    :param motion: The direction to move the window on the workspace grid or</span>
+<span class="sd">        the distance to move it by numerical ordering. Accepts</span>
+<span class="sd">        :class:`Wnck.MotionDirection` or :any:`int`.</span>
+<span class="sd">    :param win: Unused but required by the command API.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Have to specify types in the description pending a fix for</span>
+    <span class="c1"># https://github.com/agronholm/sphinx-autodoc-typehints/issues/124</span>
+
+    <span class="n">target</span> <span class="o">=</span> <span class="n">winman</span><span class="o">.</span><span class="n">get_workspace</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">motion</span><span class="p">,</span>
+        <span class="n">wrap_around</span><span class="o">=</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;config&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">getboolean</span><span class="p">(</span><span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="s1">&#39;MovementsWrap&#39;</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">target</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Couldn&#39;t get the active workspace.&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Activating workspace </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+    <span class="n">target</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()))</span></div>
+
+
+<div class="viewcode-block" id="workspace_send_window"><a class="viewcode-back" href="../../apidocs/commands.html#quicktile.commands.workspace_send_window">[docs]</a><span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;workspace-send-next&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;workspace-send-prev&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;workspace-send-up&#39;</span><span class="p">,</span> <span class="n">MotionDirection</span><span class="o">.</span><span class="n">UP</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;workspace-send-down&#39;</span><span class="p">,</span> <span class="n">MotionDirection</span><span class="o">.</span><span class="n">DOWN</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;workspace-send-left&#39;</span><span class="p">,</span> <span class="n">MotionDirection</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+<span class="nd">@commands</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;workspace-send-right&#39;</span><span class="p">,</span> <span class="n">MotionDirection</span><span class="o">.</span><span class="n">RIGHT</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">workspace_send_window</span><span class="p">(</span>
+        <span class="n">winman</span><span class="p">:</span> <span class="n">WindowManager</span><span class="p">,</span>
+        <span class="n">win</span><span class="p">:</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="p">,</span>
+        <span class="n">state</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">motion</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">MotionDirection</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Move the active window to another workspace.</span>
+
+<span class="sd">    (Integer values for ``motion`` may cause wrap-around behaviour depending</span>
+<span class="sd">    on the value of :ref:`MovementsWrap &lt;MovementsWrap&gt;`.)</span>
+
+<span class="sd">    :param state: Used to access the :ref:`MovementsWrap &lt;MovementsWrap&gt;`</span>
+<span class="sd">        configuration key.</span>
+<span class="sd">    :param motion: The direction to move the window on the workspace grid or</span>
+<span class="sd">        the distance to move it by numerical ordering. Accepts</span>
+<span class="sd">        :class:`Wnck.MotionDirection` or :any:`int`.</span>
+<span class="sd">    :param win: The window to operate on.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Have to specify types in the description pending a fix for</span>
+    <span class="c1"># https://github.com/agronholm/sphinx-autodoc-typehints/issues/124</span>
+
+    <span class="n">target</span> <span class="o">=</span> <span class="n">winman</span><span class="o">.</span><span class="n">get_workspace</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="n">motion</span><span class="p">,</span>
+        <span class="n">wrap_around</span><span class="o">=</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;config&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">getboolean</span><span class="p">(</span><span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="s1">&#39;MovementsWrap&#39;</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">target</span><span class="p">:</span>
+        <span class="c1"># `target` will be None if `win` is pinned or on no workspaces or if</span>
+        <span class="c1"># there is no workspace matching `motion`.</span>
+        <span class="k">return</span>
+
+    <span class="n">win</span><span class="o">.</span><span class="n">move_to_workspace</span><span class="p">(</span><span class="n">target</span><span class="p">)</span></div>
+
+<span class="c1"># vim: set sw=4 sts=4 expandtab :</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2009-2020, Stephan Sokolow.
+      
+    </div>
+
+    
+    <a href="https://github.com/ssokolow/quicktile" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

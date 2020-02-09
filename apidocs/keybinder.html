@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Internal Global Hotkey Support (keybinder.py) &#8212; QuickTile 0.4 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Layout Calculations (layout.py)" href="layout.html" />
+    <link rel="prev" title="GUI Exception Handler (gtkexcepthook.py)" href="gtkexcepthook.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+    <link rel="canonical" href="http://ssokolow.com/quicktile/apidocs/keybinder.html"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<h1 class="logo"><a href="../index.html">QuickTile</a></h1>
+
+
+
+<p class="blurb">Keyboard-driven Window Tiling for your existing X11 window manager</p>
+
+
+
+
+
+
+
+
+    
+
+<p>
+<a class="badge" href="https://travis-ci.org/ssokolow/quicktile">
+    <img
+        alt="CI Test Status"
+        src="https://secure.travis-ci.org/ssokolow/quicktile.svg?branch=master"
+    />
+</a>
+</p>
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">API Documentation</a><ul>
+      <li>Previous: <a href="gtkexcepthook.html" title="previous chapter">GUI Exception Handler (<code class="docutils literal notranslate"><span class="pre">gtkexcepthook.py</span></code>)</a></li>
+      <li>Next: <a href="layout.html" title="next chapter">Layout Calculations (<code class="docutils literal notranslate"><span class="pre">layout.py</span></code>)</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script><div class="badges">
+    <p><a href="apt:python3,python3-pip,python3-setuptools,python3-gi,python3-xlib,python3-dbus,gir1.2-glib-2.0,gir1.2-gtk-3.0,gir1.2-wnck-3.0" class="btn" title="Install from configured repositories on Debian-based distros"><img src="../_static/img/debian_12.png" alt="Debian"><img src="../_static/img/ubuntu_12.png" alt="Ubuntu"><img src="../_static/img/mint_12.png" alt="Mint"> Install Dependencies</a></p>
+    <p><a href="http://github.com/ssokolow/quicktile/zipball/master" class="btn">Download QuickTile</a></p>
+    <p><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img src="../_static/license.svg" alt="License: GPLv2" /></a></p>
+</div><div class="contrib_box">
+    <h3>Tip Jar</h3>
+    <dl>
+        <dt>Code (Best)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://github.com/ssokolow/quicktile"
+                        title="GitHub Repo"><img
+                        src="../_static/contrib_box/github.png"
+                        alt="GitHub" /></a></li>
+                <li><a href="https://github.com/ssokolow/quicktile/issues"
+                        title="Bug Tracker"><img
+                        src="../_static/contrib_box/bug.png"
+                        alt="Bug Tracker" /></a></li>
+            </ul>
+        </dd>
+        <dt>Publicity (Better)</dt>
+        <dd>Show your friends</dd>
+        <dt>Snacks (Good)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://flattr.com/thing/674146"
+                        title="Flattr"><img
+                        src="../_static/contrib_box/flattr.png"
+                        alt="Flattr" /></a></li>
+                <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="EFWRR7EAQ993S"><input type="image" src="../_static/contrib_box/paypal.png" name="submit" alt="PayPal" title="PayPal"></form></li>
+                <li><a title="BitCoin"
+                    href="bitcoin:1Kp1i3nahunzzFs5a3mMF46uzca4oANH5C?label=QuickTile%20Donations"
+                    ><img
+                    src="../_static/contrib_box/bitcoin.png"
+                    alt="BitCoin"
+                /></a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--
+    bug.png and wrench.png from the Silk Icons set by Mark James, available at
+    http://www.famfamfam.com/lab/icons/silk/
+    are used under the Creative Commons Attribution 2.5 license.
+-->
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-quicktile.keybinder">
+<span id="internal-global-hotkey-support-keybinder-py"></span><h1>Internal Global Hotkey Support (<code class="docutils literal notranslate"><span class="pre">keybinder.py</span></code>)<a class="headerlink" href="#module-quicktile.keybinder" title="Permalink to this headline">¶</a></h1>
+<p>Xlib-based global hotkey-binding code</p>
+<dl class="class">
+<dt id="quicktile.keybinder.KeyBinder">
+<em class="property">class </em><code class="sig-name descname">KeyBinder</code><span class="sig-paren">(</span><em class="sig-param">x_display=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder" title="Permalink to this definition">¶</a></dt>
+<dd><p>A convenience class for wrapping <a class="reference external" href="https://tronche.com/gui/x/xlib/input/XGrabKey.html">XGrabKey</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x_display</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Display</span></code>]) – An Xlib display handle. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">None</span></code></a>, a new connection
+will be opened.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="util.html#quicktile.util.XInitError" title="quicktile.util.XInitError"><strong>XInitError</strong></a> – Failed to open a new X connection.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="quicktile.keybinder.KeyBinder._vary_modmask">
+<em class="property">static </em><code class="sig-name descname">_vary_modmask</code><span class="sig-paren">(</span><em class="sig-param">modmask</em>, <em class="sig-param">ignored</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder._vary_modmask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder._vary_modmask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate all possible variations on <code class="docutils literal notranslate"><span class="pre">modmask</span></code> that need to be
+taken into consideration if we can’t properly ignore the modifiers in
+<code class="docutils literal notranslate"><span class="pre">ignored</span></code>. (Typically NumLock and CapsLock)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modmask</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – An integer or <a class="reference external" href="https://lazka.github.io/pgi-docs/Gdk-3.0/flags.html#Gdk.ModifierType" title="(in Gdk 3.0 v3.0)"><code class="xref any docutils literal notranslate"><span class="pre">Gdk.ModifierType</span></code></a> bitfield to be
+combinatorically grown.</p></li>
+<li><p><strong>ignored</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – Integer or <a class="reference external" href="https://lazka.github.io/pgi-docs/Gdk-3.0/flags.html#Gdk.ModifierType" title="(in Gdk 3.0 v3.0)"><code class="xref any docutils literal notranslate"><span class="pre">Gdk.ModifierType</span></code></a> modifiers to be
+combined with <code class="docutils literal notranslate"><span class="pre">modmask</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterator" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The <a class="reference internal" href="util.html#quicktile.util.powerset" title="quicktile.util.powerset"><code class="xref any py py-func docutils literal notranslate"><span class="pre">power</span> <span class="pre">set</span></code></a> of <code class="docutils literal notranslate"><span class="pre">ignored</span></code>
+with <code class="docutils literal notranslate"><span class="pre">modmask</span></code> bitwise ORed onto each entry.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="quicktile.keybinder.KeyBinder.bind">
+<code class="sig-name descname">bind</code><span class="sig-paren">(</span><em class="sig-param">accel</em>, <em class="sig-param">callback</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder.bind"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder.bind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bind a global key combination to a callback.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>accel</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – An accelerator as either a string to be parsed by
+<a class="reference external" href="https://lazka.github.io/pgi-docs/Gtk-3.0/functions.html#Gtk.accelerator_parse" title="(in Gtk 3.0 v3.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">Gtk.accelerator_parse()</span></code></a> or a tuple as returned by it.)</p></li>
+<li><p><strong>callback</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – The function to call when the key is pressed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A boolean indicating whether the provided keybinding was
+parsed successfully and didn’t provoke an error from <a class="reference external" href="https://tronche.com/gui/x/xlib/input/XGrabKey.html">XGrabKey</a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="quicktile.keybinder.KeyBinder.cb_xerror">
+<code class="sig-name descname">cb_xerror</code><span class="sig-paren">(</span><em class="sig-param">err</em>, <em class="sig-param">request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder.cb_xerror"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder.cb_xerror" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback used to identify when attempts to bind keys fail.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>err</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">XError</span></code>) – The error that was asynchronously returned.</p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – Unused. Just to match the required function signature.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="quicktile.keybinder.KeyBinder.cb_xevent">
+<code class="sig-name descname">cb_xevent</code><span class="sig-paren">(</span><em class="sig-param">src</em>, <em class="sig-param">cond</em>, <em class="sig-param">handle=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder.cb_xevent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder.cb_xevent" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://lazka.github.io/pgi-docs/GLib-2.0/functions.html#GLib.io_add_watch" title="(in GLib 2.0 v2.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">GLib.io_add_watch()</span></code></a> callback to dispatch X events to more
+specific handlers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>src</strong> (<a class="reference external" href="https://lazka.github.io/pgi-docs/GLib-2.0/classes/IOChannel.html#GLib.IOChannel" title="(in GLib 2.0 v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">GLib.IOChannel</span></code></a>) – Not used. Just needed to satisfy <code class="docutils literal notranslate"><span class="pre">GIOFunc</span></code> signature.</p></li>
+<li><p><strong>cond</strong> (<a class="reference external" href="https://lazka.github.io/pgi-docs/GLib-2.0/flags.html#GLib.IOCondition" title="(in GLib 2.0 v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">GLib.IOCondition</span></code></a>) – Not used. Just to needed to satisfy <code class="docutils literal notranslate"><span class="pre">GIOFunc</span></code> signature.</p></li>
+<li><p><strong>handle</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Display</span></code>]) – A handle to the Xlib display object with pending events.
+A cached reference will be used if it is <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">None</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">True</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Always returns <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">True</span></code></a> to prevent GLib from unsetting
+the watch.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="quicktile.keybinder.KeyBinder.handle_keypress">
+<code class="sig-name descname">handle_keypress</code><span class="sig-paren">(</span><em class="sig-param">xevent</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder.handle_keypress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder.handle_keypress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resolve <code class="xref py py-class docutils literal notranslate"><span class="pre">Xlib.protocol.event.KeyPress</span></code> events to the
+<a class="reference internal" href="commands.html#quicktile.commands.CommandRegistry" title="quicktile.commands.CommandRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">quicktile.commands.CommandRegistry</span></code></a> commands associated with
+them and then call the commands.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>xevent</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">KeyPress</span></code>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="quicktile.keybinder.KeyBinder.ignored_modifiers">
+<code class="sig-name descname">ignored_modifiers</code><em class="property"> = ['Mod2Mask', 'LockMask']</em><a class="headerlink" href="#quicktile.keybinder.KeyBinder.ignored_modifiers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modifiers whose state should not affect whether a binding fires</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="quicktile.keybinder.KeyBinder.keybind_failed">
+<code class="sig-name descname">keybind_failed</code><em class="property"> = False</em><a class="headerlink" href="#quicktile.keybinder.KeyBinder.keybind_failed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used in concert with <code class="xref py py-meth docutils literal notranslate"><span class="pre">Xlib.display.Display.sync()</span></code> to pass state
+from <a class="reference internal" href="#quicktile.keybinder.KeyBinder.cb_xerror" title="quicktile.keybinder.KeyBinder.cb_xerror"><code class="xref py py-meth docutils literal notranslate"><span class="pre">cb_xerror()</span></code></a> to <a class="reference internal" href="#quicktile.keybinder.KeyBinder.bind" title="quicktile.keybinder.KeyBinder.bind"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bind()</span></code></a> so <a class="reference external" href="https://tronche.com/gui/x/xlib/input/XGrabKey.html">XGrabKey</a> failure can be
+reported.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="quicktile.keybinder.KeyBinder.parse_accel">
+<code class="sig-name descname">parse_accel</code><span class="sig-paren">(</span><em class="sig-param">accel</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder.parse_accel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder.parse_accel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert an <a class="reference internal" href="../config.html#keybinding-syntax"><span class="std std-ref">accelerator string</span></a> into the
+form <a class="reference external" href="https://tronche.com/gui/x/xlib/input/XGrabKey.html">XGrabKey</a> needs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>accel</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The accelerator string.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">(keycode,</span> <span class="pre">modifier_mask)</span></code> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">None</span></code></a> on failure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="quicktile.keybinder.init">
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">modmask</em>, <em class="sig-param">mappings</em>, <em class="sig-param">commands</em>, <em class="sig-param">winman</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the keybinder and bind the requested mappings</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modmask</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – A valid set of modifiers as accepted by
+<a class="reference external" href="https://lazka.github.io/pgi-docs/Gtk-3.0/functions.html#Gtk.accelerator_parse" title="(in Gtk 3.0 v3.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">Gtk.accelerator_parse()</span></code></a>, <code class="docutils literal notranslate"><span class="pre">none</span></code>, an empty string, or
+<a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">None</span></code></a>.</p></li>
+<li><p><strong>mappings</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – A dict mapping <a class="reference internal" href="../config.html#keybinding-syntax"><span class="std std-ref">accelerator strings</span></a> to command names.</p></li>
+<li><p><strong>commands</strong> (<a class="reference internal" href="commands.html#quicktile.commands.CommandRegistry" title="quicktile.commands.CommandRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandRegistry</span></code></a>) – The command registry used to map command names to
+functions.</p></li>
+<li><p><strong>winman</strong> (<a class="reference internal" href="wm.html#quicktile.wm.WindowManager" title="quicktile.wm.WindowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">WindowManager</span></code></a>) – The interface commands should use to take action.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="#quicktile.keybinder.KeyBinder" title="quicktile.keybinder.KeyBinder"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyBinder</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An instance of <a class="reference internal" href="#quicktile.keybinder.KeyBinder" title="quicktile.keybinder.KeyBinder"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyBinder</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">None</span></code></a> if <code class="docutils literal notranslate"><span class="pre">winman</span></code>
+didn’t already have an X connection and attempting to open a new one
+met with failure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2009-2020, Stephan Sokolow.
+      
+      |
+      <a href="../_sources/apidocs/keybinder.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/ssokolow/quicktile" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

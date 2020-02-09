@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Usage &#8212; QuickTile 0.4 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Command Reference" href="commands.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+    <link rel="canonical" href="http://ssokolow.com/quicktile/usage.html"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<h1 class="logo"><a href="index.html">QuickTile</a></h1>
+
+
+
+<p class="blurb">Keyboard-driven Window Tiling for your existing X11 window manager</p>
+
+
+
+
+
+
+
+
+    
+
+<p>
+<a class="badge" href="https://travis-ci.org/ssokolow/quicktile">
+    <img
+        alt="CI Test Status"
+        src="https://secure.travis-ci.org/ssokolow/quicktile.svg?branch=master"
+    />
+</a>
+</p>
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="installation.html" title="previous chapter">Installation</a></li>
+      <li>Next: <a href="commands.html" title="next chapter">Command Reference</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script><div class="badges">
+    <p><a href="apt:python3,python3-pip,python3-setuptools,python3-gi,python3-xlib,python3-dbus,gir1.2-glib-2.0,gir1.2-gtk-3.0,gir1.2-wnck-3.0" class="btn" title="Install from configured repositories on Debian-based distros"><img src="_static/img/debian_12.png" alt="Debian"><img src="_static/img/ubuntu_12.png" alt="Ubuntu"><img src="_static/img/mint_12.png" alt="Mint"> Install Dependencies</a></p>
+    <p><a href="http://github.com/ssokolow/quicktile/zipball/master" class="btn">Download QuickTile</a></p>
+    <p><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img src="_static/license.svg" alt="License: GPLv2" /></a></p>
+</div><div class="contrib_box">
+    <h3>Tip Jar</h3>
+    <dl>
+        <dt>Code (Best)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://github.com/ssokolow/quicktile"
+                        title="GitHub Repo"><img
+                        src="_static/contrib_box/github.png"
+                        alt="GitHub" /></a></li>
+                <li><a href="https://github.com/ssokolow/quicktile/issues"
+                        title="Bug Tracker"><img
+                        src="_static/contrib_box/bug.png"
+                        alt="Bug Tracker" /></a></li>
+            </ul>
+        </dd>
+        <dt>Publicity (Better)</dt>
+        <dd>Show your friends</dd>
+        <dt>Snacks (Good)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://flattr.com/thing/674146"
+                        title="Flattr"><img
+                        src="_static/contrib_box/flattr.png"
+                        alt="Flattr" /></a></li>
+                <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="EFWRR7EAQ993S"><input type="image" src="_static/contrib_box/paypal.png" name="submit" alt="PayPal" title="PayPal"></form></li>
+                <li><a title="BitCoin"
+                    href="bitcoin:1Kp1i3nahunzzFs5a3mMF46uzca4oANH5C?label=QuickTile%20Donations"
+                    ><img
+                    src="_static/contrib_box/bitcoin.png"
+                    alt="BitCoin"
+                /></a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--
+    bug.png and wrench.png from the Silk Icons set by Mark James, available at
+    http://www.famfamfam.com/lab/icons/silk/
+    are used under the Creative Commons Attribution 2.5 license.
+-->
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<p>QuickTile is built around a simple model of applying <a class="reference internal" href="commands.html"><span class="doc">tiling commands</span></a> to either the active window or, for some commands, the
+desktop as a whole.</p>
+<p>These commands can be invoked in one of three ways:</p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#global-hotkeys" id="id6">Global Hotkeys</a></p></li>
+<li><p><a class="reference internal" href="#command-line-invocation" id="id7">Command-Line Invocation</a></p></li>
+<li><p><a class="reference internal" href="#d-bus-api" id="id8">D-Bus API</a></p></li>
+</ul>
+</div>
+<div class="section" id="global-hotkeys">
+<h2><a class="toc-backref" href="#id6">Global Hotkeys</a><a class="headerlink" href="#global-hotkeys" title="Permalink to this headline">¶</a></h2>
+<p>If QuickTile is started with the
+<a class="reference external" href="cli.html#cmdoption-quicktile-d">--daemonize</a> option, it will
+attempt to bind global hotkeys as defined by the mappings in
+<a class="reference internal" href="config.html"><span class="doc">quicktile.cfg</span></a>.</p>
+<p>A typical use of QuickTile’s hotkeys is as follows:</p>
+<ol class="arabic simple">
+<li><p>Focus the window you want to tile</p></li>
+<li><p>Hold the modifiers defined in <a class="reference internal" href="config.html#modmask"><span class="std std-ref">ModMask</span></a> (<kbd class="kbd docutils literal notranslate">Ctrl</kbd> +
+<kbd class="kbd docutils literal notranslate">Alt</kbd> by default).</p></li>
+<li><p>Repeatedly press one of the defined keybindings to cycle through window
+sizes available at the desired location on the screen.</p></li>
+</ol>
+<p>This works best when combined with functionality your existing window manager
+provides (eg. <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">Tab</kbd>) to minimize the need to switch your hand between your
+keyboard and your mouse.</p>
+<p>See the <a class="reference internal" href="commands.html"><span class="doc">Command Reference</span></a> section for a listing of default keybindings and what
+they do, or run <code class="docutils literal notranslate"><span class="pre">quicktile</span> <span class="pre">--show-bindings</span></code> and <code class="docutils literal notranslate"><span class="pre">quicktile</span> <span class="pre">--show-actions</span></code>.</p>
+</div>
+<div class="section" id="command-line-invocation">
+<h2><a class="toc-backref" href="#id7">Command-Line Invocation</a><a class="headerlink" href="#command-line-invocation" title="Permalink to this headline">¶</a></h2>
+<p>If QuickTile is started without <code class="docutils literal notranslate"><span class="pre">--daemonize</span></code> but with one or more positional
+arguments, it will perform the specified sequence of actions on the active
+window (or, depending on the command, on the desktop as a whole) and then exit.</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> quicktile top-left top-left
+</pre></div>
+</div>
+<p>This is useful for invoking QuickTile from incorporating it into shell scripts
+or binding tiling commands to things <a class="reference external" href="https://tronche.com/gui/x/xlib/input/XGrabKey.html">XGrabKey</a> can’t see, such as
+<a class="reference external" href="http://lirc.org/">LIRC</a>-based remote controls via <em class="manpage"><a class="manpage reference external" href="https://manpages.debian.org/irexec(1)">irexec(1)</a></em>.</p>
+<p>If running this in a context where it is undesirable for your script to block
+and display an error dialog on encountering an exception within QuickTile,
+please pass <a class="reference external" href="cli.html#cmdoption-quicktile-no-excepthook">--no-excepthook</a>
+when invoking QuickTile.</p>
+<p>For more details on QuickTile’s command-line interface, run <code class="docutils literal notranslate"><span class="pre">quicktile</span>
+<span class="pre">--help</span></code> or see the <a class="reference internal" href="cli.html"><span class="doc">Command-Line Arguments</span></a> section of this manual.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Historically, most of the attention paid to QuickTile has been to
+its function under the influence of
+<a class="reference external" href="cli.html#cmdoption-quicktile-d">--daemonize</a> and command-line
+invocation has known bugs in how it interacts with the X server.</p>
+<p>Most notably, when multiple commands are specified on a single
+command-line, it triggers a race condition where QuickTile doesn’t properly
+wait for a command’s effects to take hold before the next command begins
+querying window shapes.</p>
+<p>The simplest demonstration of this on a mulit-monitor system is
+<code class="docutils literal notranslate"><span class="pre">quicktile</span> <span class="pre">monitor-next</span> <span class="pre">top-left</span></code> which will cause the <code class="docutils literal notranslate"><span class="pre">top-left</span></code> to
+reverse the effect of the <code class="docutils literal notranslate"><span class="pre">monitor-next</span></code>.</p>
+<p>A fix for this is intended, but the non-trivial re-architecting involved
+means that I don’t want to do until after the automated test suite is
+sufficiently complete.</p>
+</div>
+</div>
+<div class="section" id="d-bus-api">
+<h2><a class="toc-backref" href="#id8">D-Bus API</a><a class="headerlink" href="#d-bus-api" title="Permalink to this headline">¶</a></h2>
+<p>Command-line invocation is useful but it <em>does</em> have a tendency to induce
+a perceptible delay between pressing a key/button and having the window
+respond.</p>
+<p>If <a class="reference external" href="https://pypi.org/project/dbus-python/">dbus-python</a> is installed, the
+<a class="reference external" href="cli.html#cmdoption-quicktile-d">--daemonize</a> command-line option will also
+attempt to claim the <code class="docutils literal notranslate"><span class="pre">com.ssokolow.QuickTile</span></code> service name.</p>
+<p>It will expose a single object path (<code class="docutils literal notranslate"><span class="pre">/com/ssokolow/QuickTile</span></code>) with a single
+interface (<code class="docutils literal notranslate"><span class="pre">com.ssokolow.QuickTile</span></code>) containing a single method
+(<code class="docutils literal notranslate"><span class="pre">doCommand</span></code>) which can be used to call tiling commands as if invoked
+by the global keybinding code.</p>
+<p>A good way to test this out is using Qt’s <strong class="command">qdbus</strong> command, which
+serves as both a command-line D-Bus explorer and a client for calling D-Bus
+methods.</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> qdbus com.ssokolow.QuickTile
+<span class="go">/</span>
+<span class="go">/com</span>
+<span class="go">/com/ssokolow</span>
+<span class="go">/com/ssokolow/QuickTile</span>
+<span class="gp">$</span> qdbus com.ssokolow.QuickTile /com/ssokolow/QuickTile
+<span class="go">method QString org.freedesktop.DBus.Introspectable.Introspect()</span>
+<span class="go">method bool com.ssokolow.QuickTile.doCommand(QString command)</span>
+<span class="gp">$</span> qdbus com.ssokolow.QuickTile /com/ssokolow/QuickTile <span class="se">\</span>
+    doCommand top-left
+<span class="go">true</span>
+<span class="go">[terminal window is repositioned to the screen&#39;s top-left quarter]</span>
+</pre></div>
+</div>
+<p>The more ubiquitous <code class="docutils literal notranslate"><span class="pre">dbus-send</span></code> command can also be used to accomplish the
+same thing, but it’s much less convenient to work with and cannot double as
+a D-Bus browser:</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> dbus-send --type<span class="o">=</span>method_call       <span class="se">\</span>
+    --dest<span class="o">=</span>com.ssokolow.QuickTile    <span class="se">\</span>
+    /com/ssokolow/QuickTile          <span class="se">\</span>
+    com.ssokolow.QuickTile.doCommand <span class="se">\</span>
+    string:top-left
+</pre></div>
+</div>
+<p>The <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">bool</span></code></a> returned by <code class="docutils literal notranslate"><span class="pre">doCommand</span></code> indicates whether the given name
+was found in the list of registered tiling commands.</p>
+<p>Both of these commands can also be used as drop-in replacements for the
+command-line interface as long as <code class="docutils literal notranslate"><span class="pre">quicktile</span> <span class="pre">--daemonize</span></code> has been started
+beforehand.</p>
+<p>Regardless of how you invoke the D-Bus interface, it has two advantages over
+the command-line interface:</p>
+<ul class="simple">
+<li><p><strong class="command">qdbus</strong> and <strong class="command">dbus-send</strong> start more quickly than QuickTile,
+so this is likely to have lower latency even if being invoked from a shell
+script rather than doing a direct D-Bus call from a resident process to
+QuickTile.</p></li>
+<li><p>Because it uses <a class="reference external" href="cli.html#cmdoption-quicktile-d">--daemonize</a> to spin up
+a persistent event loop shared by the D-Bus and X server client libraries,
+the D-Bus interface is demonstrably free from all race conditions currently
+known to affect the command-line interface.</p></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2009-2020, Stephan Sokolow.
+      
+      |
+      <a href="_sources/usage.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/ssokolow/quicktile" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

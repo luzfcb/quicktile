@@ -1,0 +1,272 @@
+/* Disable CSSLint because it doesn't play nicely with CSS that's extending
+ * an existing system of selectors that doesn't also follow its rules. */
+/* csslint ignore:start */
+
+/* Replicate the old QuickTile "page on background" aesthetic and ensure the
+ * content area always extends to the bottom of the viewport */
+body {
+  background: #aac;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+div.document,
+div.footer {
+  background: white;
+  margin-top: 0;
+  padding: 30px 20px;
+}
+div.document {
+  flex-grow: 1;
+}
+div.footer {
+  margin-bottom: 0;
+}
+
+/* I think the default heading font sizes are too big */
+div.body h1 {
+  font-size: 230%;
+  font-weight: bold;
+}
+
+div.body h2 {
+  font-size: 150%;
+}
+div.body h3 {
+  font-size: 130%;
+}
+div.body h4 {
+  font-size: 110%;
+}
+div.body h5 {
+  font-size: 110%;
+}
+
+/* I don't like what auto-hyphenation does to things */
+div.body p,
+div.body dd,
+div.body li,
+div.body blockquote {
+  -moz-hyphens: manual;
+  -ms-hyphens: manual;
+  -webkit-hyphens: manual;
+  hyphens: manual;
+}
+
+/* Make GUI labels and Menu Selections stand out again after setting the
+ * default font to sans-serif in conf.py. */
+.guilabel,
+.menuselection {
+  font-weight: bold;
+}
+
+/* Make code with line numbers consistent width */
+table.highlighttable {
+  width: 100%;
+}
+table.highlighttable td.linenos {
+  width: 2em;
+}
+
+/* I don't want to wait for the newer Alabaster with nice <kbd> markup */
+kbd {
+  border: 1px solid gray;
+  border-radius: 0.5ex;
+  font-size: 70%;
+  padding: 0.3ex;
+  box-shadow: inset 0 -1px 0 lightgray;
+  vertical-align: top;
+}
+
+/* Centering helper for custom badges */
+div.sphinxsidebarwrapper .badges {
+  margin-top: 1em;
+  margin-left: 3px;
+}
+div.sphinxsidebarwrapper .badges a {
+  border-bottom: 0;
+}
+
+/* Adjust @media for Alabaster to match my changes */
+@media screen and (max-width: 875px) {
+  body {
+    background: #fff;
+    padding: 20px 30px;
+  }
+  div.document,
+  div.footer {
+    padding: 0;
+  }
+  div.sphinxsidebar .badges,
+  div.sphinxsidebar .contrib_box {
+    display: none;
+  }
+}
+@media print {
+  body {
+    display: block;
+    background: none;
+  }
+  img.animation {
+    display: none;
+  }
+}
+
+/* Workaround for bugs in Alabaster theme's mobile support */
+@media screen and (max-width: 875px) {
+  ul,
+  ol {
+    margin: 10px 0 10px 30px;
+  }
+  div.sphinxsidebar li,
+  div.sphinxsidebar tt,
+  div.sphinxsidebar code {
+    color: #fff;
+  }
+}
+@media print {
+  img.github {
+    display: none;
+  }
+  div.document {
+    width: auto;
+  }
+  div.section {
+    break-inside: avoid-page;
+  }
+}
+
+/* Button CSS borrowed from the old site */
+div.sphinxsidebar a.btn {
+  color: #3e4349;
+}
+.btn {
+  display: inline-block;
+  padding: 1px 2px;
+  margin-bottom: 0;
+  font-size: 8pt;
+  font-weight: normal;
+  line-height: 16px;
+  color: #333333;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(
+    linear,
+    0 0,
+    0 100%,
+    from(#ffffff),
+    to(#e6e6e6)
+  );
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  border: 1px solid #cccccc;
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  border-bottom-color: #b3b3b3;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active {
+  color: #333333;
+  background-color: #e6e6e6;
+}
+
+.btn:active {
+  background-color: #cccccc;
+}
+
+.btn:hover,
+.btn:focus {
+  color: #333333;
+  text-decoration: none;
+  background-position: 0 -15px;
+  -webkit-transition: background-position 0.1s linear;
+  -moz-transition: background-position 0.1s linear;
+  -o-transition: background-position 0.1s linear;
+  transition: background-position 0.1s linear;
+}
+
+.btn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.btn.active,
+.btn:active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),
+    0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),
+    0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.btn img {
+  vertical-align: middle;
+}
+
+/* Contribution Box CSS from the old site */
+.contrib_box {
+  font-size: 80%;
+  width: 10em;
+  margin-top: 2em;
+  padding: 5px 1ex 0;
+  background: white;
+  color: black;
+  text-align: center;
+
+  border: 1px solid rgb(187, 187, 187);
+  box-shadow: 3px 4px 0px 0px rgb(221, 221, 221);
+  -moz-box-shadow: 3px 4px 0px 0px rgb(221, 221, 221);
+  -webkit-box-shadow: 3px 4px 0px 0px rgb(221, 221, 221);
+}
+
+div.contrib_box h3 {
+  font-size: 125%;
+  font-weight: bold;
+}
+
+div.contrib_box dt {
+  font-weight: bold;
+}
+div.contrib_box dd {
+  margin: 2px 0;
+}
+
+div.sphinxsidebar .contrib_box a {
+  border-bottom: 0;
+}
+div.sphinxsidebar .contrib_box input {
+  border: 0;
+}
+div.sphinxsidebar .contrib_box ul {
+  margin: 4px auto;
+}
+div.sphinxsidebar .contrib_box ul.icons {
+  padding: 0;
+  text-align: center;
+  list-style-type: none;
+}
+.contrib_box ul.icons li,
+ul.icons form {
+  display: inline;
+}
+/* csslint ignore:end */

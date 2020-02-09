@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>D-Bus Interface (dbus_api.py) &#8212; QuickTile 0.4 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="GUI Exception Handler (gtkexcepthook.py)" href="gtkexcepthook.html" />
+    <link rel="prev" title="Command Registry and Included Commands (commands.py)" href="commands.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+    <link rel="canonical" href="http://ssokolow.com/quicktile/apidocs/dbus_api.html"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<h1 class="logo"><a href="../index.html">QuickTile</a></h1>
+
+
+
+<p class="blurb">Keyboard-driven Window Tiling for your existing X11 window manager</p>
+
+
+
+
+
+
+
+
+    
+
+<p>
+<a class="badge" href="https://travis-ci.org/ssokolow/quicktile">
+    <img
+        alt="CI Test Status"
+        src="https://secure.travis-ci.org/ssokolow/quicktile.svg?branch=master"
+    />
+</a>
+</p>
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">API Documentation</a><ul>
+      <li>Previous: <a href="commands.html" title="previous chapter">Command Registry and Included Commands (<code class="docutils literal notranslate"><span class="pre">commands.py</span></code>)</a></li>
+      <li>Next: <a href="gtkexcepthook.html" title="next chapter">GUI Exception Handler (<code class="docutils literal notranslate"><span class="pre">gtkexcepthook.py</span></code>)</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script><div class="badges">
+    <p><a href="apt:python3,python3-pip,python3-setuptools,python3-gi,python3-xlib,python3-dbus,gir1.2-glib-2.0,gir1.2-gtk-3.0,gir1.2-wnck-3.0" class="btn" title="Install from configured repositories on Debian-based distros"><img src="../_static/img/debian_12.png" alt="Debian"><img src="../_static/img/ubuntu_12.png" alt="Ubuntu"><img src="../_static/img/mint_12.png" alt="Mint"> Install Dependencies</a></p>
+    <p><a href="http://github.com/ssokolow/quicktile/zipball/master" class="btn">Download QuickTile</a></p>
+    <p><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img src="../_static/license.svg" alt="License: GPLv2" /></a></p>
+</div><div class="contrib_box">
+    <h3>Tip Jar</h3>
+    <dl>
+        <dt>Code (Best)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://github.com/ssokolow/quicktile"
+                        title="GitHub Repo"><img
+                        src="../_static/contrib_box/github.png"
+                        alt="GitHub" /></a></li>
+                <li><a href="https://github.com/ssokolow/quicktile/issues"
+                        title="Bug Tracker"><img
+                        src="../_static/contrib_box/bug.png"
+                        alt="Bug Tracker" /></a></li>
+            </ul>
+        </dd>
+        <dt>Publicity (Better)</dt>
+        <dd>Show your friends</dd>
+        <dt>Snacks (Good)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://flattr.com/thing/674146"
+                        title="Flattr"><img
+                        src="../_static/contrib_box/flattr.png"
+                        alt="Flattr" /></a></li>
+                <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="EFWRR7EAQ993S"><input type="image" src="../_static/contrib_box/paypal.png" name="submit" alt="PayPal" title="PayPal"></form></li>
+                <li><a title="BitCoin"
+                    href="bitcoin:1Kp1i3nahunzzFs5a3mMF46uzca4oANH5C?label=QuickTile%20Donations"
+                    ><img
+                    src="../_static/contrib_box/bitcoin.png"
+                    alt="BitCoin"
+                /></a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--
+    bug.png and wrench.png from the Silk Icons set by Mark James, available at
+    http://www.famfamfam.com/lab/icons/silk/
+    are used under the Creative Commons Attribution 2.5 license.
+-->
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-quicktile.dbus_api">
+<span id="d-bus-interface-dbus-api-py"></span><h1>D-Bus Interface (<code class="docutils literal notranslate"><span class="pre">dbus_api.py</span></code>)<a class="headerlink" href="#module-quicktile.dbus_api" title="Permalink to this headline">¶</a></h1>
+<p>D-Bus API for controlling QuickTile</p>
+<dl class="class">
+<dt id="quicktile.dbus_api.QuickTile">
+<em class="property">class </em><code class="sig-name descname">QuickTile</code><span class="sig-paren">(</span><em class="sig-param">bus</em>, <em class="sig-param">commands</em>, <em class="sig-param">winman</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/dbus_api.html#QuickTile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.dbus_api.QuickTile" title="Permalink to this definition">¶</a></dt>
+<dd><p>D-Bus endpoint definition</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bus</strong> (<a class="reference external" href="https://dbus.freedesktop.org/doc/dbus-python/dbus.html#dbus.SessionBus" title="(in dbus-python v1.2.16)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SessionBus</span></code></a>) – The connection on which to export this object.
+See the <a class="reference external" href="https://dbus.freedesktop.org/doc/dbus-python/dbus.service.html#dbus.service.Object" title="(in dbus-python v1.2.16)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dbus.service.Object</span></code></a> documentation for details.</p></li>
+<li><p><strong>commands</strong> (<a class="reference internal" href="commands.html#quicktile.commands.CommandRegistry" title="quicktile.commands.CommandRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandRegistry</span></code></a>) – </p></li>
+<li><p><strong>winman</strong> (<a class="reference internal" href="wm.html#quicktile.wm.WindowManager" title="quicktile.wm.WindowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">WindowManager</span></code></a>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="quicktile.dbus_api.QuickTile.doCommand">
+<code class="sig-name descname">doCommand</code><span class="sig-paren">(</span><em class="sig-param">command</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/dbus_api.html#QuickTile.doCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.dbus_api.QuickTile.doCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a QuickTile tiling command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The name of the command to attempt to run.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether <code class="docutils literal notranslate"><span class="pre">command</span></code> was found in the registry.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="quicktile.dbus_api.init">
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">commands</em>, <em class="sig-param">winman</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/dbus_api.html#init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.dbus_api.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the DBus backend</p>
+<p>This handles hooking D-Bus into the Glib main loop, connecting to the
+session bus, and creating a <a class="reference internal" href="#quicktile.dbus_api.QuickTile" title="quicktile.dbus_api.QuickTile"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuickTile</span></code></a> instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>commands</strong> (<a class="reference internal" href="commands.html#quicktile.commands.CommandRegistry" title="quicktile.commands.CommandRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandRegistry</span></code></a>) – </p></li>
+<li><p><strong>winman</strong> (<a class="reference internal" href="wm.html#quicktile.wm.WindowManager" title="quicktile.wm.WindowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">WindowManager</span></code></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://dbus.freedesktop.org/doc/dbus-python/dbus.service.html#dbus.service.BusName" title="(in dbus-python v1.2.16)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BusName</span></code></a>, <a class="reference internal" href="#quicktile.dbus_api.QuickTile" title="quicktile.dbus_api.QuickTile"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuickTile</span></code></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2009-2020, Stephan Sokolow.
+      
+      |
+      <a href="../_sources/apidocs/dbus_api.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/ssokolow/quicktile" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

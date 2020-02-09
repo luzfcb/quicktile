@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>test_functional &#8212; QuickTile 0.4 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+    <link rel="canonical" href="http://ssokolow.com/quicktile/_modules/test_functional.html"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<h1 class="logo"><a href="../index.html">QuickTile</a></h1>
+
+
+
+<p class="blurb">Keyboard-driven Window Tiling for your existing X11 window manager</p>
+
+
+
+
+
+
+
+
+    
+
+<p>
+<a class="badge" href="https://travis-ci.org/ssokolow/quicktile">
+    <img
+        alt="CI Test Status"
+        src="https://secure.travis-ci.org/ssokolow/quicktile.svg?branch=master"
+    />
+</a>
+</p>
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script><div class="badges">
+    <p><a href="apt:python3,python3-pip,python3-setuptools,python3-gi,python3-xlib,python3-dbus,gir1.2-glib-2.0,gir1.2-gtk-3.0,gir1.2-wnck-3.0" class="btn" title="Install from configured repositories on Debian-based distros"><img src="../_static/img/debian_12.png" alt="Debian"><img src="../_static/img/ubuntu_12.png" alt="Ubuntu"><img src="../_static/img/mint_12.png" alt="Mint"> Install Dependencies</a></p>
+    <p><a href="http://github.com/ssokolow/quicktile/zipball/master" class="btn">Download QuickTile</a></p>
+    <p><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img src="../_static/license.svg" alt="License: GPLv2" /></a></p>
+</div><div class="contrib_box">
+    <h3>Tip Jar</h3>
+    <dl>
+        <dt>Code (Best)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://github.com/ssokolow/quicktile"
+                        title="GitHub Repo"><img
+                        src="../_static/contrib_box/github.png"
+                        alt="GitHub" /></a></li>
+                <li><a href="https://github.com/ssokolow/quicktile/issues"
+                        title="Bug Tracker"><img
+                        src="../_static/contrib_box/bug.png"
+                        alt="Bug Tracker" /></a></li>
+            </ul>
+        </dd>
+        <dt>Publicity (Better)</dt>
+        <dd>Show your friends</dd>
+        <dt>Snacks (Good)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://flattr.com/thing/674146"
+                        title="Flattr"><img
+                        src="../_static/contrib_box/flattr.png"
+                        alt="Flattr" /></a></li>
+                <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="EFWRR7EAQ993S"><input type="image" src="../_static/contrib_box/paypal.png" name="submit" alt="PayPal" title="PayPal"></form></li>
+                <li><a title="BitCoin"
+                    href="bitcoin:1Kp1i3nahunzzFs5a3mMF46uzca4oANH5C?label=QuickTile%20Donations"
+                    ><img
+                    src="../_static/contrib_box/bitcoin.png"
+                    alt="BitCoin"
+                /></a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--
+    bug.png and wrench.png from the Silk Icons set by Mark James, available at
+    http://www.famfamfam.com/lab/icons/silk/
+    are used under the Creative Commons Attribution 2.5 license.
+-->
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for test_functional</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;Beginnings of a functional test harness for QuickTile</span>
+
+<span class="sd">.. todo:: Don&#39;t forget to test unusual configurations such as:</span>
+
+<span class="sd">    1. ``monitor-*`` commands with only one monitor</span>
+<span class="sd">    2. ``workspace-*`` commands with only one workspace</span>
+<span class="sd">    3. Having screens 1, 2, and 4 but not 0 or 3 (eg. hotplug aftermath)</span>
+<span class="sd">    4. Having no windows on the desktop</span>
+<span class="sd">    5. Having no window manager (with and without windows)</span>
+<span class="sd">    6. Various Xinerama layouts</span>
+<span class="sd">    7. Test with Xinerama disabled</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span><span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span>
+                        <span class="n">with_statement</span><span class="p">,</span> <span class="n">unicode_literals</span><span class="p">)</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Stephan Sokolow (deitarion/SSokolow)&quot;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;MIT&quot;</span>
+
+<span class="c1">#: The sequence of commands to call QuickTile with</span>
+<span class="n">TEST_SCRIPT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">monitor-next-all</span>
+<span class="s2">monitor-prev-all</span>
+<span class="s2">monitor-switch-all</span>
+<span class="s2">monitor-prev-all</span>
+
+<span class="s2">monitor-next</span>
+<span class="s2">monitor-prev</span>
+<span class="s2">monitor-switch</span>
+<span class="s2">monitor-prev</span>
+
+<span class="s2">bottom</span>
+<span class="s2">bottom-left</span>
+<span class="s2">bottom-right</span>
+<span class="s2">left</span>
+<span class="s2">center</span>
+<span class="s2">right</span>
+<span class="s2">top</span>
+<span class="s2">top-left</span>
+<span class="s2">top-right</span>
+
+<span class="s2">move-to-bottom</span>
+<span class="s2">move-to-bottom-left</span>
+<span class="s2">move-to-bottom-right</span>
+<span class="s2">move-to-center</span>
+<span class="s2">move-to-left</span>
+<span class="s2">move-to-right</span>
+<span class="s2">move-to-top</span>
+<span class="s2">move-to-top-left</span>
+<span class="s2">move-to-top-right</span>
+
+<span class="s2">bordered</span>
+<span class="s2">bordered</span>
+
+<span class="s2">always-above</span>
+<span class="s2">always-above</span>
+<span class="s2">always-below</span>
+<span class="s2">always-below</span>
+<span class="s2">horizontal-maximize</span>
+<span class="s2">horizontal-maximize</span>
+<span class="s2">vertical-maximize</span>
+<span class="s2">vertical-maximize</span>
+<span class="s2">shade</span>
+<span class="s2">shade</span>
+<span class="s2">fullscreen</span>
+<span class="s2">fullscreen</span>
+<span class="s2">all-desktops</span>
+<span class="s2">all-desktops</span>
+
+<span class="s2">trigger-move</span>
+<span class="s2">trigger-resize</span>
+
+<span class="s2">workspace-send-down</span>
+<span class="s2">workspace-go-down</span>
+
+<span class="s2">workspace-send-up</span>
+<span class="s2">workspace-go-up</span>
+
+<span class="s2">workspace-send-left</span>
+<span class="s2">workspace-go-left</span>
+
+<span class="s2">workspace-send-right</span>
+<span class="s2">workspace-go-right</span>
+
+<span class="s2">workspace-send-next</span>
+<span class="s2">workspace-go-next</span>
+
+<span class="s2">workspace-send-prev</span>
+<span class="s2">workspace-go-prev</span>
+
+<span class="s2">show-desktop</span>
+<span class="s2">show-desktop</span>
+
+<span class="s2">maximize</span>
+<span class="s2">maximize</span>
+
+<span class="s2">minimize</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">logging</span><span class="o">,</span> <span class="nn">shlex</span><span class="o">,</span> <span class="nn">subprocess</span>  <span class="c1"># nosec</span>
+
+<span class="kn">from</span> <span class="nn">functional_harness.env_general</span> <span class="kn">import</span> <span class="n">background_proc</span>
+<span class="kn">from</span> <span class="nn">functional_harness.x_server</span> <span class="kn">import</span> <span class="n">x_server</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="run_tests"><a class="viewcode-back" href="../apidocs/test_functional.html#test_functional.run_tests">[docs]</a><span class="k">def</span> <span class="nf">run_tests</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Run the old bank of &#39;commands don&#39;t crash&#39; tests&quot;&quot;&quot;</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">TEST_SCRIPT</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)]</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lines</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">pos</span><span class="p">,</span> <span class="n">command</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Testing command </span><span class="si">%d</span><span class="s2"> of </span><span class="si">%d</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span> <span class="n">command</span><span class="p">)</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="s1">&#39;./quicktile.sh&#39;</span><span class="p">,</span> <span class="s1">&#39;--no-excepthook&#39;</span><span class="p">,</span>
+            <span class="n">command</span><span class="p">])</span>  <span class="c1"># nosec</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../apidocs/test_functional.html#test_functional.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;The main entry point, compatible with setuptools entry points.&quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span><span class="p">,</span> <span class="n">RawDescriptionHelpFormatter</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span><span class="n">formatter_class</span><span class="o">=</span><span class="n">RawDescriptionHelpFormatter</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Functional test runner for QuickTile&#39;</span><span class="p">,</span>
+            <span class="n">epilog</span><span class="o">=</span><span class="s2">&quot;NOTE: Running tests under the Xephyr X server will change &quot;</span>
+            <span class="s2">&quot;their behaviour if they depend on Xvfb&#39;s ability to present &quot;</span>
+            <span class="s2">&quot;a desktop with non-sequentially numbered screens.&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="s1">&#39;--verbose&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Increase the verbosity. Use twice for extra effect.&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-q&#39;</span><span class="p">,</span> <span class="s1">&#39;--quiet&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Decrease the verbosity. Use twice for extra effect.&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-X&#39;</span><span class="p">,</span> <span class="s1">&#39;--x-server&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;Xvfb&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;CMD&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The X server to launch for testing (Try &#39;Xephyr&#39; to debug tests &quot;</span>
+             <span class="s2">&quot;using a live view. The default is &#39;</span><span class="si">%(default)s</span><span class="s2">&#39;.)&quot;</span><span class="p">)</span>
+    <span class="c1"># Reminder: %(default)s can be used in help strings.</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="c1"># Set up clean logging to stderr</span>
+    <span class="n">log_levels</span> <span class="o">=</span> <span class="p">[</span><span class="n">logging</span><span class="o">.</span><span class="n">CRITICAL</span><span class="p">,</span> <span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span> <span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span>
+                  <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">]</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">verbose</span> <span class="o">-</span> <span class="n">args</span><span class="o">.</span><span class="n">quiet</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">log_levels</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">log_levels</span><span class="p">[</span><span class="n">args</span><span class="o">.</span><span class="n">verbose</span><span class="p">],</span>
+                        <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(levelname)s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;This does not currently check the results of the tiling &quot;</span>
+        <span class="s2">&quot;operations it requests. As such, it serves only as a way to check &quot;</span>
+        <span class="s2">&quot;for uncaught exceptions being raised in code that isn&#39;t yet &quot;</span>
+        <span class="s2">&quot;unit tested.&quot;</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;TODO: Inject a test window into the nested X session so &quot;</span>
+        <span class="s2">&quot;non-windowless commands don&#39;t bail out in the common code.&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">x_server</span><span class="p">(</span><span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">x_server</span><span class="p">),</span>
+            <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;1024x768x24&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;800x600x24&#39;</span><span class="p">}):</span>
+        <span class="c1"># TODO: Use a custom configuration file for Openbox</span>
+        <span class="c1"># TODO: Detect once the window manager has started and wait for that</span>
+        <span class="c1">#       before running the tests.</span>
+        <span class="c1"># TODO: Proper test windows.</span>
+        <span class="k">with</span> <span class="n">background_proc</span><span class="p">([</span><span class="s1">&#39;openbox&#39;</span><span class="p">,</span> <span class="s1">&#39;--startup&#39;</span><span class="p">,</span> <span class="s1">&#39;zenity --info&#39;</span><span class="p">]):</span>
+            <span class="kn">import</span> <span class="nn">time</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">run_tests</span><span class="p">()</span></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+
+<span class="c1"># vim: set sw=4 sts=4 expandtab :</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2009-2020, Stephan Sokolow.
+      
+    </div>
+
+    
+    <a href="https://github.com/ssokolow/quicktile" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

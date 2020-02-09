@@ -1,186 +1,610 @@
----
-layout: default
-title: Command Reference
----
-<h2>Command Reference</h2>
-<!-- TODO: Move the descriptions into the source code and then make this file
-     programmatically generated. -->
 
-<strong>NOTE:</strong> All commands may have keybindings added, changed, or removed and this listing represents default values.
+<!DOCTYPE html>
 
-<h3>Window Tiling</h3>
-<dl class="big reference">
-    <dt><code>top-left</code> (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Keypad 7</kbd>)</dt>
-    <dd>Tile the active window to span the top-left quarter of the screen. Press the hotkey multiple times to cycle through different width presets.</dd>
-    <dd><img class="diagram" src="diagrams/png/top-left.png" alt="diagram" /></dd>
-    <dt><code>top</code> (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Keypad 8</kbd>)</dt>
-    <dd>Tile the active window to span the top half of the screen. Press the hotkey multiple times to cycle through different width presets.</dd>
-    <dd><img class="diagram" src="diagrams/png/top.png" alt="diagram" /></dd>
-    <dt><code>top-right</code> (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Keypad 9</kbd>)</dt>
-    <dd>Tile the active window to span the top-right quarter of the screen. Press the hotkey multiple times to cycle through different width presets.</dd>
-    <dd><img class="diagram" src="diagrams/png/top-right.png" alt="diagram" /></dd>
-    <dt><code>left</code> (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Keypad 4</kbd>)</dt>
-    <dd>Tile the active window to span the left half of the screen. Press the hotkey multiple times to cycle through different width presets.</dd>
-    <dd><img class="diagram" src="diagrams/png/left.png" alt="diagram" /></dd>
-    <dt><code>middle</code> (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Keypad 5</kbd>)</dt>
-    <dd>Tile the active window to fill the screen. Press the hotkey multiple times to cycle through different width presets.</dd>
-    <dd><img class="diagram" src="diagrams/png/middle.png" alt="diagram" /></dd>
-    <dt><code>right</code> (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Keypad 6</kbd>)</dt>
-    <dd>Tile the active window to span the right half of the screen. Press the hotkey multiple times to cycle through different width presets.</dd>
-    <dd><img class="diagram" src="diagrams/png/right.png" alt="diagram" /></dd>
-    <dt><code>bottom-left</code> (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Keypad 1</kbd>)</dt>
-    <dd>Tile the active window to span the bottom-left quarter of the screen. Press the hotkey multiple times to cycle through different width presets.</dd>
-    <dd><img class="diagram" src="diagrams/png/bottom-left.png" alt="diagram" /></dd>
-    <dt><code>bottom</code> (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Keypad 2</kbd>)</dt>
-    <dd>Tile the active window to span the bottom half of the screen. Press the hotkey multiple times to cycle through different width presets.</dd>
-    <dd><img class="diagram" src="diagrams/png/bottom.png" alt="diagram" /></dd>
-    <dt><code>bottom-right</code> (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Keypad 3</kbd>)</dt>
-    <dd>Tile the active window to span the bottom-right quarter of the screen. Press the hotkey multiple times to cycle through different width presets.</dd>
-    <dd><img class="diagram" src="diagrams/png/bottom-right.png" alt="diagram" /></dd>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Command Reference &#8212; QuickTile 0.4 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Configuration" href="config.html" />
+    <link rel="prev" title="Usage" href="usage.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+    <link rel="canonical" href="http://ssokolow.com/quicktile/commands.html"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<h1 class="logo"><a href="index.html">QuickTile</a></h1>
 
 
-</dl>
 
-<h3>Window Movement</h3>
-<dl class="big reference">
-    <dt><code>move-to-top-left</code></dt>
-    <dd>Move the active window to the top-left corner of the screen without altering its shape.</dd>
-    <dd><img class="diagram" src="diagrams/png/move-to-top-left.png" alt="diagram" /></dd>
+<p class="blurb">Keyboard-driven Window Tiling for your existing X11 window manager</p>
 
-    <dt><code>move-to-top</code></dt>
-    <dd>Move the active window to the top edge of the screen without altering its shape.</dd>
-    <dd><img class="diagram" src="diagrams/png/move-to-top.png" alt="diagram" /></dd>
 
-    <dt><code>move-to-top-right</code></dt>
-    <dd>Move the active window to the top-right corner of the screen without altering its shape.</dd>
-    <dd><img class="diagram" src="diagrams/png/move-to-top-right.png" alt="diagram" /></dd>
 
-    <dt><code>move-to-left</code></dt>
-    <dd>Move the active window to the left edge of the screen without altering its shape.</dd>
-    <dd><img class="diagram" src="diagrams/png/move-to-left.png" alt="diagram" /></dd>
 
-    <dt><code>move-to-center</code> (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>C</kbd>)</dt>
-    <dd>Move the active window to the center of the screen without altering its shape.</dd>
-    <dd><img class="diagram" src="diagrams/png/move-to-center.png" alt="diagram" /></dd>
 
-    <dt><code>move-to-right</code></dt>
-    <dd>Move the active window to the right edge of the screen without altering its shape.</dd>
-    <dd><img class="diagram" src="diagrams/png/move-to-right.png" alt="diagram" /></dd>
 
-    <dt><code>move-to-bottom-left</code></dt>
-    <dd>Move the active window to the bottom-left corner of the screen without altering its shape.</dd>
-    <dd><img class="diagram" src="diagrams/png/move-to-bottom-left.png" alt="diagram" /></dd>
 
-    <dt><code>move-to-bottom</code></dt>
-    <dd>Move the active window to the bottom edge of the screen without altering its shape.</dd>
-    <dd><img class="diagram" src="diagrams/png/move-to-bottom.png" alt="diagram" /></dd>
 
-    <dt><code>move-to-bottom-right</code></dt>
-    <dd>Move the active window to the top-right corner of the screen without altering its shape.</dd>
-    <dd><img class="diagram" src="diagrams/png/move-to-bottom-right.png" alt="diagram" /></dd>
-</dl>
+    
 
-<h3>Window State</h3>
-<p>Toggling whether the active window is rendered...</p>
-<dl class="big reference">
-    <dt><code>always-above</code></dt>
-    <dd>...on a layer above normal windows.</dd>
-    <dt><code>always-below</code></dt>
-    <dd>on a layer below normal windows.</dd>
-    <dt><code>bordered</code></dt>
-    <dd>...without a titlebar and borders.</dd>
-    <dd><p>Whether the window will expand to fill the space formerly taken by its titlebar and borders will vary from desktop to desktop.</p></dd>
-    <dd><img class="diagram" src="diagrams/png/bordered.png" alt="diagram" /></dd>
-    <dt><code>fullscreen</code></dt>
-    <dd>...fullscreen, covering desktop panels and, on many compositors, with un-redirected rendering for improved performance.</dd>
-    <dd><img class="diagram" src="diagrams/png/fullscreen.png" alt="diagram" /></dd>
-    <dt><code>horizontal-maximize</code> (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>H</kbd>)</dt>
-    <dd>...maximized horizontally, but with its height and vertical position unchanged.</dd>
-    <dd><img class="diagram" src="diagrams/png/horizontal-maximize.png" alt="diagram" /></dd>
-    <dt><code>maximize</code> (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Keypad 0</kbd>)</dt>
-    <dd>...maximized to fill the "work area" of the monitor. (ie. not covering panels unless they're set to allow it.)</dd>
-    <dd><img class="diagram" src="diagrams/png/maximize.png" alt="diagram" /></dd>
-    <dt><code>minimize</code></dt>
-    <dd>...minimized to the taskbar or equivalent.</dd>
-    <dd><img class="diagram" src="diagrams/png/minimize.png" alt="diagram" /></dd>
-    <dt><code>shade</code></dt>
-    <dd>...as only a titlebar (like a rolled-up windowshade).</dd>
-    <dd><img class="diagram" src="diagrams/png/shade.png" alt="diagram" /></dd>
-    <dt><code>vertical-maximize</code> (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>V</kbd>)</dt>
-    <dd>...maximized vertically, but with its width and horizontal position unchanged.</dd>
-    <dd><img class="diagram" src="diagrams/png/vertical-maximize.png" alt="diagram" /></dd>
-</dl>
+<p>
+<a class="badge" href="https://travis-ci.org/ssokolow/quicktile">
+    <img
+        alt="CI Test Status"
+        src="https://secure.travis-ci.org/ssokolow/quicktile.svg?branch=master"
+    />
+</a>
+</p>
 
-<h3>Multi-Monitor Operations</h3>
-<dl class="big reference">
-    <dt><code>monitor-next</code> (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Keypad Enter</kbd>)</dt>
-    <dt><code>monitor-switch</code></dt>
-    <dd>Move the window to the next monitor, according to the <abbr title="Window Manager">WM</abbr>'s internal numbering. Do not move the window's position within the monitor beyond what the WM may do to adjust for differently-sized monitors.</dd>
-    <dd><code>monitor-switch</code> will ignore the <code>MovementWraps</code> configuration value.</dd>
-    <dt><code>monitor-next-all</code></dt>
-    <dt><code>monitor-switch-all</code></dt>
-    <dd>Move <em>all</em> windows to the next monitor, according to the <abbr title="Window Manager">WM</abbr>'s internal numbering. Do not move the window's position within the monitor beyond what the WM may do to adjust for differently-sized monitors.</dd>
-    <dd><code>monitor-switch-all</code> will ignore the <code>MovementWraps</code> configuration value.</dd>
-    <dt><code>monitor-prev</code></dt>
-    <dd>Move the window to the previous monitor, according to the <abbr title="Window Manager">WM</abbr>'s internal numbering. Do not move the window's position within the monitor beyond what the WM may do to adjust for differently-sized monitors.</dd>
-    <dt><code>monitor-prev-all</code></dt>
-    <dd>Move <em>all</em> windows to the previous monitor, according to the <abbr title="Window Manager">WM</abbr>'s internal numbering. Do not move the window's position within the monitor beyond what the WM may do to adjust for differently-sized monitors.</dd>
-</dl>
 
-<h3>Workspace-wise Navigation</h3>
-<dl class="big reference">
-    <dt><code>workspace-go-next</code></dt>
-    <dd>Switch focus to the next workspace, by the <abbr title="Window Manager">WM</abbr>'s internal numbering. Do not move any windows.</dd>
-    <dt><code>workspace-go-prev</code></dt>
-    <dd>Switch focus to the previous workspace, by the <abbr title="Window Manager">WM</abbr>'s internal numbering. Do not move any windows.</dd>
-    <dt><code>workspace-go-left</code></dt>
-    <dd>Switch focus to the left in the grid of workspaces. Do not move any windows.</dd>
-    <dd>For users who have laid out their workspaces in a row, this is equivalent to <code>workspace-go-prev</code> with the possible exception of wrap-around behaviour.</dd>
-    <dt><code>workspace-go-right</code></dt>
-    <dd>Switch focus to the right in the grid of workspaces. Do not move any windows.</dd>
-    <dd>For users who have laid out their workspaces in a row, this is equivalent to <code>workspace-go-next</code> with the possible exception of wrap-around behaviour.</dd>
-    <dt><code>workspace-go-up</code></dt>
-    <dd>Switch focus upward in the grid of workspaces. Do not move any windows.</dd>
-    <dd>For users who have laid out their workspaces in a column, this is equivalent to <code>workspace-go-prev</code> with the possible exception of wrap-around behaviour.</dd>
-    <dt><code>workspace-go-down</code></dt>
-    <dd>Switch focus downward in the grid of workspaces. Do not move any windows.</dd>
-    <dd>For users who have laid out their workspaces in a column, this is equivalent to <code>workspace-go-next</code> with the possible exception of wrap-around behaviour.</dd>
-</dl>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="usage.html" title="previous chapter">Usage</a></li>
+      <li>Next: <a href="config.html" title="next chapter">Configuration</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script><div class="badges">
+    <p><a href="apt:python3,python3-pip,python3-setuptools,python3-gi,python3-xlib,python3-dbus,gir1.2-glib-2.0,gir1.2-gtk-3.0,gir1.2-wnck-3.0" class="btn" title="Install from configured repositories on Debian-based distros"><img src="_static/img/debian_12.png" alt="Debian"><img src="_static/img/ubuntu_12.png" alt="Ubuntu"><img src="_static/img/mint_12.png" alt="Mint"> Install Dependencies</a></p>
+    <p><a href="http://github.com/ssokolow/quicktile/zipball/master" class="btn">Download QuickTile</a></p>
+    <p><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img src="_static/license.svg" alt="License: GPLv2" /></a></p>
+</div><div class="contrib_box">
+    <h3>Tip Jar</h3>
+    <dl>
+        <dt>Code (Best)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://github.com/ssokolow/quicktile"
+                        title="GitHub Repo"><img
+                        src="_static/contrib_box/github.png"
+                        alt="GitHub" /></a></li>
+                <li><a href="https://github.com/ssokolow/quicktile/issues"
+                        title="Bug Tracker"><img
+                        src="_static/contrib_box/bug.png"
+                        alt="Bug Tracker" /></a></li>
+            </ul>
+        </dd>
+        <dt>Publicity (Better)</dt>
+        <dd>Show your friends</dd>
+        <dt>Snacks (Good)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://flattr.com/thing/674146"
+                        title="Flattr"><img
+                        src="_static/contrib_box/flattr.png"
+                        alt="Flattr" /></a></li>
+                <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="EFWRR7EAQ993S"><input type="image" src="_static/contrib_box/paypal.png" name="submit" alt="PayPal" title="PayPal"></form></li>
+                <li><a title="BitCoin"
+                    href="bitcoin:1Kp1i3nahunzzFs5a3mMF46uzca4oANH5C?label=QuickTile%20Donations"
+                    ><img
+                    src="_static/contrib_box/bitcoin.png"
+                    alt="BitCoin"
+                /></a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--
+    bug.png and wrench.png from the Silk Icons set by Mark James, available at
+    http://www.famfamfam.com/lab/icons/silk/
+    are used under the Creative Commons Attribution 2.5 license.
+-->
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
 
-<h3>Workspace-wise Window Manipulation</h3>
-<dl class="big reference">
-    <dt><code>all-desktops</code></dt>
-    <dd>Toggle whether the active window appears on all desktop/workspaces</dd>
-    <dt><code>workspace-send-next</code></dt>
-    <dd>Ask the <abbr title="Window Manager">WM</abbr> to move the active window to the next workspace, according to its internal numbering.</dd>
-    <dt><code>workspace-send-prev</code></dt>
-    <dd>Ask the <abbr title="Window Manager">WM</abbr> to move the active window to the previous workspace, according to its internal numbering.</dd>
-    <dt><code>workspace-send-left</code></dt>
-    <dd>Ask the <abbr title="Window Manager">WM</abbr> to move the active window to the left in the grid of workspaces.</dd>
-    <dd>For users who have laid out their workspaces in a row, this is equivalent to <code>workspace-send-prev</code> with the possible exception of wrap-around behaviour.</dd>
-    <dt><code>workspace-send-right</code></dt>
-    <dd>Ask the <abbr title="Window Manager">WM</abbr> to move the active window to the right in the grid of workspaces.</dd>
-    <dd>For users who have laid out their workspaces in a row, this is equivalent to <code>workspace-send-next</code> with the possible exception of wrap-around behaviour.</dd>
-    <dt><code>workspace-send-up</code></dt>
-    <dd>Ask the <abbr title="Window Manager">WM</abbr> to move the active window upward in the grid of workspaces.</dd>
-    <dd>For users who have laid out their workspaces in a column, this is equivalent to <code>workspace-send-prev</code> with the possible exception of wrap-around behaviour.</dd>
-    <dt><code>workspace-send-down</code></dt>
-    <dd>Ask the <abbr title="Window Manager">WM</abbr> to move the active window downward in the grid of workspaces.</dd>
-    <dd>For users who have laid out their workspaces in a column, this is equivalent to <code>workspace-send-next</code> with the possible exception of wrap-around behaviour.</dd>
-</dl>
+          <div class="body" role="main">
+            
+  <div class="section" id="command-reference">
+<h1>Command Reference<a class="headerlink" href="#command-reference" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All keybindings are customizable. This list shows their defaults.
+You can use the
+<a class="reference external" href="cli.html#cmdoption-quicktile-show-bindings">--show-bindings</a>
+option to view your current keybindings.</p>
+</div>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#window-tiling" id="id20">Window Tiling</a></p>
+<ul>
+<li><p><a class="reference internal" href="#top-left" id="id21"><code class="docutils literal notranslate"><span class="pre">top-left</span></code></a></p></li>
+<li><p><a class="reference internal" href="#top" id="id22"><code class="docutils literal notranslate"><span class="pre">top</span></code></a></p></li>
+<li><p><a class="reference internal" href="#top-right" id="id23"><code class="docutils literal notranslate"><span class="pre">top-right</span></code></a></p></li>
+<li><p><a class="reference internal" href="#left" id="id24"><code class="docutils literal notranslate"><span class="pre">left</span></code></a></p></li>
+<li><p><a class="reference internal" href="#center" id="id25"><code class="docutils literal notranslate"><span class="pre">center</span></code></a></p></li>
+<li><p><a class="reference internal" href="#right" id="id26"><code class="docutils literal notranslate"><span class="pre">right</span></code></a></p></li>
+<li><p><a class="reference internal" href="#bottom-left" id="id27"><code class="docutils literal notranslate"><span class="pre">bottom-left</span></code></a></p></li>
+<li><p><a class="reference internal" href="#bottom" id="id28"><code class="docutils literal notranslate"><span class="pre">bottom</span></code></a></p></li>
+<li><p><a class="reference internal" href="#bottom-right" id="id29"><code class="docutils literal notranslate"><span class="pre">bottom-right</span></code></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#window-movement" id="id30">Window Movement</a></p>
+<ul>
+<li><p><a class="reference internal" href="#move-to-top-left" id="id31"><code class="docutils literal notranslate"><span class="pre">move-to-top-left</span></code></a></p></li>
+<li><p><a class="reference internal" href="#move-to-top" id="id32"><code class="docutils literal notranslate"><span class="pre">move-to-top</span></code></a></p></li>
+<li><p><a class="reference internal" href="#move-to-top-right" id="id33"><code class="docutils literal notranslate"><span class="pre">move-to-top-right</span></code></a></p></li>
+<li><p><a class="reference internal" href="#move-to-left" id="id34"><code class="docutils literal notranslate"><span class="pre">move-to-left</span></code></a></p></li>
+<li><p><a class="reference internal" href="#move-to-center" id="id35"><code class="docutils literal notranslate"><span class="pre">move-to-center</span></code></a></p></li>
+<li><p><a class="reference internal" href="#move-to-right" id="id36"><code class="docutils literal notranslate"><span class="pre">move-to-right</span></code></a></p></li>
+<li><p><a class="reference internal" href="#move-to-bottom-left" id="id37"><code class="docutils literal notranslate"><span class="pre">move-to-bottom-left</span></code></a></p></li>
+<li><p><a class="reference internal" href="#move-to-bottom" id="id38"><code class="docutils literal notranslate"><span class="pre">move-to-bottom</span></code></a></p></li>
+<li><p><a class="reference internal" href="#move-to-bottom-right" id="id39"><code class="docutils literal notranslate"><span class="pre">move-to-bottom-right</span></code></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#window-state" id="id40">Window State</a></p>
+<ul>
+<li><p><a class="reference internal" href="#always-above" id="id41"><code class="docutils literal notranslate"><span class="pre">always-above</span></code></a></p></li>
+<li><p><a class="reference internal" href="#always-below" id="id42"><code class="docutils literal notranslate"><span class="pre">always-below</span></code></a></p></li>
+<li><p><a class="reference internal" href="#bordered" id="id43"><code class="docutils literal notranslate"><span class="pre">bordered</span></code></a></p></li>
+<li><p><a class="reference internal" href="#fullscreen" id="id44"><code class="docutils literal notranslate"><span class="pre">fullscreen</span></code></a></p></li>
+<li><p><a class="reference internal" href="#horizontal-maximize" id="id45"><code class="docutils literal notranslate"><span class="pre">horizontal-maximize</span></code></a></p></li>
+<li><p><a class="reference internal" href="#maximize" id="id46"><code class="docutils literal notranslate"><span class="pre">maximize</span></code></a></p></li>
+<li><p><a class="reference internal" href="#minimize" id="id47"><code class="docutils literal notranslate"><span class="pre">minimize</span></code></a></p></li>
+<li><p><a class="reference internal" href="#shade" id="id48"><code class="docutils literal notranslate"><span class="pre">shade</span></code></a></p></li>
+<li><p><a class="reference internal" href="#vertical-maximize" id="id49"><code class="docutils literal notranslate"><span class="pre">vertical-maximize</span></code></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#multi-monitor-operations" id="id50">Multi-Monitor Operations</a></p>
+<ul>
+<li><p><a class="reference internal" href="#monitor-next" id="id51"><code class="docutils literal notranslate"><span class="pre">monitor-next</span></code></a></p></li>
+<li><p><a class="reference internal" href="#monitor-next-all" id="id52"><code class="docutils literal notranslate"><span class="pre">monitor-next-all</span></code></a></p></li>
+<li><p><a class="reference internal" href="#monitor-switch" id="id53"><code class="docutils literal notranslate"><span class="pre">monitor-switch</span></code></a></p></li>
+<li><p><a class="reference internal" href="#monitor-switch-all" id="id54"><code class="docutils literal notranslate"><span class="pre">monitor-switch-all</span></code></a></p></li>
+<li><p><a class="reference internal" href="#monitor-prev" id="id55"><code class="docutils literal notranslate"><span class="pre">monitor-prev</span></code></a></p></li>
+<li><p><a class="reference internal" href="#monitor-prev-all" id="id56"><code class="docutils literal notranslate"><span class="pre">monitor-prev-all</span></code></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#workspace-wise-navigation" id="id57">Workspace-wise Navigation</a></p>
+<ul>
+<li><p><a class="reference internal" href="#workspace-go-next" id="id58"><code class="docutils literal notranslate"><span class="pre">workspace-go-next</span></code></a></p></li>
+<li><p><a class="reference internal" href="#workspace-go-prev" id="id59"><code class="docutils literal notranslate"><span class="pre">workspace-go-prev</span></code></a></p></li>
+<li><p><a class="reference internal" href="#workspace-go-left" id="id60"><code class="docutils literal notranslate"><span class="pre">workspace-go-left</span></code></a></p></li>
+<li><p><a class="reference internal" href="#workspace-go-right" id="id61"><code class="docutils literal notranslate"><span class="pre">workspace-go-right</span></code></a></p></li>
+<li><p><a class="reference internal" href="#workspace-go-up" id="id62"><code class="docutils literal notranslate"><span class="pre">workspace-go-up</span></code></a></p></li>
+<li><p><a class="reference internal" href="#workspace-go-down" id="id63"><code class="docutils literal notranslate"><span class="pre">workspace-go-down</span></code></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#workspace-wise-window-manipulation" id="id64">Workspace-wise Window Manipulation</a></p>
+<ul>
+<li><p><a class="reference internal" href="#all-desktops" id="id65"><code class="docutils literal notranslate"><span class="pre">all-desktops</span></code></a></p></li>
+<li><p><a class="reference internal" href="#workspace-send-next" id="id66"><code class="docutils literal notranslate"><span class="pre">workspace-send-next</span></code></a></p></li>
+<li><p><a class="reference internal" href="#workspace-send-prev" id="id67"><code class="docutils literal notranslate"><span class="pre">workspace-send-prev</span></code></a></p></li>
+<li><p><a class="reference internal" href="#workspace-send-left" id="id68"><code class="docutils literal notranslate"><span class="pre">workspace-send-left</span></code></a></p></li>
+<li><p><a class="reference internal" href="#workspace-send-right" id="id69"><code class="docutils literal notranslate"><span class="pre">workspace-send-right</span></code></a></p></li>
+<li><p><a class="reference internal" href="#workspace-send-up" id="id70"><code class="docutils literal notranslate"><span class="pre">workspace-send-up</span></code></a></p></li>
+<li><p><a class="reference internal" href="#workspace-send-down" id="id71"><code class="docutils literal notranslate"><span class="pre">workspace-send-down</span></code></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#miscellaneous-functionality" id="id72">Miscellaneous Functionality</a></p>
+<ul>
+<li><p><a class="reference internal" href="#show-desktop" id="id73"><code class="docutils literal notranslate"><span class="pre">show-desktop</span></code></a></p></li>
+<li><p><a class="reference internal" href="#trigger-move" id="id74"><code class="docutils literal notranslate"><span class="pre">trigger-move</span></code></a></p></li>
+<li><p><a class="reference internal" href="#trigger-resize" id="id75"><code class="docutils literal notranslate"><span class="pre">trigger-resize</span></code></a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="window-tiling">
+<h2><a class="toc-backref" href="#id20">Window Tiling</a><a class="headerlink" href="#window-tiling" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="top-left">
+<span id="id1"></span><h3><a class="toc-backref" href="#id21"><code class="docutils literal notranslate"><span class="pre">top-left</span></code></a><a class="headerlink" href="#top-left" title="Permalink to this headline">¶</a></h3>
+<p>Default Keybinding: <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">Keypad 7</kbd></p>
+<p>Tile the active window to span the top-left quarter of the screen. Press the hotkey multiple times to cycle through different width presets.</p>
+<img alt="diagram" src="_images/top-left.png" />
+</div>
+<div class="section" id="top">
+<h3><a class="toc-backref" href="#id22"><code class="docutils literal notranslate"><span class="pre">top</span></code></a><a class="headerlink" href="#top" title="Permalink to this headline">¶</a></h3>
+<p>Default Keybinding: <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">Keypad 8</kbd></p>
+<p>Tile the active window to span the top half of the screen. Press the hotkey multiple times to cycle through different width presets.</p>
+<img alt="diagram" src="_images/top.png" />
+</div>
+<div class="section" id="top-right">
+<h3><a class="toc-backref" href="#id23"><code class="docutils literal notranslate"><span class="pre">top-right</span></code></a><a class="headerlink" href="#top-right" title="Permalink to this headline">¶</a></h3>
+<p>Default Keybinding: <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">Keypad 9</kbd></p>
+<p>Tile the active window to span the top-right quarter of the screen. Press the hotkey multiple times to cycle through different width presets.</p>
+<img alt="diagram" src="_images/top-right.png" />
+</div>
+<div class="section" id="left">
+<h3><a class="toc-backref" href="#id24"><code class="docutils literal notranslate"><span class="pre">left</span></code></a><a class="headerlink" href="#left" title="Permalink to this headline">¶</a></h3>
+<p>Default Keybinding: <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">Keypad 4</kbd></p>
+<p>Tile the active window to span the left half of the screen. Press the hotkey multiple times to cycle through different width presets.</p>
+<img alt="diagram" src="_images/left.png" />
+</div>
+<div class="section" id="center">
+<h3><a class="toc-backref" href="#id25"><code class="docutils literal notranslate"><span class="pre">center</span></code></a><a class="headerlink" href="#center" title="Permalink to this headline">¶</a></h3>
+<p>Default Keybinding: <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">Keypad 5</kbd></p>
+<p>Tile the active window to fill the screen. Press the hotkey multiple times to cycle through different width presets.</p>
+<img alt="diagram" src="_images/center.png" />
+</div>
+<div class="section" id="right">
+<h3><a class="toc-backref" href="#id26"><code class="docutils literal notranslate"><span class="pre">right</span></code></a><a class="headerlink" href="#right" title="Permalink to this headline">¶</a></h3>
+<p>Default Keybinding: <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">Keypad 6</kbd></p>
+<p>Tile the active window to span the right half of the screen. Press the hotkey multiple times to cycle through different width presets.</p>
+<img alt="diagram" src="_images/right.png" />
+</div>
+<div class="section" id="bottom-left">
+<h3><a class="toc-backref" href="#id27"><code class="docutils literal notranslate"><span class="pre">bottom-left</span></code></a><a class="headerlink" href="#bottom-left" title="Permalink to this headline">¶</a></h3>
+<p>Default Keybinding: <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">Keypad 1</kbd></p>
+<p>Tile the active window to span the bottom-left quarter of the screen. Press the hotkey multiple times to cycle through different width presets.</p>
+<img alt="diagram" src="_images/bottom-left.png" />
+</div>
+<div class="section" id="bottom">
+<h3><a class="toc-backref" href="#id28"><code class="docutils literal notranslate"><span class="pre">bottom</span></code></a><a class="headerlink" href="#bottom" title="Permalink to this headline">¶</a></h3>
+<p>Default Keybinding: <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">Keypad 2</kbd></p>
+<p>Tile the active window to span the bottom half of the screen. Press the hotkey multiple times to cycle through different width presets.</p>
+<img alt="diagram" src="_images/bottom.png" />
+</div>
+<div class="section" id="bottom-right">
+<h3><a class="toc-backref" href="#id29"><code class="docutils literal notranslate"><span class="pre">bottom-right</span></code></a><a class="headerlink" href="#bottom-right" title="Permalink to this headline">¶</a></h3>
+<p>Default Keybinding: <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">Keypad 3</kbd></p>
+<p>Tile the active window to span the bottom-right quarter of the screen. Press the hotkey multiple times to cycle through different width presets.</p>
+<img alt="diagram" src="_images/bottom-right.png" />
+</div>
+</div>
+<div class="section" id="window-movement">
+<h2><a class="toc-backref" href="#id30">Window Movement</a><a class="headerlink" href="#window-movement" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="move-to-top-left">
+<h3><a class="toc-backref" href="#id31"><code class="docutils literal notranslate"><span class="pre">move-to-top-left</span></code></a><a class="headerlink" href="#move-to-top-left" title="Permalink to this headline">¶</a></h3>
+<p>Move the active window to the top-left corner of the screen without altering its shape.</p>
+<img alt="diagram" src="_images/move-to-top-left.png" />
+</div>
+<div class="section" id="move-to-top">
+<h3><a class="toc-backref" href="#id32"><code class="docutils literal notranslate"><span class="pre">move-to-top</span></code></a><a class="headerlink" href="#move-to-top" title="Permalink to this headline">¶</a></h3>
+<p>Move the active window to the center of the top edge of the screen without
+altering its shape.</p>
+<img alt="diagram" src="_images/move-to-top.png" />
+</div>
+<div class="section" id="move-to-top-right">
+<h3><a class="toc-backref" href="#id33"><code class="docutils literal notranslate"><span class="pre">move-to-top-right</span></code></a><a class="headerlink" href="#move-to-top-right" title="Permalink to this headline">¶</a></h3>
+<p>Move the active window to the top-right corner of the screen without altering its shape.</p>
+<img alt="diagram" src="_images/move-to-top-right.png" />
+</div>
+<div class="section" id="move-to-left">
+<h3><a class="toc-backref" href="#id34"><code class="docutils literal notranslate"><span class="pre">move-to-left</span></code></a><a class="headerlink" href="#move-to-left" title="Permalink to this headline">¶</a></h3>
+<p>Move the active window to the center of the left edge of the screen without
+altering its shape.</p>
+<img alt="diagram" src="_images/move-to-left.png" />
+</div>
+<div class="section" id="move-to-center">
+<h3><a class="toc-backref" href="#id35"><code class="docutils literal notranslate"><span class="pre">move-to-center</span></code></a><a class="headerlink" href="#move-to-center" title="Permalink to this headline">¶</a></h3>
+<p>Default Keybinding: <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">C</kbd></p>
+<p>Move the active window to the center of the screen without altering its shape.</p>
+<img alt="diagram" src="_images/move-to-center.png" />
+</div>
+<div class="section" id="move-to-right">
+<h3><a class="toc-backref" href="#id36"><code class="docutils literal notranslate"><span class="pre">move-to-right</span></code></a><a class="headerlink" href="#move-to-right" title="Permalink to this headline">¶</a></h3>
+<p>Move the active window to the center of the right edge of the screen without
+altering its shape.</p>
+<img alt="diagram" src="_images/move-to-right.png" />
+</div>
+<div class="section" id="move-to-bottom-left">
+<h3><a class="toc-backref" href="#id37"><code class="docutils literal notranslate"><span class="pre">move-to-bottom-left</span></code></a><a class="headerlink" href="#move-to-bottom-left" title="Permalink to this headline">¶</a></h3>
+<p>Move the active window to the bottom-left corner of the screen without altering its shape.</p>
+<img alt="diagram" src="_images/move-to-bottom-left.png" />
+</div>
+<div class="section" id="move-to-bottom">
+<h3><a class="toc-backref" href="#id38"><code class="docutils literal notranslate"><span class="pre">move-to-bottom</span></code></a><a class="headerlink" href="#move-to-bottom" title="Permalink to this headline">¶</a></h3>
+<p>Move the active window to the center of the bottom edge of the screen without
+altering its shape.</p>
+<img alt="diagram" src="_images/move-to-bottom.png" />
+</div>
+<div class="section" id="move-to-bottom-right">
+<h3><a class="toc-backref" href="#id39"><code class="docutils literal notranslate"><span class="pre">move-to-bottom-right</span></code></a><a class="headerlink" href="#move-to-bottom-right" title="Permalink to this headline">¶</a></h3>
+<p>Move the active window to the top-right corner of the screen without altering its shape.</p>
+<img alt="diagram" src="_images/move-to-bottom-right.png" />
+</div>
+</div>
+<div class="section" id="window-state">
+<h2><a class="toc-backref" href="#id40">Window State</a><a class="headerlink" href="#window-state" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="always-above">
+<h3><a class="toc-backref" href="#id41"><code class="docutils literal notranslate"><span class="pre">always-above</span></code></a><a class="headerlink" href="#always-above" title="Permalink to this headline">¶</a></h3>
+<p>Toggle whether the active window is rendered on a layer above normal windows
+and panels.</p>
+<img alt="diagram" src="_images/always-above.png" />
+</div>
+<div class="section" id="always-below">
+<h3><a class="toc-backref" href="#id42"><code class="docutils literal notranslate"><span class="pre">always-below</span></code></a><a class="headerlink" href="#always-below" title="Permalink to this headline">¶</a></h3>
+<p>Toggle whether the active window is rendered on a layer below normal windows.</p>
+<img alt="diagram" src="_images/always-below.png" />
+</div>
+<div class="section" id="bordered">
+<h3><a class="toc-backref" href="#id43"><code class="docutils literal notranslate"><span class="pre">bordered</span></code></a><a class="headerlink" href="#bordered" title="Permalink to this headline">¶</a></h3>
+<p>Toggle whether the active window is rendered without a titlebar and borders.</p>
+<p>Whether the window will expand to fill the space formerly taken by its titlebar
+and borders will vary from window manager to window manager.</p>
+<img alt="diagram" src="_images/bordered.png" />
+</div>
+<div class="section" id="fullscreen">
+<h3><a class="toc-backref" href="#id44"><code class="docutils literal notranslate"><span class="pre">fullscreen</span></code></a><a class="headerlink" href="#fullscreen" title="Permalink to this headline">¶</a></h3>
+<p>Toggle whether the active window is rendered fullscreen.</p>
+<p>Fullscreene windows cover desktop panels and, on many compositors, will
+have their rendering bypass the compositor for improved performance.</p>
+<img alt="diagram" src="_images/fullscreen.png" />
+</div>
+<div class="section" id="horizontal-maximize">
+<h3><a class="toc-backref" href="#id45"><code class="docutils literal notranslate"><span class="pre">horizontal-maximize</span></code></a><a class="headerlink" href="#horizontal-maximize" title="Permalink to this headline">¶</a></h3>
+<p>Default Keybinding: <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">H</kbd></p>
+<p>Toggle whether the active window is maximized horizontally, but with its height and vertical position unchanged.</p>
+<img alt="diagram" src="_images/horizontal-maximize.png" />
+</div>
+<div class="section" id="maximize">
+<h3><a class="toc-backref" href="#id46"><code class="docutils literal notranslate"><span class="pre">maximize</span></code></a><a class="headerlink" href="#maximize" title="Permalink to this headline">¶</a></h3>
+<p>Default Keybinding: <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">0</kbd></p>
+<p>Toggle whether the active window is maximized to fill the “work area” of the monitor. (ie. not covering panels unless they’re set to allow it.)</p>
+<img alt="diagram" src="_images/maximize.png" />
+</div>
+<div class="section" id="minimize">
+<h3><a class="toc-backref" href="#id47"><code class="docutils literal notranslate"><span class="pre">minimize</span></code></a><a class="headerlink" href="#minimize" title="Permalink to this headline">¶</a></h3>
+<p>Toggle whether the active window is minimized to the taskbar or equivalent.</p>
+<img alt="diagram" src="_images/minimize.png" />
+</div>
+<div class="section" id="shade">
+<h3><a class="toc-backref" href="#id48"><code class="docutils literal notranslate"><span class="pre">shade</span></code></a><a class="headerlink" href="#shade" title="Permalink to this headline">¶</a></h3>
+<p>Toggle whether the active window is as only a titlebar (like a rolled-up windowshade).</p>
+<img alt="diagram" src="_images/shade.png" />
+</div>
+<div class="section" id="vertical-maximize">
+<h3><a class="toc-backref" href="#id49"><code class="docutils literal notranslate"><span class="pre">vertical-maximize</span></code></a><a class="headerlink" href="#vertical-maximize" title="Permalink to this headline">¶</a></h3>
+<p>Default Keybinding: <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">V</kbd></p>
+<p>Toggle whether the active window is maximized vertically, but with its width and horizontal position unchanged.</p>
+<img alt="diagram" src="_images/vertical-maximize.png" />
+</div>
+</div>
+<div class="section" id="multi-monitor-operations">
+<span id="monitor"></span><h2><a class="toc-backref" href="#id50">Multi-Monitor Operations</a><a class="headerlink" href="#multi-monitor-operations" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>QuickTile for GTK+ 2.x used to preserve window positions within the
+limits of what the host window manager allowed, but it was discovered
+that, on a Kubuntu 16.04 LTS desktop consisting of both 1920x1024 and
+1280x1024 monitors, this could result in windows getting lost off the
+edge of the desktop.</p>
+<p>To avoid this, QuickTile for GTK 3.x clamps the position of the
+window to within the usable region of the target monitor.</p>
+<p>When further internal reworks make it possible, the intent is for
+QuickTile to remember the window’s position on a per-monitor basis
+so that this position clamping is non-destructive to the user’s
+desired layout.</p>
+<p>However, in the interim, please open a feature request on the issue
+tracker if you would make use of a configuration file option to
+disable this safety feature.</p>
+</div>
+<div class="section" id="monitor-next">
+<span id="id2"></span><h3><a class="toc-backref" href="#id51"><code class="docutils literal notranslate"><span class="pre">monitor-next</span></code></a><a class="headerlink" href="#monitor-next" title="Permalink to this headline">¶</a></h3>
+<p>Move the active window to the next monitor, as defined by the
+<abbr title="Window Manager">WM</abbr>’s internal numbering.</p>
+<img alt="diagram" src="_images/monitor-next.png" />
+</div>
+<div class="section" id="monitor-next-all">
+<span id="id3"></span><h3><a class="toc-backref" href="#id52"><code class="docutils literal notranslate"><span class="pre">monitor-next-all</span></code></a><a class="headerlink" href="#monitor-next-all" title="Permalink to this headline">¶</a></h3>
+<p>Move <em>all</em> windows to the next monitor, as defined by the
+<abbr title="Window Manager">WM</abbr>’s internal numbering.</p>
+<img alt="diagram" src="_images/monitor-next-all.png" />
+</div>
+<div class="section" id="monitor-switch">
+<h3><a class="toc-backref" href="#id53"><code class="docutils literal notranslate"><span class="pre">monitor-switch</span></code></a><a class="headerlink" href="#monitor-switch" title="Permalink to this headline">¶</a></h3>
+<p>Default Keybinding: <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">Alt</kbd> + <kbd class="kbd docutils literal notranslate">Keypad Enter</kbd></p>
+<p>An alias for <a class="reference internal" href="#monitor-next"><span class="std std-ref">monitor-next</span></a> which will wrap around
+regardless of the value of the <a class="reference internal" href="config.html#movementswrap"><span class="std std-ref">MovementsWrap</span></a> setting in
+the configuration file.</p>
+<img alt="diagram" src="_images/monitor-next.png" />
+</div>
+<div class="section" id="monitor-switch-all">
+<h3><a class="toc-backref" href="#id54"><code class="docutils literal notranslate"><span class="pre">monitor-switch-all</span></code></a><a class="headerlink" href="#monitor-switch-all" title="Permalink to this headline">¶</a></h3>
+<p>An alias for <a class="reference internal" href="#monitor-next-all"><span class="std std-ref">monitor-next-all</span></a> which will wrap around
+regardless of the value of the <a class="reference internal" href="config.html#movementswrap"><span class="std std-ref">MovementsWrap</span></a> setting in
+the configuration file.</p>
+<img alt="diagram" src="_images/monitor-next-all.png" />
+</div>
+<div class="section" id="monitor-prev">
+<h3><a class="toc-backref" href="#id55"><code class="docutils literal notranslate"><span class="pre">monitor-prev</span></code></a><a class="headerlink" href="#monitor-prev" title="Permalink to this headline">¶</a></h3>
+<p>Move the active window to the previous monitor, as defined by the
+<abbr title="Window Manager">WM</abbr>’s internal numbering.</p>
+<img alt="diagram" src="_images/monitor-prev.png" />
+</div>
+<div class="section" id="monitor-prev-all">
+<h3><a class="toc-backref" href="#id56"><code class="docutils literal notranslate"><span class="pre">monitor-prev-all</span></code></a><a class="headerlink" href="#monitor-prev-all" title="Permalink to this headline">¶</a></h3>
+<p>Move <em>all</em> windows to the previous monitor, as defined by the
+<abbr title="Window Manager">WM</abbr>’s internal numbering.</p>
+<img alt="diagram" src="_images/monitor-prev-all.png" />
+</div>
+</div>
+<div class="section" id="workspace-wise-navigation">
+<span id="workspace-go"></span><h2><a class="toc-backref" href="#id57">Workspace-wise Navigation</a><a class="headerlink" href="#workspace-wise-navigation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="workspace-go-next">
+<span id="id6"></span><h3><a class="toc-backref" href="#id58"><code class="docutils literal notranslate"><span class="pre">workspace-go-next</span></code></a><a class="headerlink" href="#workspace-go-next" title="Permalink to this headline">¶</a></h3>
+<p>Switch focus to the next workspace, by the <abbr title="Window Manager">WM</abbr>’s
+internal numbering. Do not move any windows.</p>
+<p>For users who have laid out their workspaces in a row or column, this is
+equivalent to <a class="reference internal" href="#workspace-go-right"><span class="std std-ref">workspace-go-right</span></a> or <a class="reference internal" href="#workspace-go-down"><span class="std std-ref">workspace-go-down</span></a>,
+respectively, with the possible exception of wrap-around behaviour.</p>
+<img alt="diagram" src="_images/workspace-go-next.png" />
+</div>
+<div class="section" id="workspace-go-prev">
+<span id="id7"></span><h3><a class="toc-backref" href="#id59"><code class="docutils literal notranslate"><span class="pre">workspace-go-prev</span></code></a><a class="headerlink" href="#workspace-go-prev" title="Permalink to this headline">¶</a></h3>
+<p>Switch focus to the previous workspace, by the <abbr title="Window Manager">WM</abbr>’s
+internal numbering. Do not move any windows.</p>
+<p>For users who have laid out their workspaces in a row or column, this is
+equivalent to <a class="reference internal" href="#workspace-go-left"><span class="std std-ref">workspace-go-left</span></a> or <a class="reference internal" href="#workspace-go-up"><span class="std std-ref">workspace-go-up</span></a>, respectively,
+with the possible exception of wrap-around behaviour.</p>
+<img alt="diagram" src="_images/workspace-go-prev.png" />
+</div>
+<div class="section" id="workspace-go-left">
+<span id="id8"></span><h3><a class="toc-backref" href="#id60"><code class="docutils literal notranslate"><span class="pre">workspace-go-left</span></code></a><a class="headerlink" href="#workspace-go-left" title="Permalink to this headline">¶</a></h3>
+<p>Switch focus to the left in the grid of workspaces. Do not move any windows.</p>
+<p>For users who have laid out their workspaces in a row, this is equivalent to
+<a class="reference internal" href="#workspace-go-prev"><span class="std std-ref">workspace-go-prev</span></a> with the possible exception of wrap-around behaviour.</p>
+<img alt="diagram" src="_images/workspace-go-left.png" />
+</div>
+<div class="section" id="workspace-go-right">
+<span id="id9"></span><h3><a class="toc-backref" href="#id61"><code class="docutils literal notranslate"><span class="pre">workspace-go-right</span></code></a><a class="headerlink" href="#workspace-go-right" title="Permalink to this headline">¶</a></h3>
+<p>Switch focus to the right in the grid of workspaces. Do not move any windows.</p>
+<p>For users who have laid out their workspaces in a row, this is equivalent to
+<a class="reference internal" href="#workspace-go-next"><span class="std std-ref">workspace-go-next</span></a> with the possible exception of wrap-around behaviour.</p>
+<img alt="diagram" src="_images/workspace-go-right.png" />
+</div>
+<div class="section" id="workspace-go-up">
+<span id="id10"></span><h3><a class="toc-backref" href="#id62"><code class="docutils literal notranslate"><span class="pre">workspace-go-up</span></code></a><a class="headerlink" href="#workspace-go-up" title="Permalink to this headline">¶</a></h3>
+<p>Switch focus upward in the grid of workspaces. Do not move any windows.</p>
+<p>For users who have laid out their workspaces in a column, this is equivalent to
+<a class="reference internal" href="#workspace-go-prev"><span class="std std-ref">workspace-go-prev</span></a> with the possible exception of wrap-around behaviour.</p>
+<img alt="diagram" src="_images/workspace-go-up.png" />
+</div>
+<div class="section" id="workspace-go-down">
+<span id="id11"></span><h3><a class="toc-backref" href="#id63"><code class="docutils literal notranslate"><span class="pre">workspace-go-down</span></code></a><a class="headerlink" href="#workspace-go-down" title="Permalink to this headline">¶</a></h3>
+<p>Switch focus downward in the grid of workspaces. Do not move any windows.
+For users who have laid out their workspaces in a column, this is equivalent to
+<a class="reference internal" href="#workspace-go-next"><span class="std std-ref">workspace-go-next</span></a> with the possible exception of wrap-around behaviour.</p>
+<img alt="diagram" src="_images/workspace-go-down.png" />
+</div>
+</div>
+<div class="section" id="workspace-wise-window-manipulation">
+<span id="workspace-send"></span><h2><a class="toc-backref" href="#id64">Workspace-wise Window Manipulation</a><a class="headerlink" href="#workspace-wise-window-manipulation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="all-desktops">
+<h3><a class="toc-backref" href="#id65"><code class="docutils literal notranslate"><span class="pre">all-desktops</span></code></a><a class="headerlink" href="#all-desktops" title="Permalink to this headline">¶</a></h3>
+<p>Toggle whether the active window appears on all desktop/workspaces</p>
+<img alt="diagram" src="_images/all-desktops.png" />
+</div>
+<div class="section" id="workspace-send-next">
+<span id="id13"></span><h3><a class="toc-backref" href="#id66"><code class="docutils literal notranslate"><span class="pre">workspace-send-next</span></code></a><a class="headerlink" href="#workspace-send-next" title="Permalink to this headline">¶</a></h3>
+<p>Ask the <abbr title="Window Manager">WM</abbr> to move the active window to the next
+workspace, as defined by internal numbering.</p>
+<p>For users who have laid out their workspaces in a row or column, this is
+equivalent to <a class="reference internal" href="#workspace-send-right"><span class="std std-ref">workspace-send-right</span></a> or <a class="reference internal" href="#workspace-send-down"><span class="std std-ref">workspace-send-down</span></a>,
+respectively, with the possible exception of wrap-around behaviour.</p>
+<img alt="diagram" src="_images/workspace-send-next.png" />
+</div>
+<div class="section" id="workspace-send-prev">
+<span id="id14"></span><h3><a class="toc-backref" href="#id67"><code class="docutils literal notranslate"><span class="pre">workspace-send-prev</span></code></a><a class="headerlink" href="#workspace-send-prev" title="Permalink to this headline">¶</a></h3>
+<p>Ask the <abbr title="Window Manager">WM</abbr> to move the active window to the previous
+workspace, as defined by its internal numbering.</p>
+<p>For users who have laid out their workspaces in a row or column, this is
+equivalent to <a class="reference internal" href="#workspace-send-left"><span class="std std-ref">workspace-send-left</span></a> or <a class="reference internal" href="#workspace-send-up"><span class="std std-ref">workspace-send-up</span></a>,
+respectively, with the possible exception of wrap-around behaviour.</p>
+<img alt="diagram" src="_images/workspace-send-prev.png" />
+</div>
+<div class="section" id="workspace-send-left">
+<span id="id15"></span><h3><a class="toc-backref" href="#id68"><code class="docutils literal notranslate"><span class="pre">workspace-send-left</span></code></a><a class="headerlink" href="#workspace-send-left" title="Permalink to this headline">¶</a></h3>
+<p>Ask the <abbr title="Window Manager">WM</abbr> to move the active window to the left in
+the grid of workspaces.</p>
+<p>For users who have laid out their workspaces in a row, this is equivalent to
+<a class="reference internal" href="#workspace-send-prev"><span class="std std-ref">workspace-send-prev</span></a> with the possible exception of wrap-around
+behaviour.</p>
+<img alt="diagram" src="_images/workspace-send-left.png" />
+</div>
+<div class="section" id="workspace-send-right">
+<span id="id16"></span><h3><a class="toc-backref" href="#id69"><code class="docutils literal notranslate"><span class="pre">workspace-send-right</span></code></a><a class="headerlink" href="#workspace-send-right" title="Permalink to this headline">¶</a></h3>
+<p>Ask the <abbr title="Window Manager">WM</abbr> to move the active window to the right in
+the grid of workspaces.</p>
+<p>For users who have laid out their workspaces in a row, this is equivalent to
+<a class="reference internal" href="#workspace-send-next"><span class="std std-ref">workspace-send-next</span></a> with the possible exception of wrap-around
+behaviour.</p>
+<img alt="diagram" src="_images/workspace-send-right.png" />
+</div>
+<div class="section" id="workspace-send-up">
+<span id="id17"></span><h3><a class="toc-backref" href="#id70"><code class="docutils literal notranslate"><span class="pre">workspace-send-up</span></code></a><a class="headerlink" href="#workspace-send-up" title="Permalink to this headline">¶</a></h3>
+<p>Ask the <abbr title="Window Manager">WM</abbr> to move the active window upward in the
+grid of workspaces.</p>
+<p>For users who have laid out their workspaces in a column, this is equivalent to
+<a class="reference internal" href="#workspace-send-prev"><span class="std std-ref">workspace-send-prev</span></a> with the possible exception of wrap-around
+behaviour.</p>
+<img alt="diagram" src="_images/workspace-send-up.png" />
+</div>
+<div class="section" id="workspace-send-down">
+<span id="id18"></span><h3><a class="toc-backref" href="#id71"><code class="docutils literal notranslate"><span class="pre">workspace-send-down</span></code></a><a class="headerlink" href="#workspace-send-down" title="Permalink to this headline">¶</a></h3>
+<p>Ask the <abbr title="Window Manager">WM</abbr> to move the active window downward in the
+grid of workspaces.</p>
+<p>For users who have laid out their workspaces in a column, this is equivalent to
+<a class="reference internal" href="#workspace-send-next"><span class="std std-ref">workspace-send-next</span></a> with the possible exception of wrap-around
+behaviour.</p>
+<img alt="diagram" src="_images/workspace-send-down.png" />
+</div>
+</div>
+<div class="section" id="miscellaneous-functionality">
+<h2><a class="toc-backref" href="#id72">Miscellaneous Functionality</a><a class="headerlink" href="#miscellaneous-functionality" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="show-desktop">
+<h3><a class="toc-backref" href="#id73"><code class="docutils literal notranslate"><span class="pre">show-desktop</span></code></a><a class="headerlink" href="#show-desktop" title="Permalink to this headline">¶</a></h3>
+<p>Ask the <abbr title="Window Manager">WM</abbr> to toggle the visibility of all windows.</p>
+<p>Be warned that some WMs will forget about this (it will degenerate into a
+normal “everything manually minimized” state) if you re-show your windows
+through any means other than triggering this behaviour a second time.</p>
+<img alt="diagram" src="_images/show-desktop.png" />
+</div>
+<div class="section" id="trigger-move">
+<h3><a class="toc-backref" href="#id74"><code class="docutils literal notranslate"><span class="pre">trigger-move</span></code></a><a class="headerlink" href="#trigger-move" title="Permalink to this headline">¶</a></h3>
+<p>Ask the <abbr title="Window Manager">WM</abbr> to begin a “keyboard-driven move” operation
+on the active window.</p>
+<p>Typically, this is handled via the arrow keys but it’s ultimately up to your
+window manager to decide what it means.</p>
+<img alt="diagram" src="_images/trigger-move.png" />
+</div>
+<div class="section" id="trigger-resize">
+<h3><a class="toc-backref" href="#id75"><code class="docutils literal notranslate"><span class="pre">trigger-resize</span></code></a><a class="headerlink" href="#trigger-resize" title="Permalink to this headline">¶</a></h3>
+<p>Ask the <abbr title="Window Manager">WM</abbr> to begin a “keyboard-driven resize”
+operation on the active window.</p>
+<p>Typically, this is handled via the arrow keys but it’s ultimately up to your
+window manager to decide what it means.</p>
+<img alt="diagram" src="_images/trigger-resize.png" />
+<hr class="docutils" />
+<p>Special thanks to <a class="reference external" href="https://github.com/stygstra">David Stygstra</a> for creating
+the initial 25 diagrams and establishing their style.</p>
+</div>
+</div>
+</div>
 
-<h3>Miscellaneous Functionality</h3>
-<dl class="big reference">
-    <dt><code>show-desktop</code></dt>
-    <dd>Ask the <abbr title="Window Manager">WM</abbr> to toggle the visibility of all windows.</dd>
-    <dd>Be warned that some WMs will forget about this (it will degenerate into a normal "everything manually minimized" state) if you re-show your windows through any means other than triggering this behaviour a second time.</dd>
 
-    <dt><code>trigger-move</code></dt>
-    <dd>Ask the <abbr title="Window Manager">WM</abbr> to begin a "keyboard-driven move" operation on the active window.</dd>
-    <dd>Typically, this is handled via the arrow keys.</dd>
-    <dt><code>trigger-resize</code></dt>
-    <dd>Ask the <abbr title="Window Manager">WM</abbr> to begin a "keyboard-driven resize" operation on the active window.</dd>
-    <dd>Typically, this is handled via the arrow keys.</dd>
-</dl>
-<hr>
-<p>Special thanks to <a href="https://github.com/stygstra">David Stygstra</a> for the diagrams.</p>
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2009-2020, Stephan Sokolow.
+      
+      |
+      <a href="_sources/commands.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/ssokolow/quicktile" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

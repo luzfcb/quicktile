@@ -1,0 +1,528 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>quicktile.gtkexcepthook &#8212; QuickTile 0.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+    <link rel="canonical" href="http://ssokolow.com/quicktile/_modules/quicktile/gtkexcepthook.html"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<h1 class="logo"><a href="../../index.html">QuickTile</a></h1>
+
+
+
+<p class="blurb">Keyboard-driven Window Tiling for your existing X11 window manager</p>
+
+
+
+
+
+
+
+
+    
+
+<p>
+<a class="badge" href="https://travis-ci.org/ssokolow/quicktile">
+    <img
+        alt="CI Test Status"
+        src="https://secure.travis-ci.org/ssokolow/quicktile.svg?branch=master"
+    />
+</a>
+</p>
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script><div class="badges">
+    <p><a href="apt:python3,python3-pip,python3-setuptools,python3-gi,python3-xlib,python3-dbus,gir1.2-glib-2.0,gir1.2-gtk-3.0,gir1.2-wnck-3.0" class="btn" title="Install from configured repositories on Debian-based distros"><img src="../../_static/img/debian_12.png" alt="Debian"><img src="../../_static/img/ubuntu_12.png" alt="Ubuntu"><img src="../../_static/img/mint_12.png" alt="Mint"> Install Dependencies</a></p>
+    <p><a href="http://github.com/ssokolow/quicktile/zipball/master" class="btn">Download QuickTile</a></p>
+    <p><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img src="../../_static/license.svg" alt="License: GPLv2" /></a></p>
+</div><div class="contrib_box">
+    <h3>Tip Jar</h3>
+    <dl>
+        <dt>Code (Best)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://github.com/ssokolow/quicktile"
+                        title="GitHub Repo"><img
+                        src="../../_static/contrib_box/github.png"
+                        alt="GitHub" /></a></li>
+                <li><a href="https://github.com/ssokolow/quicktile/issues"
+                        title="Bug Tracker"><img
+                        src="../../_static/contrib_box/bug.png"
+                        alt="Bug Tracker" /></a></li>
+            </ul>
+        </dd>
+        <dt>Publicity (Better)</dt>
+        <dd>Show your friends</dd>
+        <dt>Snacks (Good)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://flattr.com/thing/674146"
+                        title="Flattr"><img
+                        src="../../_static/contrib_box/flattr.png"
+                        alt="Flattr" /></a></li>
+                <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="EFWRR7EAQ993S"><input type="image" src="../../_static/contrib_box/paypal.png" name="submit" alt="PayPal" title="PayPal"></form></li>
+                <li><a title="BitCoin"
+                    href="bitcoin:1Kp1i3nahunzzFs5a3mMF46uzca4oANH5C?label=QuickTile%20Donations"
+                    ><img
+                    src="../../_static/contrib_box/bitcoin.png"
+                    alt="BitCoin"
+                /></a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--
+    bug.png and wrench.png from the Silk Icons set by Mark James, available at
+    http://www.famfamfam.com/lab/icons/silk/
+    are used under the Creative Commons Attribution 2.5 license.
+-->
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for quicktile.gtkexcepthook</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># pylint: disable=line-too-long</span>
+<span class="sd">&quot;&quot;&quot;Graphical exception handler for PyGTK applications</span>
+
+<span class="sd">Usage</span>
+<span class="sd">-----</span>
+
+<span class="sd">::</span>
+
+<span class="sd">    import gtkexcepthook</span>
+<span class="sd">    gtkexcepthook.enable(optional_reporting_callback)</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+
+<span class="sd">| ©2003 Gustavo J A M Carneiro gjc at inescporto.pt</span>
+<span class="sd">| ©2004-2005 Filip Van Raemdonck</span>
+<span class="sd">| ©2009, 2011, 2017, 2019 Stephan Sokolow</span>
+
+<span class="sd">::</span>
+
+<span class="sd">    http://www.daa.com.au/pipermail/pygtk/2003-August/005775.html</span>
+<span class="sd">    Message-ID: &lt;1062087716.1196.5.camel@emperor.homelinux.net&gt;</span>
+<span class="sd">    &quot;The license is whatever you want.&quot;</span>
+
+<span class="sd">Contains changes merged back from `qtexcepthook.py`_, a Qt 5 port of</span>
+<span class="sd">:file:`gtkexcepthook.py` by Stephan Sokolow ©2019.</span>
+
+<span class="sd">Changes from Van Raemdonck version:</span>
+<span class="sd"> - Ported to PyGI and GTK 3.x</span>
+<span class="sd"> - Refactored code for maintainability and added MyPy type annotations</span>
+<span class="sd"> - Switched from auto-enable to :any:`gtkexcepthook.enable` to silence PyFlakes</span>
+<span class="sd">   false positives. (Borrowed naming convention from cgitb)</span>
+<span class="sd"> - Split out traceback import to silence PyFlakes warning.</span>
+<span class="sd"> - Started to resolve PyLint complaints</span>
+
+<span class="sd">.. todo:: Finish polishing :mod:`quicktile.gtkexcepthook` up to meet my code</span>
+<span class="sd">    formatting and clarity standards.</span>
+<span class="sd">.. todo:: Confirm there isn&#39;t any other generally-applicable information that</span>
+<span class="sd">       could be included in the :mod:`quicktile.gtkexcepthook` debugging dump.</span>
+
+<span class="sd">.. _qtexcepthook.py: https://gist.github.com/ssokolow/f5219e4c8e4bddbba4d08101969445d1</span>
+
+<span class="sd">API Documentation</span>
+<span class="sd">-----------------</span>
+<span class="sd">&quot;&quot;&quot;</span>  <span class="c1"># NOQA</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Gustavo J A M Carneiro; Filip Van Daemdonck; Stephan Sokolow&quot;</span>
+<span class="n">__authors__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Gustavo J A M Carneiro&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Filip Van Daemdonck&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Stephan Sokolow&quot;</span><span class="p">]</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;whatever you want&quot;</span>
+
+<span class="c1"># Silence PyLint being flat-out wrong about MyPy type annotations and</span>
+<span class="c1"># complaining about my grouped imports</span>
+<span class="c1"># pylint: disable=unsubscriptable-object</span>
+<span class="c1"># pylint: disable=wrong-import-order</span>
+
+<span class="kn">import</span> <span class="nn">enum</span><span class="o">,</span> <span class="nn">inspect</span><span class="o">,</span> <span class="nn">linecache</span><span class="o">,</span> <span class="nn">logging</span><span class="o">,</span> <span class="nn">pydoc</span><span class="o">,</span> <span class="nn">textwrap</span><span class="o">,</span> <span class="nn">tokenize</span><span class="o">,</span> <span class="nn">keyword</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
+<span class="kn">from</span> <span class="nn">gettext</span> <span class="kn">import</span> <span class="n">gettext</span> <span class="k">as</span> <span class="n">_</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pformat</span>
+
+<span class="kn">import</span> <span class="nn">gi</span>
+<span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span class="s1">&#39;Gtk&#39;</span><span class="p">,</span> <span class="s1">&#39;3.0&#39;</span><span class="p">)</span>
+<span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span class="s1">&#39;Gdk&#39;</span><span class="p">,</span> <span class="s1">&#39;3.0&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">gi.repository</span> <span class="kn">import</span> <span class="n">Gdk</span><span class="p">,</span> <span class="n">Gtk</span>
+
+<span class="c1"># -- Type-Annotation Imports --</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">FrameType</span><span class="p">,</span> <span class="n">TracebackType</span>
+<span class="c1"># --</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1"># == Analyzer Backend ==</span>
+
+
+<div class="viewcode-block" id="Scope"><a class="viewcode-back" href="../../apidocs/gtkexcepthook.html#quicktile.gtkexcepthook.Scope">[docs]</a><span class="k">class</span> <span class="nc">Scope</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The scope of a variable looked up by :any:`lookup`&quot;&quot;&quot;</span>
+    <span class="n">Builtin</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">Global</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">Local</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">NONE</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Override str() to return either the variant name or &#39;?&#39; for NONE&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="n">Scope</span><span class="o">.</span><span class="n">NONE</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;?&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="lookup"><a class="viewcode-back" href="../../apidocs/gtkexcepthook.html#quicktile.gtkexcepthook.lookup">[docs]</a><span class="k">def</span> <span class="nf">lookup</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+           <span class="n">frame</span><span class="p">:</span> <span class="n">FrameType</span><span class="p">,</span>
+           <span class="n">local_vars</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+           <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Scope</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Find the value for a given name in the given frame</span>
+
+<span class="sd">    :param name: Name of the variable to look up.</span>
+<span class="sd">    :param frame: A frame object originally retrieved via</span>
+<span class="sd">        :any:`inspect.getinnerframes`.</span>
+<span class="sd">    :param local_vars: A cached locals dict originally retrieved via</span>
+<span class="sd">        :any:`inspect.getargvalues`.</span>
+<span class="sd">    :returns: A tuple of a :any:`Scope` and the requested value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">local_vars</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Scope</span><span class="o">.</span><span class="n">Local</span><span class="p">,</span> <span class="n">local_vars</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_globals</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Scope</span><span class="o">.</span><span class="n">Global</span><span class="p">,</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_globals</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="s1">&#39;__builtins__&#39;</span> <span class="ow">in</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_globals</span><span class="p">:</span>
+        <span class="n">builtins</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">f_globals</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">builtins</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">builtins</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Scope</span><span class="o">.</span><span class="n">Builtin</span><span class="p">,</span> <span class="n">builtins</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">builtins</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">Scope</span><span class="o">.</span><span class="n">Builtin</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">builtins</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Scope</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="tokenize_frame"><a class="viewcode-back" href="../../apidocs/gtkexcepthook.html#quicktile.gtkexcepthook.tokenize_frame">[docs]</a><span class="k">def</span> <span class="nf">tokenize_frame</span><span class="p">(</span>
+        <span class="n">frame_rec</span><span class="p">:</span> <span class="n">inspect</span><span class="o">.</span><span class="n">FrameInfo</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">tokenize</span><span class="o">.</span><span class="n">TokenInfo</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Generator which produces a lexical token stream from a frame record</span>
+
+<span class="sd">    .. todo: Add MyPy type signature for :func:`tokenize_frame`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fname</span><span class="p">,</span> <span class="n">lineno</span> <span class="o">=</span> <span class="n">frame_rec</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">lineno_mut</span> <span class="o">=</span> <span class="p">[</span><span class="n">lineno</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">readline</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Callback to work around tokenize.generate_tokens&#39;s API&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">args</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;readline with args: </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">lineno_mut</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">lineno_mut</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">for</span> <span class="n">token_tup</span> <span class="ow">in</span> <span class="n">tokenize</span><span class="o">.</span><span class="n">generate_tokens</span><span class="p">(</span><span class="n">readline</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="n">token_tup</span></div>
+
+
+<div class="viewcode-block" id="gather_vars"><a class="viewcode-back" href="../../apidocs/gtkexcepthook.html#quicktile.gtkexcepthook.gather_vars">[docs]</a><span class="k">def</span> <span class="nf">gather_vars</span><span class="p">(</span><span class="n">frame_rec</span><span class="p">:</span> <span class="n">inspect</span><span class="o">.</span><span class="n">FrameInfo</span><span class="p">,</span>
+                <span class="n">local_vars</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Extract all the local variables from the given traceback frame using</span>
+<span class="sd">    :func:`lookup`.</span>
+
+<span class="sd">    :param frame_rec: A frame info object originally retrieved via</span>
+<span class="sd">        :any:`inspect.getinnerframes`.</span>
+<span class="sd">    :param local_vars: A cached locals dict originally retrieved via</span>
+<span class="sd">        :any:`inspect.getargvalues`.</span>
+<span class="sd">    :returns: A dict of the local variables.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">frame_rec</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">all_vars</span><span class="p">,</span> <span class="n">prev</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">scope</span> <span class="o">=</span> <span class="p">{},</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">token_tuple</span> <span class="ow">in</span> <span class="n">tokenize_frame</span><span class="p">(</span><span class="n">frame_rec</span><span class="p">):</span>
+        <span class="n">t_type</span><span class="p">,</span> <span class="n">t_str</span> <span class="o">=</span> <span class="n">token_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">t_type</span> <span class="o">==</span> <span class="n">tokenize</span><span class="o">.</span><span class="n">NAME</span> <span class="ow">and</span>  <span class="c1"># pylint: disable=no-member</span>
+                <span class="n">t_str</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">keyword</span><span class="o">.</span><span class="n">kwlist</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="ow">not</span> <span class="n">name</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">scope</span>  <span class="c1"># nosec</span>
+                <span class="n">scope</span><span class="p">,</span> <span class="n">val</span> <span class="o">=</span> <span class="n">lookup</span><span class="p">(</span><span class="n">t_str</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span> <span class="n">local_vars</span><span class="p">)</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">t_str</span>
+            <span class="k">elif</span> <span class="n">name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">prev</span><span class="p">,</span> <span class="n">t_str</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="c1"># XXX skip the rest of this identifier only</span>
+                    <span class="k">break</span>
+                <span class="n">name</span> <span class="o">+=</span> <span class="n">t_str</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">val</span><span class="p">:</span>
+                    <span class="n">prev</span> <span class="o">=</span> <span class="n">val</span>
+            <span class="k">except</span><span class="p">:</span>  <span class="c1"># pylint: disable=bare-except</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;  found </span><span class="si">%s</span><span class="s1"> name </span><span class="si">%s</span><span class="s1"> val </span><span class="si">%s</span><span class="s1"> in </span><span class="si">%s</span><span class="s1"> for token </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
+                          <span class="n">scope</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">prev</span><span class="p">,</span> <span class="n">t_str</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">t_str</span> <span class="o">==</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">prev</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">+=</span> <span class="s1">&#39;.&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
+                <span class="n">all_vars</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">prev</span><span class="p">)</span>
+            <span class="n">prev</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">scope</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">t_type</span> <span class="o">==</span> <span class="n">tokenize</span><span class="o">.</span><span class="n">NEWLINE</span><span class="p">:</span>  <span class="c1"># pylint: disable=no-member</span>
+                <span class="k">break</span>
+    <span class="k">return</span> <span class="n">all_vars</span></div>
+
+
+<div class="viewcode-block" id="analyse"><a class="viewcode-back" href="../../apidocs/gtkexcepthook.html#quicktile.gtkexcepthook.analyse">[docs]</a><span class="k">def</span> <span class="nf">analyse</span><span class="p">(</span><span class="n">exctyp</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">],</span>
+            <span class="n">value</span><span class="p">:</span> <span class="ne">BaseException</span><span class="p">,</span>
+            <span class="n">tracebk</span><span class="p">:</span> <span class="n">TracebackType</span><span class="p">,</span>
+            <span class="n">context_lines</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">max_width</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">80</span>
+            <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StringIO</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Generate a traceback, including the contents of variables in each</span>
+<span class="sd">    stack frame.</span>
+
+<span class="sd">    :param exctyp: Used for class name.</span>
+<span class="sd">    :param value: Used for exception message.</span>
+<span class="sd">    :param tracebk: Used for everything else.</span>
+<span class="sd">    :param context_lines: See the ``context`` argument to</span>
+<span class="sd">        :any:`inspect.getinnerframes`</span>
+<span class="sd">    :param max_width: Width to hard word-wrap to.</span>
+<span class="sd">    :returns: The formatted traceback</span>
+
+<span class="sd">    .. todo:: Rethink ``max_width`` for :any:`quicktile.gtkexcepthook.analyse`.</span>
+<span class="sd">        Both it and no hard-wrapping make readability sub-optimal. I really</span>
+<span class="sd">        want some form of indent-aware word-wrapping.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+    <span class="n">frame_records</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getinnerframes</span><span class="p">(</span><span class="n">tracebk</span><span class="p">,</span> <span class="n">context_lines</span><span class="p">)</span>
+
+    <span class="n">frame_wrapper</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">TextWrapper</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">max_width</span><span class="p">,</span>
+        <span class="n">initial_indent</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">  &#39;</span><span class="p">,</span> <span class="n">subsequent_indent</span><span class="o">=</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
+
+    <span class="n">trace</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Traceback (most recent call last):&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">frame_rec</span> <span class="ow">in</span> <span class="n">frame_records</span><span class="p">:</span>
+        <span class="n">frame</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">lineno</span><span class="p">,</span> <span class="n">funcname</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">_cindex</span> <span class="o">=</span> <span class="n">frame_rec</span>
+
+        <span class="n">args_tuple</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getargvalues</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+        <span class="n">all_vars</span> <span class="o">=</span> <span class="n">gather_vars</span><span class="p">(</span><span class="n">frame_rec</span><span class="p">,</span> <span class="n">args_tuple</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+        <span class="n">trace_frame</span> <span class="o">=</span> <span class="s1">&#39;File </span><span class="si">{!r}</span><span class="s1">, line </span><span class="si">{:d}</span><span class="s1">, </span><span class="si">{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">fname</span><span class="p">,</span> <span class="n">lineno</span><span class="p">,</span> <span class="n">funcname</span><span class="p">,</span> <span class="n">inspect</span><span class="o">.</span><span class="n">formatargvalues</span><span class="p">(</span><span class="o">*</span><span class="n">args_tuple</span><span class="p">,</span>
+            <span class="n">formatvalue</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="n">pydoc</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">repr</span><span class="p">(</span><span class="n">v</span><span class="p">)))</span>
+
+        <span class="n">trace</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">frame_wrapper</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">trace_frame</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">trace</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;    &#39;</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;  &#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">context</span> <span class="ow">or</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()]))</span>
+
+        <span class="k">if</span> <span class="n">all_vars</span><span class="p">:</span>
+            <span class="n">trace</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    Variables (B=Builtin, G=Global, L=Local):</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span> <span class="ow">in</span> <span class="n">all_vars</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">wrapper</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">TextWrapper</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">max_width</span><span class="p">,</span>
+                    <span class="n">initial_indent</span><span class="o">=</span><span class="s1">&#39;     - </span><span class="si">{:&gt;12}</span><span class="s1"> (</span><span class="si">{}</span><span class="s1">): &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">scope</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()),</span>
+                    <span class="n">subsequent_indent</span><span class="o">=</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="mi">7</span><span class="p">)</span>
+                <span class="n">trace</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">wrapper</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">pformat</span><span class="p">(</span><span class="n">val</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">trace</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">exctyp</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">trace</span></div>
+
+<span class="c1"># == GTK+ Frontend ==</span>
+
+
+<div class="viewcode-block" id="ExceptionHandler"><a class="viewcode-back" href="../../apidocs/gtkexcepthook.html#quicktile.gtkexcepthook.ExceptionHandler">[docs]</a><span class="k">class</span> <span class="nc">ExceptionHandler</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;GTK-based graphical exception handler</span>
+
+<span class="sd">    :param reporting_cb: A callback to be exposed via a :guilabel:`Report...`</span>
+<span class="sd">        button which will receive the formatted traceback as a string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reporting_cb</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reporting_cb</span> <span class="o">=</span> <span class="n">reporting_cb</span>
+
+<div class="viewcode-block" id="ExceptionHandler.make_info_dialog"><a class="viewcode-back" href="../../apidocs/gtkexcepthook.html#quicktile.gtkexcepthook.ExceptionHandler.make_info_dialog">[docs]</a>    <span class="k">def</span> <span class="nf">make_info_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">MessageDialog</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Initialize and return the top-level dialog&quot;&quot;&quot;</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">MessageDialog</span><span class="p">(</span><span class="n">transient_for</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                   <span class="n">message_type</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">MessageType</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span>
+                                   <span class="n">buttons</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">ButtonsType</span><span class="o">.</span><span class="n">NONE</span><span class="p">)</span>
+
+        <span class="n">dialog</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Bug Detected&quot;</span><span class="p">))</span>
+        <span class="n">dialog</span><span class="o">.</span><span class="n">set_markup</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;&lt;big&gt;&lt;b&gt;A programming error has been detected &quot;</span>
+            <span class="s2">&quot;during the execution of this program.&lt;/b&gt;&lt;/big&gt;&quot;</span><span class="p">))</span>
+
+        <span class="n">secondary</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;It probably isn&#39;t fatal, but should be reported to &quot;</span>
+            <span class="s2">&quot;the developers nonetheless.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reporting_cb</span><span class="p">:</span>
+            <span class="n">dialog</span><span class="o">.</span><span class="n">add_button</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Report...&quot;</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">secondary</span> <span class="o">+=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Please remember to include the contents of &quot;</span>
+                           <span class="s2">&quot;the Details dialog.&quot;</span><span class="p">)</span>
+        <span class="n">dialog</span><span class="o">.</span><span class="n">format_secondary_text</span><span class="p">(</span><span class="n">secondary</span><span class="p">)</span>
+
+        <span class="n">dialog</span><span class="o">.</span><span class="n">add_button</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Details...&quot;</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">dialog</span><span class="o">.</span><span class="n">add_button</span><span class="p">(</span><span class="n">Gtk</span><span class="o">.</span><span class="n">STOCK_CLOSE</span><span class="p">,</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ResponseType</span><span class="o">.</span><span class="n">CLOSE</span><span class="p">)</span>
+        <span class="n">dialog</span><span class="o">.</span><span class="n">add_button</span><span class="p">(</span><span class="n">Gtk</span><span class="o">.</span><span class="n">STOCK_QUIT</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">dialog</span></div>
+
+<div class="viewcode-block" id="ExceptionHandler.make_details_dialog"><a class="viewcode-back" href="../../apidocs/gtkexcepthook.html#quicktile.gtkexcepthook.ExceptionHandler.make_details_dialog">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">make_details_dialog</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="c1"># type: (Gtk.MessageDialog, str) -&gt; Gtk.MessageDialog</span>
+        <span class="sd">&quot;&quot;&quot;Initialize and return the details dialog</span>
+
+<span class="sd">        :param parent: A reference to the dialog from :any:`make_info_dialog`.</span>
+<span class="sd">        :param text: The contents of the formatted traceback.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">details</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Dialog</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Bug Details&quot;</span><span class="p">),</span> <span class="n">transient_for</span><span class="o">=</span><span class="n">parent</span><span class="p">,</span>
+                             <span class="n">modal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">destroy_with_parent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">details</span><span class="o">.</span><span class="n">add_button</span><span class="p">(</span><span class="n">Gtk</span><span class="o">.</span><span class="n">STOCK_CLOSE</span><span class="p">,</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ResponseType</span><span class="o">.</span><span class="n">CLOSE</span><span class="p">)</span>
+
+        <span class="n">textview</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">TextView</span><span class="p">()</span>
+        <span class="n">textview</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="n">textview</span><span class="o">.</span><span class="n">set_editable</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">textview</span><span class="o">.</span><span class="n">set_monospace</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">swin</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ScrolledWindow</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
+        <span class="n">swin</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="n">swin</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">textview</span><span class="p">)</span>
+        <span class="n">details</span><span class="o">.</span><span class="n">vbox</span><span class="o">.</span><span class="n">pack_start</span><span class="p">(</span><span class="n">swin</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># pylint: disable=E1101</span>
+        <span class="n">textbuffer</span> <span class="o">=</span> <span class="n">textview</span><span class="o">.</span><span class="n">get_buffer</span><span class="p">()</span>
+        <span class="n">textbuffer</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="c1"># Set the default size to just over 60% of the screen&#39;s dimensions</span>
+        <span class="n">screen</span> <span class="o">=</span> <span class="n">Gdk</span><span class="o">.</span><span class="n">Screen</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span>
+        <span class="n">monitor</span> <span class="o">=</span> <span class="n">screen</span><span class="o">.</span><span class="n">get_monitor_at_window</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">get_window</span><span class="p">())</span>
+        <span class="n">area</span> <span class="o">=</span> <span class="n">screen</span><span class="o">.</span><span class="n">get_monitor_geometry</span><span class="p">(</span><span class="n">monitor</span><span class="p">)</span>
+        <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">area</span><span class="o">.</span><span class="n">width</span> <span class="o">//</span> <span class="mf">1.6</span><span class="p">,</span> <span class="n">area</span><span class="o">.</span><span class="n">height</span> <span class="o">//</span> <span class="mf">1.6</span>
+        <span class="n">details</span><span class="o">.</span><span class="n">set_default_size</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">width</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">height</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">details</span></div>
+
+<div class="viewcode-block" id="ExceptionHandler.__call__"><a class="viewcode-back" href="../../apidocs/gtkexcepthook.html#quicktile.gtkexcepthook.ExceptionHandler.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">exctyp</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">],</span>
+            <span class="n">value</span><span class="p">:</span> <span class="ne">BaseException</span><span class="p">,</span>
+            <span class="n">tback</span><span class="p">:</span> <span class="n">TracebackType</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Custom :any:`sys.excepthook` callback which displays a GTK dialog&quot;&quot;&quot;</span>
+
+        <span class="n">cached_tb</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_info_dialog</span><span class="p">()</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="n">dialog</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">resp</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">reporting_cb</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">cached_tb</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">cached_tb</span> <span class="o">=</span> <span class="n">analyse</span><span class="p">(</span><span class="n">exctyp</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">tback</span><span class="p">)</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">reporting_cb</span><span class="p">(</span><span class="n">cached_tb</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">resp</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">cached_tb</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">cached_tb</span> <span class="o">=</span> <span class="n">analyse</span><span class="p">(</span><span class="n">exctyp</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">tback</span><span class="p">)</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+                <span class="n">details</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_details_dialog</span><span class="p">(</span><span class="n">dialog</span><span class="p">,</span> <span class="n">cached_tb</span><span class="p">)</span>
+                <span class="n">details</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+                <span class="n">details</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">resp</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">main_level</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">Gtk</span><span class="o">.</span><span class="n">main_quit</span><span class="p">()</span>
+
+            <span class="c1"># Only the &quot;Details&quot; dialog loops back when closed</span>
+            <span class="k">if</span> <span class="n">resp</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">break</span>
+
+        <span class="n">dialog</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="enable"><a class="viewcode-back" href="../../apidocs/gtkexcepthook.html#quicktile.gtkexcepthook.enable">[docs]</a><span class="k">def</span> <span class="nf">enable</span><span class="p">(</span><span class="n">reporting_cb</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Call this to set gtkexcepthook as the default exception handler</span>
+
+<span class="sd">    :param reporting_cb: If provided, this callback will be exposed in the</span>
+<span class="sd">        dialog as a :guilabel:`Report...` button.</span>
+
+<span class="sd">        The function will receive the same formatted traceback visible via</span>
+<span class="sd">        the :guilabel:`Details...` button.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># MyPy disabled pending a release of the fix to #797</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">excepthook</span> <span class="o">=</span> <span class="n">ExceptionHandler</span><span class="p">(</span><span class="n">reporting_cb</span><span class="p">)</span>  <span class="c1"># type: ignore</span></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">class</span> <span class="nc">TestFodder</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  <span class="c1"># pylint: disable=too-few-public-methods</span>
+        <span class="sd">&quot;&quot;&quot;Just something interesting to show in the augmented traceback&quot;&quot;&quot;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;Test&#39;</span>
+
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># type: () -&gt; None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="bp">self</span>  <span class="c1"># pylint: disable=invalid-name</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">TestFodder</span><span class="p">()</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="s1">&#39; e&#39;</span>
+
+    <span class="n">enable</span><span class="p">()</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">z</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">w</span><span class="p">)</span>
+
+<span class="c1"># vim: set sw=4 sts=4 :</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2009-2020, Stephan Sokolow.
+      
+    </div>
+
+    
+    <a href="https://github.com/ssokolow/quicktile" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

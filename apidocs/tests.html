@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>API Documentation &#8212; QuickTile 0.4 documentation</title>
+    <title>Automated Testing Code &#8212; QuickTile 0.4 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -14,13 +14,13 @@
     <script src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Core Application Code (__main__.py)" href="__main__.html" />
-    <link rel="prev" title="Frequently Asked Questions" href="../faq.html" />
+    <link rel="next" title="Unit Tests (test_quicktile.py)" href="test_quicktile.html" />
+    <link rel="prev" title="Window Manager API Wrapper (wm.py)" href="wm.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
   
-    <link rel="canonical" href="http://ssokolow.com/quicktile/apidocs/index.html"/>
+    <link rel="canonical" href="http://ssokolow.com/quicktile/apidocs/tests.html"/>
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -59,8 +59,10 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../faq.html" title="previous chapter">Frequently Asked Questions</a></li>
-      <li>Next: <a href="__main__.html" title="next chapter">Core Application Code (<code class="docutils literal notranslate"><span class="pre">__main__.py</span></code>)</a></li>
+  <li><a href="index.html">API Documentation</a><ul>
+      <li>Previous: <a href="wm.html" title="previous chapter">Window Manager API Wrapper (<code class="docutils literal notranslate"><span class="pre">wm.py</span></code>)</a></li>
+      <li>Next: <a href="test_quicktile.html" title="next chapter">Unit Tests (<code class="docutils literal notranslate"><span class="pre">test_quicktile.py</span></code>)</a></li>
+  </ul></li>
   </ul></li>
 </ul>
 </div>
@@ -126,20 +128,17 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="api-documentation">
-<h1>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h1>
-<p>QuickTile’s code is currently divided into the following modules:</p>
+  <div class="section" id="automated-testing-code">
+<h1>Automated Testing Code<a class="headerlink" href="#automated-testing-code" title="Permalink to this headline">¶</a></h1>
+<p>QuickTile currently has a nearly complete unit test suite for the contents
+of <a class="reference internal" href="util.html#module-quicktile.util" title="quicktile.util"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quicktile.util</span></code></a> as well as the beginnings of a functional testing
+harness which doesn’t yet do much.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="__main__.html">Core Application Code (<code class="docutils literal notranslate"><span class="pre">__main__.py</span></code>)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="commands.html">Command Registry and Included Commands (<code class="docutils literal notranslate"><span class="pre">commands.py</span></code>)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dbus_api.html">D-Bus Interface (<code class="docutils literal notranslate"><span class="pre">dbus_api.py</span></code>)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gtkexcepthook.html">GUI Exception Handler (<code class="docutils literal notranslate"><span class="pre">gtkexcepthook.py</span></code>)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="keybinder.html">Internal Global Hotkey Support (<code class="docutils literal notranslate"><span class="pre">keybinder.py</span></code>)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="layout.html">Layout Calculations (<code class="docutils literal notranslate"><span class="pre">layout.py</span></code>)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="util.html">Self-Contained Utility Code (<code class="docutils literal notranslate"><span class="pre">util.py</span></code>)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wm.html">Window Manager API Wrapper (<code class="docutils literal notranslate"><span class="pre">wm.py</span></code>)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">Automated Testing Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_quicktile.html">Unit Tests (<code class="docutils literal notranslate"><span class="pre">test_quicktile.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_functional.html">Functional Tests (<code class="docutils literal notranslate"><span class="pre">test_functional.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functional_harness/x_server.html">X Server Management (<code class="docutils literal notranslate"><span class="pre">functional_harness/x_server.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functional_harness/env_general.html">Environment Management (<code class="docutils literal notranslate"><span class="pre">functional_harness/env_general.py</span></code>)</a></li>
 </ul>
 </div>
 </div>
@@ -155,7 +154,7 @@
       &copy;2009-2020, Stephan Sokolow.
       
       |
-      <a href="../_sources/apidocs/index.rst.txt"
+      <a href="../_sources/apidocs/tests.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

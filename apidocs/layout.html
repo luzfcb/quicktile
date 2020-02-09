@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Layout Calculations (layout.py) &#8212; QuickTile 0.4 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Self-Contained Utility Code (util.py)" href="util.html" />
+    <link rel="prev" title="Internal Global Hotkey Support (keybinder.py)" href="keybinder.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+    <link rel="canonical" href="http://ssokolow.com/quicktile/apidocs/layout.html"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<h1 class="logo"><a href="../index.html">QuickTile</a></h1>
+
+
+
+<p class="blurb">Keyboard-driven Window Tiling for your existing X11 window manager</p>
+
+
+
+
+
+
+
+
+    
+
+<p>
+<a class="badge" href="https://travis-ci.org/ssokolow/quicktile">
+    <img
+        alt="CI Test Status"
+        src="https://secure.travis-ci.org/ssokolow/quicktile.svg?branch=master"
+    />
+</a>
+</p>
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">API Documentation</a><ul>
+      <li>Previous: <a href="keybinder.html" title="previous chapter">Internal Global Hotkey Support (<code class="docutils literal notranslate"><span class="pre">keybinder.py</span></code>)</a></li>
+      <li>Next: <a href="util.html" title="next chapter">Self-Contained Utility Code (<code class="docutils literal notranslate"><span class="pre">util.py</span></code>)</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script><div class="badges">
+    <p><a href="apt:python3,python3-pip,python3-setuptools,python3-gi,python3-xlib,python3-dbus,gir1.2-glib-2.0,gir1.2-gtk-3.0,gir1.2-wnck-3.0" class="btn" title="Install from configured repositories on Debian-based distros"><img src="../_static/img/debian_12.png" alt="Debian"><img src="../_static/img/ubuntu_12.png" alt="Ubuntu"><img src="../_static/img/mint_12.png" alt="Mint"> Install Dependencies</a></p>
+    <p><a href="http://github.com/ssokolow/quicktile/zipball/master" class="btn">Download QuickTile</a></p>
+    <p><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img src="../_static/license.svg" alt="License: GPLv2" /></a></p>
+</div><div class="contrib_box">
+    <h3>Tip Jar</h3>
+    <dl>
+        <dt>Code (Best)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://github.com/ssokolow/quicktile"
+                        title="GitHub Repo"><img
+                        src="../_static/contrib_box/github.png"
+                        alt="GitHub" /></a></li>
+                <li><a href="https://github.com/ssokolow/quicktile/issues"
+                        title="Bug Tracker"><img
+                        src="../_static/contrib_box/bug.png"
+                        alt="Bug Tracker" /></a></li>
+            </ul>
+        </dd>
+        <dt>Publicity (Better)</dt>
+        <dd>Show your friends</dd>
+        <dt>Snacks (Good)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://flattr.com/thing/674146"
+                        title="Flattr"><img
+                        src="../_static/contrib_box/flattr.png"
+                        alt="Flattr" /></a></li>
+                <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="EFWRR7EAQ993S"><input type="image" src="../_static/contrib_box/paypal.png" name="submit" alt="PayPal" title="PayPal"></form></li>
+                <li><a title="BitCoin"
+                    href="bitcoin:1Kp1i3nahunzzFs5a3mMF46uzca4oANH5C?label=QuickTile%20Donations"
+                    ><img
+                    src="../_static/contrib_box/bitcoin.png"
+                    alt="BitCoin"
+                /></a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--
+    bug.png and wrench.png from the Silk Icons set by Mark James, available at
+    http://www.famfamfam.com/lab/icons/silk/
+    are used under the Creative Commons Attribution 2.5 license.
+-->
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-quicktile.layout">
+<span id="layout-calculations-layout-py"></span><h1>Layout Calculations (<code class="docutils literal notranslate"><span class="pre">layout.py</span></code>)<a class="headerlink" href="#module-quicktile.layout" title="Permalink to this headline">¶</a></h1>
+<p>Layout calculation code</p>
+<dl class="class">
+<dt id="quicktile.layout.GravityLayout">
+<em class="property">class </em><code class="sig-name descname">GravityLayout</code><span class="sig-paren">(</span><em class="sig-param">margin_x=0</em>, <em class="sig-param">margin_y=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/layout.html#GravityLayout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.layout.GravityLayout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper for translating top-left relative dimensions to other corners.</p>
+<p>Used to generate <a class="reference internal" href="commands.html#quicktile.commands.cycle_dimensions" title="quicktile.commands.cycle_dimensions"><code class="xref py py-func docutils literal notranslate"><span class="pre">quicktile.commands.cycle_dimensions()</span></code></a> presets.</p>
+<p>Expects to operate on decimal percentage values. (0 ≤ x ≤ 1)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>margin_x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Horizontal margin to apply when calculating window
+positions, as decimal percentage of screen width.</p></li>
+<li><p><strong>margin_y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Vertical margin to apply when calculating window
+positions, as decimal percentage of screen height.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="quicktile.layout.GravityLayout.GRAVITIES">
+<code class="sig-name descname">GRAVITIES</code><em class="property">: Dict[str, Gravity]</em><em class="property"> = {'bottom': &lt;Gravity.BOTTOM: (0.5, 1.0)&gt;, 'bottom-left': &lt;Gravity.BOTTOM_LEFT: (0.0, 1.0)&gt;, 'bottom-right': &lt;Gravity.BOTTOM_RIGHT: (1.0, 1.0)&gt;, 'center': &lt;Gravity.CENTER: (0.5, 0.5)&gt;, 'left': &lt;Gravity.LEFT: (0.0, 0.5)&gt;, 'right': &lt;Gravity.RIGHT: (1.0, 0.5)&gt;, 'top': &lt;Gravity.TOP: (0.5, 0.0)&gt;, 'top-left': &lt;Gravity.TOP_LEFT: (0.0, 0.0)&gt;, 'top-right': &lt;Gravity.TOP_RIGHT: (1.0, 0.0)&gt;}</em><a class="headerlink" href="#quicktile.layout.GravityLayout.GRAVITIES" title="Permalink to this definition">¶</a></dt>
+<dd><p>A mapping of possible window alignments relative to the monitor/desktop
+as a mapping from formerly manually specified command names to values
+the <a class="reference internal" href="util.html#quicktile.util.Gravity" title="quicktile.util.Gravity"><code class="xref any py py-class docutils literal notranslate"><span class="pre">quicktile.util.Gravity</span></code></a> enum can take on.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="quicktile.layout.GravityLayout.__call__">
+<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">width</em>, <em class="sig-param">height</em>, <em class="sig-param">gravity='top-left'</em>, <em class="sig-param">x=None</em>, <em class="sig-param">y=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/layout.html#GravityLayout.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.layout.GravityLayout.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a relative <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y,</span> <span class="pre">w,</span> <span class="pre">h)</span></code> tuple relative to <code class="docutils literal notranslate"><span class="pre">gravity</span></code>.</p>
+<p>This function takes and returns percentages, represented as decimals
+in the range <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">≤</span> <span class="pre">x</span> <span class="pre">≤</span> <span class="pre">1</span></code>, which can be multiplied by width and
+height values in actual units to produce actual window geometry.</p>
+<p>It can be used in two ways:</p>
+<blockquote>
+<div><p>1. If called <strong>without</strong> <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> values, it will compute a
+geometry tuple which will align a window <code class="docutils literal notranslate"><span class="pre">w</span></code> wide and <code class="docutils literal notranslate"><span class="pre">h</span></code> tall
+according to <code class="docutils literal notranslate"><span class="pre">geometry</span></code>.</p>
+<p>2. If called <strong>with</strong> <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> values, it will translate a
+geometry tuple which is relative to the top-left corner so that it is
+instead relative to another corner.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Desired width as a decimal-form percentage</p></li>
+<li><p><strong>height</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Desired height as a decimal-form percentage</p></li>
+<li><p><strong>gravity</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Desired window alignment from <a class="reference internal" href="#quicktile.layout.GravityLayout.GRAVITIES" title="quicktile.layout.GravityLayout.GRAVITIES"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">GRAVITIES</span></code></a></p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>]) – Desired horizontal position if not the same as <code class="docutils literal notranslate"><span class="pre">gravity</span></code></p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>]) – Desired vertical position if not the same as <code class="docutils literal notranslate"><span class="pre">gravity</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y,</span> <span class="pre">w,</span> <span class="pre">h)</span></code> with all values represented as decimal-form
+percentages.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="quicktile.layout.check_tolerance">
+<code class="sig-name descname">check_tolerance</code><span class="sig-paren">(</span><em class="sig-param">distance</em>, <em class="sig-param">monitor_geom</em>, <em class="sig-param">tolerance=0.1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/layout.html#check_tolerance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.layout.check_tolerance" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Check whether a distance is within a tolerance value calculated as a</dt><dd><p>percentage of a monitor’s size.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>distance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – A distance in pixels.</p></li>
+<li><p><strong>monitor_geom</strong> (<a class="reference internal" href="util.html#quicktile.util.Rectangle" title="quicktile.util.Rectangle"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rectangle</span></code></a>) – A <code class="docutils literal notranslate"><span class="pre">Rectangle</span></code> representing the monitor geometry.</p></li>
+<li><p><strong>tolerance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – A value between 0.0 and 1.0, inclusive, which represents
+a percentage of the monitor size.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is not currently in use but is retained for when future
+plans make it necessary to design reliable “invalidate cached data if
+the window was repositioned/resized without QuickTile” code.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="quicktile.layout.make_winsplit_positions">
+<code class="sig-name descname">make_winsplit_positions</code><span class="sig-paren">(</span><em class="sig-param">columns</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/layout.html#make_winsplit_positions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.layout.make_winsplit_positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the classic WinSplit Revolution tiling presets</p>
+<dl class="field-list simple">
+<dt class="field-odd">Params columns</dt>
+<dd class="field-odd"><p>The number of columns that each tiling preset should be
+built around.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>]]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dict of presets ready to feed into
+<a class="reference internal" href="commands.html#quicktile.commands.CommandRegistry.add_many" title="quicktile.commands.CommandRegistry.add_many"><code class="xref py py-meth docutils literal notranslate"><span class="pre">quicktile.commands.CommandRegistry.add_many()</span></code></a>.</p>
+</dd>
+</dl>
+<p>See <a class="reference internal" href="../config.html#columncount"><span class="std std-ref">ColumnCount</span></a> in the configuration section of the
+manual for further details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>columns</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="quicktile.layout.resolve_fractional_geom">
+<code class="sig-name descname">resolve_fractional_geom</code><span class="sig-paren">(</span><em class="sig-param">fract_geom</em>, <em class="sig-param">monitor_rect</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/layout.html#resolve_fractional_geom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.layout.resolve_fractional_geom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resolve proportional (eg. <code class="docutils literal notranslate"><span class="pre">0.5</span></code>) and preserved (<code class="docutils literal notranslate"><span class="pre">None</span></code>) coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fract_geom</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>]) – An <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y,</span> <span class="pre">w,</span> <span class="pre">h)</span></code> tuple containing monitor-relative
+values in the range from 0.0 to 1.0, inclusive, or a
+<a class="reference internal" href="util.html#quicktile.util.Rectangle" title="quicktile.util.Rectangle"><code class="xref py py-class docutils literal notranslate"><span class="pre">quicktile.util.Rectangle</span></code></a> which will be passed through without
+modification.</p></li>
+<li><p><strong>monitor_rect</strong> (<a class="reference internal" href="util.html#quicktile.util.Rectangle" title="quicktile.util.Rectangle"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rectangle</span></code></a>) – A <a class="reference internal" href="util.html#quicktile.util.Rectangle" title="quicktile.util.Rectangle"><code class="xref py py-class docutils literal notranslate"><span class="pre">quicktile.util.Rectangle</span></code></a> defining the
+bounding box of the monitor (or other desired region) within the
+desktop.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="util.html#quicktile.util.Rectangle" title="quicktile.util.Rectangle"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rectangle</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A rectangle with absolute coordinates derived from
+<code class="docutils literal notranslate"><span class="pre">monitor_rect</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2009-2020, Stephan Sokolow.
+      
+      |
+      <a href="../_sources/apidocs/layout.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/ssokolow/quicktile" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

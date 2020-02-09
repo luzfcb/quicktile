@@ -1,0 +1,450 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Installation &#8212; QuickTile 0.4 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage" href="usage.html" />
+    <link rel="prev" title="QuickTile" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+    <link rel="canonical" href="http://ssokolow.com/quicktile/installation.html"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<h1 class="logo"><a href="index.html">QuickTile</a></h1>
+
+
+
+<p class="blurb">Keyboard-driven Window Tiling for your existing X11 window manager</p>
+
+
+
+
+
+
+
+
+    
+
+<p>
+<a class="badge" href="https://travis-ci.org/ssokolow/quicktile">
+    <img
+        alt="CI Test Status"
+        src="https://secure.travis-ci.org/ssokolow/quicktile.svg?branch=master"
+    />
+</a>
+</p>
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">QuickTile</a></li>
+      <li>Next: <a href="usage.html" title="next chapter">Usage</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script><div class="badges">
+    <p><a href="apt:python3,python3-pip,python3-setuptools,python3-gi,python3-xlib,python3-dbus,gir1.2-glib-2.0,gir1.2-gtk-3.0,gir1.2-wnck-3.0" class="btn" title="Install from configured repositories on Debian-based distros"><img src="_static/img/debian_12.png" alt="Debian"><img src="_static/img/ubuntu_12.png" alt="Ubuntu"><img src="_static/img/mint_12.png" alt="Mint"> Install Dependencies</a></p>
+    <p><a href="http://github.com/ssokolow/quicktile/zipball/master" class="btn">Download QuickTile</a></p>
+    <p><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img src="_static/license.svg" alt="License: GPLv2" /></a></p>
+</div><div class="contrib_box">
+    <h3>Tip Jar</h3>
+    <dl>
+        <dt>Code (Best)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://github.com/ssokolow/quicktile"
+                        title="GitHub Repo"><img
+                        src="_static/contrib_box/github.png"
+                        alt="GitHub" /></a></li>
+                <li><a href="https://github.com/ssokolow/quicktile/issues"
+                        title="Bug Tracker"><img
+                        src="_static/contrib_box/bug.png"
+                        alt="Bug Tracker" /></a></li>
+            </ul>
+        </dd>
+        <dt>Publicity (Better)</dt>
+        <dd>Show your friends</dd>
+        <dt>Snacks (Good)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://flattr.com/thing/674146"
+                        title="Flattr"><img
+                        src="_static/contrib_box/flattr.png"
+                        alt="Flattr" /></a></li>
+                <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="EFWRR7EAQ993S"><input type="image" src="_static/contrib_box/paypal.png" name="submit" alt="PayPal" title="PayPal"></form></li>
+                <li><a title="BitCoin"
+                    href="bitcoin:1Kp1i3nahunzzFs5a3mMF46uzca4oANH5C?label=QuickTile%20Donations"
+                    ><img
+                    src="_static/contrib_box/bitcoin.png"
+                    alt="BitCoin"
+                /></a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--
+    bug.png and wrench.png from the Silk Icons set by Mark James, available at
+    http://www.famfamfam.com/lab/icons/silk/
+    are used under the Creative Commons Attribution 2.5 license.
+-->
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#dependencies" id="id5">Dependencies</a></p>
+<ul>
+<li><p><a class="reference internal" href="#debian-and-derivatives-ubuntu-mint-etc" id="id6">Debian and derivatives (Ubuntu, Mint, etc.)</a></p></li>
+<li><p><a class="reference internal" href="#fedora-and-derivatives" id="id7">Fedora and derivatives</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#installation-options" id="id8">Installation Options</a></p>
+<ul>
+<li><p><a class="reference internal" href="#a-pip3-from-a-url" id="id9">A. <strong class="command">pip3</strong> from a URL</a></p></li>
+<li><p><a class="reference internal" href="#b-install-sh-from-a-local-folder" id="id10">B. <code class="file docutils literal notranslate"><span class="pre">install.sh</span></code> from a local folder</a></p></li>
+<li><p><a class="reference internal" href="#c-run-quicktile-without-installing-it" id="id11">C. Run QuickTile without installing it</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#setting-up-global-hotkeys" id="id12">Setting Up Global Hotkeys</a></p></li>
+<li><p><a class="reference internal" href="#removal" id="id13">Removal</a></p></li>
+</ul>
+</div>
+<p>There are three official installation methods for QuickTile, each with its own
+advantages and disadvantages.</p>
+<p>Support for other methods will be provided on a best-effort basis.</p>
+<div class="section" id="dependencies">
+<span id="id1"></span><h2><a class="toc-backref" href="#id5">Dependencies</a><a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<p>Because QuickTile relies on library bindings which are not installable through
+<abbr title="the Python Package Index">PyPI</abbr>, <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> cannot be used to
+automatically retrieve dependencies.</p>
+<p>You must install the following separately (see below for APT and DNF commands):</p>
+<dl>
+<dt>A desktop based on the X11 windowing system</dt><dd><p>QuickTile relies on NETWM hints and X11-style window decorations to do
+its work and Wayland’s security model explicitly prevents tools like
+QuickTile from being written.</p>
+<p>If you are running MacOS, see the <a class="reference internal" href="faq.html#quicktile-macos"><span class="std std-ref">Does QuickTile run on macOS?</span></a> FAQ entry.</p>
+<p>If you are running Windows and don’t want to download WinSplit Revolution
+from an archive of discontinued software, there are some links which
+include Windows offerings in the <a class="reference internal" href="faq.html#quicktile-windows"><span class="std std-ref">QuickTile doesn’t meet my needs. What can I do?</span></a> FAQ entry.</p>
+</dd>
+<dt><a class="reference external" href="https://www.python.org/">Python</a> 3.5+</dt><dd><p>QuickTile is developed in Python 3.x with Kubuntu Linux 16.04 LTS as its
+earliest explicitly tested compatibility target.</p>
+</dd>
+<dt><a class="reference external" href="https://www.gtk.org/download/index.php">GTK</a> 3.x</dt><dd><p>QuickTile is built around a GLib event loop and also relies on GDK for
+certain window operations.</p>
+</dd>
+<dt><a class="reference external" href="https://gitlab.gnome.org/GNOME/libwnck">libwnck</a></dt><dd><p>QuickTile relies on libwnck for most of its window manipulation to avoid
+playing whac-a-mole with the quirks of various window managers.</p>
+</dd>
+<dt><a class="reference external" href="https://pygobject.readthedocs.io/en/latest/">PyGObject</a></dt><dd><p>QuickTile accesses GNOME-family libraries via their GObject Introspection
+APIs. If your distro packages the following GIR definition files separately
+from the corresponding libraries, you must also ensure that they are
+installed:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GLib-2.0</span></code> (<code class="docutils literal notranslate"><span class="pre">gir1.2-glib-2.0</span></code> on Debian-family distros)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Gdk-3.0</span></code> and <code class="docutils literal notranslate"><span class="pre">GdkX11-3.0</span></code>
+(<code class="docutils literal notranslate"><span class="pre">gir1.2-gtk-3.0</span></code> on Debian-family distros)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Wnck-3.0</span></code> (<code class="docutils literal notranslate"><span class="pre">gir1.2-wnck-3.0</span></code> on Debian-family distros)</p></li>
+</ul>
+</dd>
+<dt><a class="reference external" href="https://pypi.org/project/setuptools/">setuptools</a></dt><dd><p>Though a fairly standard dependency for modern <code class="file docutils literal notranslate"><span class="pre">setup.py</span></code> scripts,
+setuptools is not a part of the Python standard library proper and is often
+not part of the set of packages installed by default on Debian-family
+distros.</p>
+</dd>
+<dt><a class="reference external" href="https://pypi.org/project/python-xlib/">python-xlib</a></dt><dd><p>GDK 3.x and libwnck do not provide wrappers for required functionality,
+such as desktop-agnostic global keybinding and usable getting/setting of
+X11 window properties.</p>
+</dd>
+<dt><a class="reference external" href="https://pypi.org/project/dbus-python/">dbus-python</a></dt><dd><p>Optional, but required if you want to interact with QuickTile over D-Bus.</p>
+</dd>
+</dl>
+<div class="section" id="debian-and-derivatives-ubuntu-mint-etc">
+<h3><a class="toc-backref" href="#id6">Debian and derivatives (Ubuntu, Mint, etc.)</a><a class="headerlink" href="#debian-and-derivatives-ubuntu-mint-etc" title="Permalink to this headline">¶</a></h3>
+<p>The following command should be sufficient to install all required
+dependencies:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo apt-get install python3 python3-pip python3-setuptools python3-gi python3-xlib python3-dbus gir1.2-glib-2.0 gir1.2-gtk-3.0 gir1.2-wnck-3.0
+</pre></div>
+</div>
+<p>If you have <a class="reference external" href="https://help.ubuntu.com/community/AptURL">AptURL</a> set up,
+you can also <a class="reference external" href="apt:python3,python3-pip,python3-setuptools,python3-gi,python3-xlib,python3-dbus,gir1.2-glib-2.0,gir1.2-gtk-3.0,gir1.2-wnck-3.0">click here</a>
+to trigger an installation prompt.</p>
+</div>
+<div class="section" id="fedora-and-derivatives">
+<h3><a class="toc-backref" href="#id7">Fedora and derivatives</a><a class="headerlink" href="#fedora-and-derivatives" title="Permalink to this headline">¶</a></h3>
+<p>The following command should be sufficient to install all required
+dependencies:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo dnf install python3 python3-pip python3-setuptools python3-gobject python3-xlib python3-dbus gtk3 libwnck3
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="installation-options">
+<h2><a class="toc-backref" href="#id8">Installation Options</a><a class="headerlink" href="#installation-options" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="a-pip3-from-a-url">
+<h3><a class="toc-backref" href="#id9">A. <strong class="command">pip3</strong> from a URL</a><a class="headerlink" href="#a-pip3-from-a-url" title="Permalink to this headline">¶</a></h3>
+<p><strong>Advantages:</strong></p>
+<ul class="simple">
+<li><p>Simple</p></li>
+<li><p>Logs installed files for removal</p></li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul class="simple">
+<li><p>System-wide install (requires <strong class="command">sudo</strong>)</p></li>
+<li><p>Setting QuickTile to run on login must be done manually</p></li>
+<li><p>Does not allow you to modify QuickTile code before installation</p></li>
+<li><p>Requires <strong class="command">pip3</strong> to be installed</p></li>
+</ul>
+<p><strong>Instructions:</strong></p>
+<p>After installing your dependencies, run the following command to install
+QuickTile:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo pip3 install https://github.com/ssokolow/quicktile/archive/master.zip
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you attempt to use the <code class="docutils literal notranslate"><span class="pre">--upgrade</span></code> option and it fails to
+properly ignore system-provided dependencies, follow the instructions
+in the <a class="reference internal" href="#removal">Removal</a> section and then try again.</p>
+</div>
+</div>
+<div class="section" id="b-install-sh-from-a-local-folder">
+<h3><a class="toc-backref" href="#id10">B. <code class="file docutils literal notranslate"><span class="pre">install.sh</span></code> from a local folder</a><a class="headerlink" href="#b-install-sh-from-a-local-folder" title="Permalink to this headline">¶</a></h3>
+<p><strong>Advantages:</strong></p>
+<ul class="simple">
+<li><p>No additional dependencies</p></li>
+<li><p>Adds QuickTile as a default autostart task for all desktop sessions</p></li>
+<li><p>Automatically attempts to remove old QuickTile installs before upgrading</p></li>
+<li><p>Allows local modifications before installation</p></li>
+<li><p>Still reasonably simple</p></li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul class="simple">
+<li><p>System-wide install (requires <strong class="command">sudo</strong>)</p></li>
+<li><p>Does not log installed files like <strong class="command">pip3</strong></p></li>
+<li><p>Does not allow per-user modifications to the code after installation</p></li>
+<li><p>Must manually download and unpack QuickTile before running the installation
+command.</p></li>
+</ul>
+<p><strong>Instructions:</strong></p>
+<p>After installing your dependencies and downloading a copy of QuickTile
+(<a class="reference external" href="http://github.com/ssokolow/quicktile/zipball/master">zip</a>,
+<a class="reference external" href="http://github.com/ssokolow/quicktile/tarball/master">tar</a>, or
+<a class="reference external" href="https://github.com/ssokolow/quicktile.git">git clone</a>), run the
+following commands to install it:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /path/to/unpacked/quicktile
+./install.sh
+</pre></div>
+</div>
+<p>You will be prompted for your <strong class="command">sudo</strong> password.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While an ordinary <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">python3</span> <span class="pre">setup.py</span> <span class="pre">install</span></code> will also work,
+<code class="docutils literal notranslate"><span class="pre">install.sh</span></code> has three advantages:</p>
+<ol class="arabic simple">
+<li><p>It runs the <code class="docutils literal notranslate"><span class="pre">setup.py</span> <span class="pre">build</span></code> step without root privileges to avoid
+leaving root-owned cruft around.</p></li>
+<li><p>It will attempt to remove old QuickTile files which might cause a newer
+install to break.</p></li>
+<li><p>It saves you the trouble of setting QuickTile to run on startup.
+(<code class="docutils literal notranslate"><span class="pre">setup.py</span></code> can’t do this because it has no mechanism for adding files
+to <code class="docutils literal notranslate"><span class="pre">/etc</span></code>.)</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="c-run-quicktile-without-installing-it">
+<span id="install-quicktile-sh"></span><h3><a class="toc-backref" href="#id11">C. Run QuickTile without installing it</a><a class="headerlink" href="#c-run-quicktile-without-installing-it" title="Permalink to this headline">¶</a></h3>
+<p><strong>Advantages:</strong></p>
+<ul class="simple">
+<li><p>No additional dependencies</p></li>
+<li><p><strong class="command">sudo</strong> not required</p></li>
+<li><p>Allows full customization of QuickTile</p></li>
+<li><p>Allows parallel installation of multiple QuickTile versions for development
+or testing purposes.</p></li>
+<li><p>Easy removal or upgrade (just delete/replace the folder)</p></li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul class="simple">
+<li><p>Multiple copies of QuickTile may be present on a multi-user system</p></li>
+<li><p>QuickTile must be set to run on startup manually</p></li>
+<li><p>Must manually make provisions for being able to call <code class="file docutils literal notranslate"><span class="pre">quicktile.sh</span></code>
+without placing it in your <span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PATH</span></code>.</p></li>
+</ul>
+<p><strong>Instructions:</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><a class="reference external" href="http://github.com/ssokolow/quicktile/zipball/master">Download</a> or
+<a class="reference external" href="https://github.com/ssokolow/quicktile.git">clone</a> QuickTile.</p></li>
+<li><dl class="simple">
+<dt>Copy the <code class="file docutils literal notranslate"><span class="pre">quicktile</span></code> folder and the <code class="file docutils literal notranslate"><span class="pre">quicktile.sh</span></code> script into</dt><dd><p>a folder of your choice.</p>
+</dd>
+</dl>
+</li>
+<li><p>Make sure <code class="file docutils literal notranslate"><span class="pre">quicktile.sh</span></code> is marked executable.</p></li>
+</ol>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you’d rather roll your own, the <code class="file docutils literal notranslate"><span class="pre">quicktile.sh</span></code> shell script
+is just three simple lines:</p>
+<ol class="arabic simple">
+<li><p>The shebang</p></li>
+<li><p>A line to <code class="docutils literal notranslate"><span class="pre">cd</span></code> to wherever the <code class="file docutils literal notranslate"><span class="pre">quicktile</span></code> folder is</p></li>
+<li><p>A line to run <code class="code docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">quicktile</span> <span class="pre">&quot;$&#64;&quot;</span></code></p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="section" id="setting-up-global-hotkeys">
+<h2><a class="toc-backref" href="#id12">Setting Up Global Hotkeys</a><a class="headerlink" href="#setting-up-global-hotkeys" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p>Run <strong class="command">quicktile</strong> (or <strong class="command">./quicktile.sh</strong> if appropriate) in a
+terminal to create <code class="file docutils literal notranslate"><span class="pre">~/.config/quicktile.cfg</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">quicktile</span></code> command dies with a
+<code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">module</span> <span class="pre">named</span> <span class="pre">__main__</span></code> error, you probably have an old copy of
+QuickTile that didn’t get properly installed/removed.</p>
+<p>Try following the <a class="reference internal" href="#removal">Removal</a> instruction and repeating the installation
+process.</p>
+<p>If this doesn’t fix the problem, you should still be able to run
+QuickTile as <code class="code docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">quicktile</span></code> instead.</p>
+</div>
+</li>
+<li><p>Edit <code class="file docutils literal notranslate"><span class="pre">~/.config/quicktile.cfg</span></code> to customize your keybindings. (See
+<a class="reference internal" href="config.html"><span class="doc">Configuration</span></a> for further details.)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Customizing the tiling presets beyond altering the number of
+of columns which window widths will cycle through currently requires
+editing the source code.</p>
+<p>(Though it <em>is</em> quite simple. Just edit the
+<a class="reference internal" href="apidocs/layout.html#quicktile.layout.make_winsplit_positions" title="quicktile.layout.make_winsplit_positions"><code class="xref py py-func docutils literal notranslate"><span class="pre">quicktile.layout.make_winsplit_positions()</span></code></a> function.)</p>
+<p>This will be remedied when I have time to design a new config file
+format that supports hierarchical data and write and test the requisite
+code to migrate existing configuration files to the new format.</p>
+</div>
+</li>
+<li><p>If you didn’t use <code class="file docutils literal notranslate"><span class="pre">install.sh</span></code>, set your desktop to run
+<code class="docutils literal notranslate"><span class="pre">quicktile</span> <span class="pre">--daemonize</span></code> or <code class="docutils literal notranslate"><span class="pre">/full/path/to/quicktile.sh</span> <span class="pre">--daemonize</span></code>
+on login.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">quicktile</span> <span class="pre">--daemonize</span></code> (or <code class="docutils literal notranslate"><span class="pre">./quicktile.sh</span> <span class="pre">--daemonize</span></code> if
+appropriate) in a terminal to see if it reports any keybinding failures
+and test whether the keybindings work as intended.</p></li>
+<li><p>If QuickTile appears to be working correctly, use <kbd class="kbd docutils literal notranslate">Ctrl</kbd> + <kbd class="kbd docutils literal notranslate">C</kbd> to
+quit it, close the terminal, and re-launch it via your <span class="guilabel">Run…</span>
+dialog so you won’t have a terminal hanging around unnecessarily.</p></li>
+<li><p>Enjoy. :)</p></li>
+</ol>
+</div>
+<div class="section" id="removal">
+<span id="id3"></span><h2><a class="toc-backref" href="#id13">Removal</a><a class="headerlink" href="#removal" title="Permalink to this headline">¶</a></h2>
+<p>As QuickTile does not yet have a one-command uninstall script, you will need to
+do the following.</p>
+<p><strong>A. If you installed via pip3…</strong></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo pip3 uninstall quicktile
+sudo rm /usr/local/bin/quicktile
+</pre></div>
+</div>
+<p><strong>B. If you installed via install.sh…</strong></p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">install.sh</span></code> doesn’t yet log what it installed the way <code class="docutils literal notranslate"><span class="pre">pip3</span></code> does, so
+this will be a bit more involved.</p>
+<ol class="arabic">
+<li><p>Remove the system integration files:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove the command that can be typed at the command-line</span>
+sudo rm /usr/local/bin/quicktile
+
+<span class="c1"># Remove the autostart file</span>
+sudo rm /etc/xdg/autostart/quicktile.desktop
+
+<span class="c1"># Remove the launcher menu entry</span>
+sudo rm /usr/local/share/applications/quicktile.desktop
+</pre></div>
+</div>
+</li>
+<li><p>Remove QuickTile from your Python packages folder.</p>
+<p>While QuickTile itself should be installed as a single folder with a name
+like <code class="file docutils literal notranslate"><span class="pre">QuickTile-0.4-py3.5.egg</span></code>, the paths have varied from distro to
+distro and Python version to Python version.</p>
+<p>To ensure a clean removal, I recommend running the following command,
+verifying that nothing looks obviously wrong about its output, and then
+deleting what it found:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>find /usr/local/lib -iname <span class="s1">&#39;quicktile*&#39;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div></blockquote>
+<p><strong>C. If you run quicktile.sh without installing</strong></p>
+<ol class="arabic simple">
+<li><p>Delete your <code class="file docutils literal notranslate"><span class="pre">quicktile</span></code> folder and <code class="file docutils literal notranslate"><span class="pre">quicktile.sh</span></code> script.</p></li>
+<li><p>Undo whatever changes you made to call <code class="file docutils literal notranslate"><span class="pre">quicktile.sh</span></code>. (eg.
+<span class="target" id="index-1"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PATH</span></code> modifications, shell aliases, desktop session autorun
+entries, etc.)</p></li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2009-2020, Stephan Sokolow.
+      
+      |
+      <a href="_sources/installation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/ssokolow/quicktile" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

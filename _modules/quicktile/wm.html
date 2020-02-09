@@ -1,0 +1,594 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>quicktile.wm &#8212; QuickTile 0.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+    <link rel="canonical" href="http://ssokolow.com/quicktile/_modules/quicktile/wm.html"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<h1 class="logo"><a href="../../index.html">QuickTile</a></h1>
+
+
+
+<p class="blurb">Keyboard-driven Window Tiling for your existing X11 window manager</p>
+
+
+
+
+
+
+
+
+    
+
+<p>
+<a class="badge" href="https://travis-ci.org/ssokolow/quicktile">
+    <img
+        alt="CI Test Status"
+        src="https://secure.travis-ci.org/ssokolow/quicktile.svg?branch=master"
+    />
+</a>
+</p>
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script><div class="badges">
+    <p><a href="apt:python3,python3-pip,python3-setuptools,python3-gi,python3-xlib,python3-dbus,gir1.2-glib-2.0,gir1.2-gtk-3.0,gir1.2-wnck-3.0" class="btn" title="Install from configured repositories on Debian-based distros"><img src="../../_static/img/debian_12.png" alt="Debian"><img src="../../_static/img/ubuntu_12.png" alt="Ubuntu"><img src="../../_static/img/mint_12.png" alt="Mint"> Install Dependencies</a></p>
+    <p><a href="http://github.com/ssokolow/quicktile/zipball/master" class="btn">Download QuickTile</a></p>
+    <p><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img src="../../_static/license.svg" alt="License: GPLv2" /></a></p>
+</div><div class="contrib_box">
+    <h3>Tip Jar</h3>
+    <dl>
+        <dt>Code (Best)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://github.com/ssokolow/quicktile"
+                        title="GitHub Repo"><img
+                        src="../../_static/contrib_box/github.png"
+                        alt="GitHub" /></a></li>
+                <li><a href="https://github.com/ssokolow/quicktile/issues"
+                        title="Bug Tracker"><img
+                        src="../../_static/contrib_box/bug.png"
+                        alt="Bug Tracker" /></a></li>
+            </ul>
+        </dd>
+        <dt>Publicity (Better)</dt>
+        <dd>Show your friends</dd>
+        <dt>Snacks (Good)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://flattr.com/thing/674146"
+                        title="Flattr"><img
+                        src="../../_static/contrib_box/flattr.png"
+                        alt="Flattr" /></a></li>
+                <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="EFWRR7EAQ993S"><input type="image" src="../../_static/contrib_box/paypal.png" name="submit" alt="PayPal" title="PayPal"></form></li>
+                <li><a title="BitCoin"
+                    href="bitcoin:1Kp1i3nahunzzFs5a3mMF46uzca4oANH5C?label=QuickTile%20Donations"
+                    ><img
+                    src="../../_static/contrib_box/bitcoin.png"
+                    alt="BitCoin"
+                /></a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--
+    bug.png and wrench.png from the Silk Icons set by Mark James, available at
+    http://www.famfamfam.com/lab/icons/silk/
+    are used under the Creative Commons Attribution 2.5 license.
+-->
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for quicktile.wm</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Wrapper around libwnck for interacting with the window manager&quot;&quot;&quot;</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Stephan Sokolow (deitarion/SSokolow)&quot;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;GNU GPL 2.0 or later&quot;</span>
+
+<span class="c1"># Silence PyLint being flat-out wrong about MyPy type annotations and</span>
+<span class="c1"># complaining about my grouped imports</span>
+<span class="c1"># pylint: disable=unsubscriptable-object</span>
+<span class="c1"># pylint: disable=wrong-import-order</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+
+<span class="kn">from</span> <span class="nn">Xlib.display</span> <span class="kn">import</span> <span class="n">Display</span> <span class="k">as</span> <span class="n">XDisplay</span>
+<span class="kn">from</span> <span class="nn">Xlib.error</span> <span class="kn">import</span> <span class="n">DisplayConnectionError</span>
+<span class="kn">from</span> <span class="nn">Xlib</span> <span class="kn">import</span> <span class="n">Xatom</span>
+
+<span class="kn">import</span> <span class="nn">gi</span>
+<span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span class="s1">&#39;Gtk&#39;</span><span class="p">,</span> <span class="s1">&#39;3.0&#39;</span><span class="p">)</span>
+<span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span class="s1">&#39;Gdk&#39;</span><span class="p">,</span> <span class="s1">&#39;3.0&#39;</span><span class="p">)</span>
+<span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span class="s1">&#39;Wnck&#39;</span><span class="p">,</span> <span class="s1">&#39;3.0&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">gi.repository</span> <span class="kn">import</span> <span class="n">Gdk</span><span class="p">,</span> <span class="n">GdkX11</span><span class="p">,</span> <span class="n">Wnck</span>
+
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="p">(</span><span class="n">clamp_idx</span><span class="p">,</span> <span class="n">Rectangle</span><span class="p">,</span> <span class="n">UsableRegion</span><span class="p">,</span> <span class="n">StrutPartial</span><span class="p">,</span>
+                   <span class="n">XInitError</span><span class="p">)</span>
+
+<span class="c1"># -- Type-Annotation Imports --</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="c1"># ---</span>
+
+
+<div class="viewcode-block" id="persist_maximization"><a class="viewcode-back" href="../../apidocs/wm.html#quicktile.wm.persist_maximization">[docs]</a><span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">persist_maximization</span><span class="p">(</span><span class="n">win</span><span class="p">:</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="p">,</span> <span class="n">keep_maximize</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Context manager to persist maximization state after a call to</span>
+<span class="sd">    :any:`WindowManager.reposition`.</span>
+
+<span class="sd">    :param win: The window to operate on.</span>
+<span class="sd">    :param keep_maximize: If :any:`False`, this decoration becomes a no-op to</span>
+<span class="sd">        ease writing clean code which needs to support both behaviours.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Unmaximize and record the types we may need to restore</span>
+    <span class="n">max_types</span><span class="p">,</span> <span class="n">maxed</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;_horizontally&#39;</span><span class="p">,</span> <span class="s1">&#39;_vertically&#39;</span><span class="p">],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">maxtype</span> <span class="ow">in</span> <span class="n">max_types</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="s1">&#39;is_maximized&#39;</span> <span class="o">+</span> <span class="n">maxtype</span><span class="p">)():</span>
+            <span class="n">maxed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">maxtype</span><span class="p">)</span>
+            <span class="nb">getattr</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="s1">&#39;unmaximize&#39;</span> <span class="o">+</span> <span class="n">maxtype</span><span class="p">)()</span>
+
+    <span class="k">yield</span>
+
+    <span class="c1"># Restore maximization if asked</span>
+    <span class="k">if</span> <span class="n">maxed</span> <span class="ow">and</span> <span class="n">keep_maximize</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">maxtype</span> <span class="ow">in</span> <span class="n">maxed</span><span class="p">:</span>
+            <span class="nb">getattr</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="s1">&#39;maximize&#39;</span> <span class="o">+</span> <span class="n">maxtype</span><span class="p">)()</span></div>
+
+
+<div class="viewcode-block" id="WindowManager"><a class="viewcode-back" href="../../apidocs/wm.html#quicktile.wm.WindowManager">[docs]</a><span class="k">class</span> <span class="nc">WindowManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A simple API-wrapper class for manipulating window positioning.</span>
+
+<span class="sd">    :param screen: The screen to operate on. If :any:`None`, the</span>
+<span class="sd">        default screen as retrieved by :any:`Gdk.Screen.get_default` will</span>
+<span class="sd">        be used.</span>
+<span class="sd">    :param x_display: The ``Xlib.display.Display`` to operate on. If</span>
+<span class="sd">        :any:`None`, a new X connection will be created.</span>
+<span class="sd">    :raises XInitError: :any:`None` was specified for ``x_display`` and the</span>
+<span class="sd">        attempt to open a new X connection failed.</span>
+
+<span class="sd">    .. todo:: Confirm the root window only changes on X11 server restart</span>
+<span class="sd">       and check whether PyGI retains the PyGTK behaviour of making</span>
+<span class="sd">       connection loss an uncatchable hard exit.</span>
+
+<span class="sd">       (It could possibly change while toggling &quot;allow desktop icons&quot;</span>
+<span class="sd">       in KDE 3.x. Not sure what would be equivalent elsewhere.)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen</span><span class="p">:</span> <span class="n">Gdk</span><span class="o">.</span><span class="n">Screen</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x_display</span><span class="p">:</span> <span class="n">XDisplay</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gdk_screen</span> <span class="o">=</span> <span class="n">screen</span> <span class="ow">or</span> <span class="n">Gdk</span><span class="o">.</span><span class="n">Screen</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">gdk_screen</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">XInitError</span><span class="p">(</span><span class="s2">&quot;GTK+ could not open a connection to the X server&quot;</span>
+                             <span class="s2">&quot; (bad DISPLAY value?)&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gdk_display</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gdk_screen</span><span class="o">.</span><span class="n">get_display</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x_display</span> <span class="o">=</span> <span class="n">x_display</span> <span class="ow">or</span> <span class="n">XDisplay</span><span class="p">()</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">UnicodeDecodeError</span><span class="p">,</span> <span class="n">DisplayConnectionError</span><span class="p">)</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">XInitError</span><span class="p">(</span><span class="s2">&quot;python-xlib failed with </span><span class="si">%s</span><span class="s2"> when asked to open&quot;</span>
+                             <span class="s2">&quot; a connection to the X server. Cannot bind keys.&quot;</span>
+                             <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">It&#39;s unclear why this happens, but it is&quot;</span>
+                             <span class="s2">&quot; usually fixed by deleting your ~/.Xauthority&quot;</span>
+                             <span class="s2">&quot; file and rebooting.&quot;</span>
+                             <span class="o">%</span> <span class="n">err</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_screen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_display</span><span class="o">.</span><span class="n">screen</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_screen</span><span class="o">.</span><span class="n">root</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Screen</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gdk_screen</span><span class="o">.</span><span class="n">get_number</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">usable_region</span> <span class="o">=</span> <span class="n">UsableRegion</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_geometry_cache</span><span class="p">()</span>
+        <span class="c1"># TODO: Hook monitor-added and monitor-removed and regenerate this</span>
+        <span class="c1"># TODO: Hook changes to strut reservations and regenerate this</span>
+
+<div class="viewcode-block" id="WindowManager.update_geometry_cache"><a class="viewcode-back" href="../../apidocs/wm.html#quicktile.wm.WindowManager.update_geometry_cache">[docs]</a>    <span class="k">def</span> <span class="nf">update_geometry_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update the internal cache of monitor &amp; panel shapes by querying</span>
+<span class="sd">        them from the desktop and processing them into a</span>
+<span class="sd">        :class:`quicktile.util.UsableRegion`.</span>
+
+<span class="sd">        :raises Exception: Unable to retrieve monitor geometries</span>
+
+<span class="sd">        .. todo:: Use a more specific exception when</span>
+<span class="sd">           :meth:`update_geometry_cache` fails to retrieve monitor geometries.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Work around xinerama_get_screen_count not getting registered in</span>
+        <span class="c1"># python-xlib if the XINERAMA extension isn&#39;t loaded in the host</span>
+        <span class="c1"># X session by using Gdk&#39;s API instead, which just returns 1.</span>
+        <span class="c1">#</span>
+        <span class="c1"># NOTE: Not using Gdk.Display.get_n_monitors because Kubuntu 16.04 LTS</span>
+        <span class="c1"># doesn&#39;t have a new enough Gdk to have that API.</span>
+        <span class="n">n_screens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gdk_screen</span><span class="o">.</span><span class="n">get_n_monitors</span><span class="p">()</span>
+        <span class="n">monitors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_screens</span><span class="p">):</span>
+            <span class="n">monitors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Rectangle</span><span class="o">.</span><span class="n">from_gdk</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gdk_screen</span><span class="o">.</span><span class="n">get_monitor_geometry</span><span class="p">(</span><span class="n">idx</span><span class="p">)))</span>
+            <span class="c1"># TODO: Look into using python-xlib to match x_root use</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Loaded monitor geometry: </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">monitors</span><span class="p">)</span>
+
+        <span class="c1"># Try to fail gracefully if monitors weren&#39;t found</span>
+        <span class="k">if</span> <span class="n">monitors</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">usable_region</span><span class="o">.</span><span class="n">set_monitors</span><span class="p">(</span><span class="n">monitors</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">usable_region</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;WorkArea.update_geometry_cache received &quot;</span>
+                              <span class="s2">&quot;an empty monitor region! Using cached value.&quot;</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Could not retrieve desktop geometry&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Gather all struts</span>
+        <span class="n">struts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">wid</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">x_root</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_property</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">x_root</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s1">&#39;_NET_CLIENT_LIST&#39;</span><span class="p">,</span> <span class="n">Xatom</span><span class="o">.</span><span class="n">WINDOW</span><span class="p">,</span> <span class="p">[])):</span>
+            <span class="n">win</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_display</span><span class="o">.</span><span class="n">create_resource_object</span><span class="p">(</span><span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="n">wid</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_property</span><span class="p">(</span>
+                <span class="n">win</span><span class="p">,</span> <span class="s1">&#39;_NET_WM_STRUT_PARTIAL&#39;</span><span class="p">,</span> <span class="n">Xatom</span><span class="o">.</span><span class="n">CARDINAL</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+                <span class="n">struts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">StrutPartial</span><span class="p">(</span><span class="o">*</span><span class="n">result</span><span class="p">))</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Gathered _NET_WM_STRUT_PARTIAL value: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                              <span class="n">struts</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># TODO: Unit test this fallback</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_property</span><span class="p">(</span>
+                    <span class="n">win</span><span class="p">,</span> <span class="s1">&#39;_NET_WM_STRUT&#39;</span><span class="p">,</span> <span class="n">Xatom</span><span class="o">.</span><span class="n">CARDINAL</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+                    <span class="n">struts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">StrutPartial</span><span class="p">(</span><span class="o">*</span><span class="n">result</span><span class="p">))</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Gathered _NET_WM_STRUT value: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">struts</span><span class="p">)</span>
+
+        <span class="c1"># Get the list of struts from the root window</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">usable_region</span><span class="o">.</span><span class="n">set_panels</span><span class="p">(</span><span class="n">struts</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Usable desktop region calculated as: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">usable_region</span><span class="p">)</span>
+        <span class="k">return</span></div>
+
+<div class="viewcode-block" id="WindowManager.get_monitor"><a class="viewcode-back" href="../../apidocs/wm.html#quicktile.wm.WindowManager.get_monitor">[docs]</a>    <span class="k">def</span> <span class="nf">get_monitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">win</span><span class="p">:</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Rectangle</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Given a window, retrieve the ID and geometry of the monitor it&#39;s on.</span>
+
+<span class="sd">        :param win: The window to find the containing monitor for.</span>
+<span class="sd">        :returns: ``(monitor_id, geometry)``</span>
+
+<span class="sd">        .. todo:: Look for a way to get the monitor ID without having to</span>
+<span class="sd">           instantiate a :class:`Gdk.Window`.</span>
+
+<span class="sd">           Doing so would also remove the need to set ``self.gdk_display`` as</span>
+<span class="sd">           this is the only user of it.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="n">Gdk</span><span class="o">.</span><span class="n">Window</span><span class="p">):</span>
+            <span class="n">win</span> <span class="o">=</span> <span class="n">GdkX11</span><span class="o">.</span><span class="n">X11Window</span><span class="o">.</span><span class="n">foreign_new_for_display</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gdk_display</span><span class="p">,</span>
+                                                           <span class="n">win</span><span class="o">.</span><span class="n">get_xid</span><span class="p">())</span>
+
+        <span class="c1"># TODO: How do I retrieve the root window from a given one?</span>
+        <span class="c1"># (Gdk.Display.get_default_screen().get_root_window()... now why did</span>
+        <span class="c1"># I want to know?)</span>
+        <span class="n">monitor_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gdk_screen</span><span class="o">.</span><span class="n">get_monitor_at_window</span><span class="p">(</span><span class="n">win</span><span class="p">)</span>
+        <span class="n">monitor_geom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gdk_screen</span><span class="o">.</span><span class="n">get_monitor_geometry</span><span class="p">(</span><span class="n">monitor_id</span><span class="p">)</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot; Window is on monitor </span><span class="si">%s</span><span class="s2">, which has geometry </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                      <span class="n">monitor_id</span><span class="p">,</span> <span class="n">Rectangle</span><span class="o">.</span><span class="n">from_gdk</span><span class="p">(</span><span class="n">monitor_geom</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">monitor_id</span><span class="p">,</span> <span class="n">monitor_geom</span></div>
+
+<div class="viewcode-block" id="WindowManager.get_relevant_windows"><a class="viewcode-back" href="../../apidocs/wm.html#quicktile.wm.WindowManager.get_relevant_windows">[docs]</a>    <span class="k">def</span> <span class="nf">get_relevant_windows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workspace</span><span class="p">:</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Workspace</span>
+                             <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Wrapper for :meth:`Wnck.Screen.get_windows` that filters out windows</span>
+<span class="sd">        of type :any:`Wnck.WindowType.DESKTOP` or :any:`Wnck.WindowType.DOCK`.</span>
+
+<span class="sd">        :param workspace: The virtual desktop to retrieve windows from.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">window</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">get_windows</span><span class="p">():</span>
+            <span class="c1"># Skip windows on other virtual desktops for intuitiveness</span>
+            <span class="k">if</span> <span class="n">workspace</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">window</span><span class="o">.</span><span class="n">is_on_workspace</span><span class="p">(</span><span class="n">workspace</span><span class="p">):</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Skipping window on other workspace: </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">window</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Don&#39;t cycle elements of the desktop</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_relevant</span><span class="p">(</span><span class="n">window</span><span class="p">):</span>
+                <span class="k">continue</span>
+
+            <span class="k">yield</span> <span class="n">window</span></div>
+
+<div class="viewcode-block" id="WindowManager.get_workspace"><a class="viewcode-back" href="../../apidocs/wm.html#quicktile.wm.WindowManager.get_workspace">[docs]</a>    <span class="k">def</span> <span class="nf">get_workspace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                <span class="n">window</span><span class="p">:</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">direction</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Wnck</span><span class="o">.</span><span class="n">MotionDirection</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">wrap_around</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                      <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Wnck</span><span class="o">.</span><span class="n">Workspace</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Get a workspace (virtual desktop) relative to the one containing</span>
+<span class="sd">        the given or active window.</span>
+
+<span class="sd">        :param window: The point of reference. :any:`None` for the</span>
+<span class="sd">            active workspace.</span>
+<span class="sd">        :param direction: The direction in which to look, relative to the point</span>
+<span class="sd">            of reference. Accepts the following types:</span>
+
+<span class="sd">            - :any:`Wnck.MotionDirection`: Absolute direction (will not cycle</span>
+<span class="sd">              around when it reaches the edge)</span>
+<span class="sd">            - :any:`int`: Relative position in the list of workspaces (eg.</span>
+<span class="sd">              ``1`` or ``-2``).</span>
+<span class="sd">            - :any:`None`: The workspace containing ``window``</span>
+<span class="sd">        :param wrap_around: Whether relative indexes should wrap around.</span>
+<span class="sd">        :returns: The workspace object or :any:`None` if no match was found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">window</span><span class="p">:</span>
+            <span class="n">cur</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="n">get_workspace</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cur</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">get_active_workspace</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">cur</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>  <span class="c1"># It&#39;s either pinned or on no workspaces</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">direction</span><span class="p">,</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">MotionDirection</span><span class="p">):</span>
+            <span class="n">nxt</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">get_neighbor</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">direction</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="c1"># TODO: Deduplicate with the wrapping code in commands.py</span>
+            <span class="n">n_spaces</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">get_workspace_count</span><span class="p">()</span>
+
+            <span class="n">nxt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">get_workspace</span><span class="p">(</span>
+                <span class="n">clamp_idx</span><span class="p">(</span><span class="n">cur</span><span class="o">.</span><span class="n">get_number</span><span class="p">()</span> <span class="o">+</span> <span class="n">direction</span><span class="p">,</span> <span class="n">n_spaces</span><span class="p">,</span> <span class="n">wrap_around</span><span class="p">))</span>
+
+        <span class="k">elif</span> <span class="n">direction</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">nxt</span> <span class="o">=</span> <span class="n">cur</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">nxt</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Unrecognized direction: </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">direction</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">nxt</span></div>
+
+<div class="viewcode-block" id="WindowManager._property_prep"><a class="viewcode-back" href="../../apidocs/wm.html#quicktile.wm.WindowManager._property_prep">[docs]</a>    <span class="k">def</span> <span class="nf">_property_prep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">win</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Gdk</span><span class="o">.</span><span class="n">Window</span><span class="p">,</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+            <span class="n">name</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;Common code for `get_property` and `set_property`</span>
+
+<span class="sd">        :param win: A GTK or Wnck Window object or a raw X11 window ID.</span>
+<span class="sd">        :param name: An atom name or a handle returned by</span>
+<span class="sd">            :meth:`Xlib.display.Display.create_resource_object`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="p">(</span><span class="n">Gdk</span><span class="o">.</span><span class="n">Window</span><span class="p">,</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="p">)):</span>
+            <span class="n">win</span> <span class="o">=</span> <span class="n">win</span><span class="o">.</span><span class="n">get_xid</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">win</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_display</span><span class="o">.</span><span class="n">create_resource_object</span><span class="p">(</span><span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="n">win</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_display</span><span class="o">.</span><span class="n">get_atom</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">win</span><span class="p">,</span> <span class="n">name</span></div>
+
+    <span class="c1"># pylint: disable=line-too-long</span>
+<div class="viewcode-block" id="WindowManager.get_property"><a class="viewcode-back" href="../../apidocs/wm.html#quicktile.wm.WindowManager.get_property">[docs]</a>    <span class="k">def</span> <span class="nf">get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">win</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Gdk</span><span class="o">.</span><span class="n">Window</span><span class="p">,</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+            <span class="n">name</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+            <span class="n">prop_type</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">empty</span><span class="p">:</span> <span class="n">Any</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the value of the X11 property ``name`` on window ``win``</span>
+
+<span class="sd">        :param win: A GTK or Wnck Window object or a raw X11 window ID.</span>
+<span class="sd">        :param name: An atom name or a handle returned by</span>
+<span class="sd">            :meth:`Xlib.display.Display.create_resource_object`.</span>
+<span class="sd">        :param prop_type: A constant from :mod:`Xlib.Xatom`</span>
+<span class="sd">        :param empty: The value to return if the property is unset.</span>
+
+<span class="sd">        As this is a semi-internal API not meriting *too* much work to make</span>
+<span class="sd">        pretty, the design follows the underlying `XGetWindowProperty`_ API.</span>
+
+<span class="sd">        Some variable names have been changed to avoid colliding with</span>
+<span class="sd">        Python built-ins while others are abstracted away to present a</span>
+<span class="sd">        simpler API.</span>
+
+<span class="sd">        ``prop_type`` instructs the client library how to correctly un-marshall</span>
+<span class="sd">        the data it receives.</span>
+
+<span class="sd">        .. _XGetWindowProperty: https://tronche.com/gui/x/xlib/window-information/XGetWindowProperty.html</span>
+
+<span class="sd">        .. TODO:: Verify that my ``empty`` argument to :meth:`get_property`</span>
+<span class="sd">            obviates the need to specify anything other than</span>
+<span class="sd">            ``AnyPropertyType`` for ``prop_type`` and, if so, factor it out.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># NOQA</span>
+        <span class="n">win</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property_prep</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">win</span><span class="o">.</span><span class="n">get_full_property</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">prop_type</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="n">result</span> <span class="k">else</span> <span class="n">empty</span></div>
+        <span class="c1"># TODO: Verify that python-xlib will call XFree for us when appropriate</span>
+
+<div class="viewcode-block" id="WindowManager.set_property"><a class="viewcode-back" href="../../apidocs/wm.html#quicktile.wm.WindowManager.set_property">[docs]</a>    <span class="k">def</span> <span class="nf">set_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>  <span class="c1"># pylint: disable=too-many-arguments</span>
+            <span class="n">win</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Gdk</span><span class="o">.</span><span class="n">Window</span><span class="p">,</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+            <span class="n">name</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+            <span class="n">value</span><span class="p">,</span>
+            <span class="n">prop_type</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="n">Xatom</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span>
+            <span class="n">format_size</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the value of X11 property ``name`` on window ``win`` to the</span>
+<span class="sd">        contents of ``value``.</span>
+
+<span class="sd">        :param win: A GTK or Wnck Window object or a raw X11 window ID.</span>
+<span class="sd">        :param name: An atom name or a handle returned by</span>
+<span class="sd">            :meth:`Xlib.display.Display.create_resource_object`.</span>
+<span class="sd">        :param value: The value to be stored</span>
+<span class="sd">        :param prop_type: A constant from :mod:`Xlib.Xatom`</span>
+<span class="sd">        :param format_size: The size of the value in bits.</span>
+
+<span class="sd">        As this is a semi-internal API not meriting *too* much work to make</span>
+<span class="sd">        pretty, the design follows the underlying `XChangeProperty`_ API, which</span>
+<span class="sd">        expects a C-style &quot;list of items as a packed sequence of bits with</span>
+<span class="sd">        out-of-band metadata&quot; data type.</span>
+
+<span class="sd">        Some variable names have been changed to avoid colliding with</span>
+<span class="sd">        Python built-ins while others are abstracted away to present a</span>
+<span class="sd">        simpler API.</span>
+
+<span class="sd">        ``prop_type`` is metadata for the X client library to correctly</span>
+<span class="sd">        un-marshall the data later and the server doesn&#39;t use it for</span>
+<span class="sd">        anything.</span>
+
+<span class="sd">        ``format_size`` specifies the size of an item in the sequence</span>
+<span class="sd">        (even if it&#39;s a sequence of length 1) and is also necessary for</span>
+<span class="sd">        correct operation if the X server decides that it needs to</span>
+<span class="sd">        byte-swap the values.</span>
+
+<span class="sd">        This is why ``format_size`` is necessary for things where you&#39;d</span>
+<span class="sd">        think that ``prop_type`` would be enough to describe the data type.</span>
+
+<span class="sd">        .. _XChangeProperty: https://tronche.com/gui/x/xlib/window-information/XChangeProperty.html</span>
+<span class="sd">        &quot;&quot;&quot;</span>  <span class="c1"># NOQA pylint: disable=line-too-long</span>
+        <span class="n">win</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property_prep</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="n">win</span><span class="o">.</span><span class="n">change_property</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">prop_type</span><span class="p">,</span> <span class="n">format_size</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_display</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span></div>
+        <span class="c1"># TODO: Set an `onerror` handler and at least log an error to console</span>
+
+    <span class="c1"># XXX: Move `if not window` into a decorator and use it everywhere?</span>
+<div class="viewcode-block" id="WindowManager.is_relevant"><a class="viewcode-back" href="../../apidocs/wm.html#quicktile.wm.WindowManager.is_relevant">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">is_relevant</span><span class="p">(</span><span class="n">window</span><span class="p">):</span>  <span class="c1"># type: (Wnck.Window) -&gt; bool</span>
+        <span class="sd">&quot;&quot;&quot;Return :any:`False` if the window should be ignored.</span>
+
+<span class="sd">        (i.e. If it&#39;s the desktop or a panel)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">window</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Received no window object to manipulate&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="n">window</span><span class="o">.</span><span class="n">get_window_type</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span>
+                <span class="n">Wnck</span><span class="o">.</span><span class="n">WindowType</span><span class="o">.</span><span class="n">DESKTOP</span><span class="p">,</span>
+                <span class="n">Wnck</span><span class="o">.</span><span class="n">WindowType</span><span class="o">.</span><span class="n">DOCK</span><span class="p">]:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Irrelevant window: </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">window</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># TODO: Support customizations to exclude things like my Conky window</span>
+        <span class="c1"># (Which I can&#39;t make a `desktop` window because I sometimes drag it)</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="WindowManager.reposition"><a class="viewcode-back" href="../../apidocs/wm.html#quicktile.wm.WindowManager.reposition">[docs]</a>    <span class="k">def</span> <span class="nf">reposition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>  <span class="c1"># pylint: disable=too-many-arguments</span>
+            <span class="n">win</span><span class="p">:</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">Window</span><span class="p">,</span>
+            <span class="n">geom</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Rectangle</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">monitor</span><span class="p">:</span> <span class="n">Rectangle</span><span class="o">=</span><span class="n">Rectangle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">keep_maximize</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">geometry_mask</span><span class="p">:</span> <span class="n">Wnck</span><span class="o">.</span><span class="n">WindowMoveResizeMask</span><span class="o">=</span><span class="p">(</span>
+                <span class="n">Wnck</span><span class="o">.</span><span class="n">WindowMoveResizeMask</span><span class="o">.</span><span class="n">X</span> <span class="o">|</span>
+                <span class="n">Wnck</span><span class="o">.</span><span class="n">WindowMoveResizeMask</span><span class="o">.</span><span class="n">Y</span> <span class="o">|</span>
+                <span class="n">Wnck</span><span class="o">.</span><span class="n">WindowMoveResizeMask</span><span class="o">.</span><span class="n">WIDTH</span> <span class="o">|</span>
+                <span class="n">Wnck</span><span class="o">.</span><span class="n">WindowMoveResizeMask</span><span class="o">.</span><span class="n">HEIGHT</span><span class="p">)</span>
+                   <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Move and resize a window, decorations inclusive, according to the</span>
+<span class="sd">        provided target window and monitor geometry rectangles.</span>
+
+<span class="sd">        If no monitor rectangle is specified, the target position will be</span>
+<span class="sd">        relative to the desktop as a whole.</span>
+
+<span class="sd">        :param win: The window to reposition.</span>
+<span class="sd">        :param geom: The new geometry for the window. Can be left unspecified</span>
+<span class="sd">            if the intent is to move the window to another monitor without</span>
+<span class="sd">            repositioning it.</span>
+<span class="sd">        :param monitor: The frame relative to which ``geom`` should be</span>
+<span class="sd">            interpreted. The whole desktop if unspecified.</span>
+<span class="sd">        :param keep_maximize: Whether to re-maximize the window if it had to be</span>
+<span class="sd">            un-maximized to ensure it would move.</span>
+<span class="sd">        :param geometry_mask: A set of flags determining which aspects of the</span>
+<span class="sd">            requested geometry should actually be applied to the window.</span>
+<span class="sd">            (Allows the same geometry definition to easily be shared between</span>
+<span class="sd">            operations like move and resize.)</span>
+
+<span class="sd">        .. todo:: Look for a way to accomplish this with a cleaner method</span>
+<span class="sd">            signature. :meth:`reposition` is getting a little hairy.</span>
+
+<span class="sd">        .. todo:: Decide how to refactor :meth:`reposition` to allow for</span>
+<span class="sd">            smarter handling of position clamping when cycling windows through</span>
+<span class="sd">            a sequence of differently sized monitors.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">old_geom</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="o">*</span><span class="n">win</span><span class="o">.</span><span class="n">get_geometry</span><span class="p">())</span><span class="o">.</span><span class="n">to_relative</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_monitor</span><span class="p">(</span><span class="n">win</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="n">new_args</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">geom</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">geometry_mask</span> <span class="o">&amp;</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">Wnck</span><span class="o">.</span><span class="n">WindowMoveResizeMask</span><span class="p">,</span>
+                        <span class="n">attr</span><span class="o">.</span><span class="n">upper</span><span class="p">()):</span>
+                    <span class="n">new_args</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+
+        <span class="c1"># Apply changes and return to absolute desktop coordinates.</span>
+        <span class="n">new_geom</span> <span class="o">=</span> <span class="n">old_geom</span><span class="o">.</span><span class="n">_replace</span><span class="p">(</span><span class="o">**</span><span class="n">new_args</span><span class="p">)</span><span class="o">.</span><span class="n">from_relative</span><span class="p">(</span><span class="n">monitor</span><span class="p">)</span>
+
+        <span class="c1"># Ensure the window is fully within the monitor</span>
+        <span class="c1"># TODO: Make this remember the original position and re-derive from it</span>
+        <span class="c1">#       on each monitor-next call as long as the window hasn&#39;t changed</span>
+        <span class="c1">#       (Ideally, re-derive from the tiling preset if set)</span>
+        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">monitor</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">geom</span><span class="p">:</span>
+            <span class="n">clipped_geom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">usable_region</span><span class="o">.</span><span class="n">clip_to_usable_region</span><span class="p">(</span><span class="n">new_geom</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">clipped_geom</span> <span class="o">=</span> <span class="n">new_geom</span>
+
+        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">clipped_geom</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot; Repositioning to </span><span class="si">%s</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">clipped_geom</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">persist_maximization</span><span class="p">(</span><span class="n">win</span><span class="p">,</span> <span class="n">keep_maximize</span><span class="p">):</span>
+                <span class="c1"># Always use STATIC because either WMs implement window gravity</span>
+                <span class="c1"># incorrectly or it&#39;s not applicable to this problem</span>
+                <span class="n">win</span><span class="o">.</span><span class="n">set_geometry</span><span class="p">(</span><span class="n">Wnck</span><span class="o">.</span><span class="n">WindowGravity</span><span class="o">.</span><span class="n">STATIC</span><span class="p">,</span>
+                                 <span class="n">geometry_mask</span><span class="p">,</span> <span class="o">*</span><span class="n">clipped_geom</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot; Geometry clipping failed: </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">clipped_geom</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2009-2020, Stephan Sokolow.
+      
+    </div>
+
+    
+    <a href="https://github.com/ssokolow/quicktile" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

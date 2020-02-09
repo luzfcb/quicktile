@@ -1,0 +1,570 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>quicktile.__main__ &#8212; QuickTile 0.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+    <link rel="canonical" href="http://ssokolow.com/quicktile/_modules/quicktile/__main__.html"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+
+<h1 class="logo"><a href="../../index.html">QuickTile</a></h1>
+
+
+
+<p class="blurb">Keyboard-driven Window Tiling for your existing X11 window manager</p>
+
+
+
+
+
+
+
+
+    
+
+<p>
+<a class="badge" href="https://travis-ci.org/ssokolow/quicktile">
+    <img
+        alt="CI Test Status"
+        src="https://secure.travis-ci.org/ssokolow/quicktile.svg?branch=master"
+    />
+</a>
+</p>
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script><div class="badges">
+    <p><a href="apt:python3,python3-pip,python3-setuptools,python3-gi,python3-xlib,python3-dbus,gir1.2-glib-2.0,gir1.2-gtk-3.0,gir1.2-wnck-3.0" class="btn" title="Install from configured repositories on Debian-based distros"><img src="../../_static/img/debian_12.png" alt="Debian"><img src="../../_static/img/ubuntu_12.png" alt="Ubuntu"><img src="../../_static/img/mint_12.png" alt="Mint"> Install Dependencies</a></p>
+    <p><a href="http://github.com/ssokolow/quicktile/zipball/master" class="btn">Download QuickTile</a></p>
+    <p><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img src="../../_static/license.svg" alt="License: GPLv2" /></a></p>
+</div><div class="contrib_box">
+    <h3>Tip Jar</h3>
+    <dl>
+        <dt>Code (Best)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://github.com/ssokolow/quicktile"
+                        title="GitHub Repo"><img
+                        src="../../_static/contrib_box/github.png"
+                        alt="GitHub" /></a></li>
+                <li><a href="https://github.com/ssokolow/quicktile/issues"
+                        title="Bug Tracker"><img
+                        src="../../_static/contrib_box/bug.png"
+                        alt="Bug Tracker" /></a></li>
+            </ul>
+        </dd>
+        <dt>Publicity (Better)</dt>
+        <dd>Show your friends</dd>
+        <dt>Snacks (Good)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://flattr.com/thing/674146"
+                        title="Flattr"><img
+                        src="../../_static/contrib_box/flattr.png"
+                        alt="Flattr" /></a></li>
+                <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="EFWRR7EAQ993S"><input type="image" src="../../_static/contrib_box/paypal.png" name="submit" alt="PayPal" title="PayPal"></form></li>
+                <li><a title="BitCoin"
+                    href="bitcoin:1Kp1i3nahunzzFs5a3mMF46uzca4oANH5C?label=QuickTile%20Donations"
+                    ><img
+                    src="../../_static/contrib_box/bitcoin.png"
+                    alt="BitCoin"
+                /></a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--
+    bug.png and wrench.png from the Silk Icons set by Mark James, available at
+    http://www.famfamfam.com/lab/icons/silk/
+    are used under the Creative Commons Attribution 2.5 license.
+-->
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for quicktile.__main__</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Entry point, configuration parser, and main loop</span>
+
+<span class="sd">.. todo::</span>
+<span class="sd"> - Audit all of my in-code TODOs for accuracy and staleness.</span>
+<span class="sd"> - Move :func:`Wnck.set_client_type` call to a more appropriate place</span>
+<span class="sd">   (:mod:`quicktile.wm`?)</span>
+<span class="sd"> - Complete the automated test suite.</span>
+<span class="sd"> - Finish refactoring the code to be cleaner and more maintainable.</span>
+<span class="sd"> - Reconsider use of the name</span>
+<span class="sd">   `-\\-daemonize &lt;../cli.html#cmdoption-quicktile-d&gt;`_. That tends to imply</span>
+<span class="sd">   self-backgrounding.</span>
+<span class="sd"> - Decide whether to replace `python-xlib`_ with `xcffib`_</span>
+<span class="sd">   (the Python equivalent to ``libxcb``). On the one hand, python-xlib looks</span>
+<span class="sd">   like it&#39;d probably be easier to write an :file:`objects.inv` for at first</span>
+<span class="sd">   glance. On the other hand, `xcffib`_ binds to the newer XCB API.</span>
+<span class="sd"> - Implement the secondary major features of WinSplit Revolution (eg.</span>
+<span class="sd">   process-shape associations, locking/welding window edges, etc.)</span>
+<span class="sd"> - Consider rewriting :func:`quicktile.commands.cycle_dimensions` to allow</span>
+<span class="sd">   command-line use to jump to a specific index without actually flickering the</span>
+<span class="sd">   window through all the intermediate shapes.</span>
+
+<span class="sd">.. _python-xlib: https://pypi.org/project/python-xlib/</span>
+<span class="sd">.. _xcffib: https://pypi.org/project/xcffib/</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Stephan Sokolow (deitarion/SSokolow)&quot;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;GNU GPL 2.0 or later&quot;</span>
+
+<span class="c1"># Silence PyLint being flat-out wrong about MyPy type annotations and</span>
+<span class="c1"># complaining about my grouped imports</span>
+<span class="c1"># pylint: disable=unsubscriptable-object</span>
+<span class="c1"># pylint: disable=wrong-import-order</span>
+
+<span class="kn">import</span> <span class="nn">errno</span><span class="o">,</span> <span class="nn">logging</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">signal</span><span class="o">,</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
+<span class="kn">from</span> <span class="nn">configparser</span> <span class="kn">import</span> <span class="n">ConfigParser</span>
+
+<span class="kn">from</span> <span class="nn">Xlib.display</span> <span class="kn">import</span> <span class="n">Display</span> <span class="k">as</span> <span class="n">XDisplay</span>
+<span class="kn">from</span> <span class="nn">Xlib.error</span> <span class="kn">import</span> <span class="n">DisplayConnectionError</span>
+
+<span class="kn">import</span> <span class="nn">gi</span>
+<span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span class="s1">&#39;GLib&#39;</span><span class="p">,</span> <span class="s1">&#39;2.0&#39;</span><span class="p">)</span>
+<span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span class="s1">&#39;Gtk&#39;</span><span class="p">,</span> <span class="s1">&#39;3.0&#39;</span><span class="p">)</span>
+<span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span class="s1">&#39;Wnck&#39;</span><span class="p">,</span> <span class="s1">&#39;3.0&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">gi.repository</span> <span class="kn">import</span> <span class="n">GLib</span><span class="p">,</span> <span class="n">Gtk</span><span class="p">,</span> <span class="n">Wnck</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">commands</span><span class="p">,</span> <span class="n">layout</span>
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">fmt_table</span><span class="p">,</span> <span class="n">XInitError</span>
+<span class="kn">from</span> <span class="nn">.version</span> <span class="kn">import</span> <span class="n">__version__</span>
+<span class="kn">from</span> <span class="nn">.wm</span> <span class="kn">import</span> <span class="n">WindowManager</span>
+
+<span class="c1"># -- Type-Annotation Imports --</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>  <span class="c1"># NOQA pylint: disable=unused-import</span>
+
+<span class="c1">#: MyPy type alias for fields loaded from config files</span>
+<span class="n">CfgDict</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]</span>  <span class="c1"># pylint:disable=C0103</span>
+<span class="c1"># --</span>
+
+<span class="c1">#: Location for config files (determined at runtime).</span>
+<span class="n">XDG_CONFIG_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;XDG_CONFIG_HOME&#39;</span><span class="p">,</span>
+                                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/.config&#39;</span><span class="p">))</span>
+
+<span class="c1">#: Default content for the configuration file</span>
+<span class="c1">#:</span>
+<span class="c1">#: .. todo:: Figure out a way to show :data:`DEFAULTS` documentation but with</span>
+<span class="c1">#:    the structure pretty-printed.</span>
+<span class="n">DEFAULTS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;general&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c1"># Use Ctrl+Alt as the default base for key combinations</span>
+        <span class="s1">&#39;ModMask&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;Ctrl&gt;&lt;Alt&gt;&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;MovementsWrap&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;ColumnCount&#39;</span><span class="p">:</span> <span class="mi">3</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;keys&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;KP_Enter&quot;</span><span class="p">:</span> <span class="s2">&quot;monitor-switch&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KP_0&quot;</span><span class="p">:</span> <span class="s2">&quot;maximize&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KP_1&quot;</span><span class="p">:</span> <span class="s2">&quot;bottom-left&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KP_2&quot;</span><span class="p">:</span> <span class="s2">&quot;bottom&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KP_3&quot;</span><span class="p">:</span> <span class="s2">&quot;bottom-right&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KP_4&quot;</span><span class="p">:</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KP_5&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KP_6&quot;</span><span class="p">:</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KP_7&quot;</span><span class="p">:</span> <span class="s2">&quot;top-left&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KP_8&quot;</span><span class="p">:</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;KP_9&quot;</span><span class="p">:</span> <span class="s2">&quot;top-right&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&lt;Shift&gt;KP_1&quot;</span><span class="p">:</span> <span class="s2">&quot;move-to-bottom-left&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&lt;Shift&gt;KP_2&quot;</span><span class="p">:</span> <span class="s2">&quot;move-to-bottom&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&lt;Shift&gt;KP_3&quot;</span><span class="p">:</span> <span class="s2">&quot;move-to-bottom-right&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&lt;Shift&gt;KP_4&quot;</span><span class="p">:</span> <span class="s2">&quot;move-to-left&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&lt;Shift&gt;KP_5&quot;</span><span class="p">:</span> <span class="s2">&quot;move-to-center&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&lt;Shift&gt;KP_6&quot;</span><span class="p">:</span> <span class="s2">&quot;move-to-right&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&lt;Shift&gt;KP_7&quot;</span><span class="p">:</span> <span class="s2">&quot;move-to-top-left&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&lt;Shift&gt;KP_8&quot;</span><span class="p">:</span> <span class="s2">&quot;move-to-top&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&lt;Shift&gt;KP_9&quot;</span><span class="p">:</span> <span class="s2">&quot;move-to-top-right&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;V&quot;</span><span class="p">:</span> <span class="s2">&quot;vertical-maximize&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;H&quot;</span><span class="p">:</span> <span class="s2">&quot;horizontal-maximize&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="s2">&quot;move-to-center&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>  <span class="c1"># type: Dict[str, CfgDict]</span>
+
+<span class="c1">#: Used for resolving certain keysyms</span>
+<span class="c1">#:</span>
+<span class="c1">#: .. todo:: Figure out how to replace :data:`KEYLOOKUP` with a fallback that</span>
+<span class="c1">#:      uses something in `Gtk &lt;http://lazka.github.io/pgi-docs/Gtk-3.0/&gt;`_ or</span>
+<span class="c1">#:      ``python-xlib`` to look up the keysym from the character it types.</span>
+<span class="n">KEYLOOKUP</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;,&#39;</span><span class="p">:</span> <span class="s1">&#39;comma&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;.&#39;</span><span class="p">:</span> <span class="s1">&#39;period&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;+&#39;</span><span class="p">:</span> <span class="s1">&#39;plus&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;-&#39;</span><span class="p">:</span> <span class="s1">&#39;minus&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">Wnck</span><span class="o">.</span><span class="n">set_client_type</span><span class="p">(</span><span class="n">Wnck</span><span class="o">.</span><span class="n">ClientType</span><span class="o">.</span><span class="n">PAGER</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="QuickTileApp"><a class="viewcode-back" href="../../apidocs/__main__.html#quicktile.__main__.QuickTileApp">[docs]</a><span class="k">class</span> <span class="nc">QuickTileApp</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The basic Glib application itself.</span>
+
+<span class="sd">    :param commands: The command registry to use to resolve command names.</span>
+<span class="sd">    :param keys: A dict mapping :func:`Gtk.accelerator_parse` strings to</span>
+<span class="sd">        command names.</span>
+<span class="sd">    :param modmask: A modifier mask to prepend to all ``keys``.</span>
+<span class="sd">    :param winman: The window manager to invoke commands with so they can act.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">winman</span><span class="p">:</span> <span class="n">WindowManager</span><span class="p">,</span>
+                 <span class="n">commands</span><span class="p">:</span> <span class="n">commands</span><span class="o">.</span><span class="n">CommandRegistry</span><span class="p">,</span>
+                 <span class="n">keys</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+                 <span class="n">modmask</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                 <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">winman</span> <span class="o">=</span> <span class="n">winman</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">commands</span> <span class="o">=</span> <span class="n">commands</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span> <span class="o">=</span> <span class="n">keys</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_modmask</span> <span class="o">=</span> <span class="n">modmask</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span>
+
+<div class="viewcode-block" id="QuickTileApp.run"><a class="viewcode-back" href="../../apidocs/__main__.html#quicktile.__main__.QuickTileApp.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Initialize keybinding and D-Bus if available, then call</span>
+<span class="sd">        :func:`Gtk.main`.</span>
+
+<span class="sd">        :returns: :any:`False` if none of the supported backends</span>
+<span class="sd">            were available.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Attempt to set up the global hotkey support</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">keybinder</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="n">o_keybinder</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># type: Optional[keybinder.KeyBinder]</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Could not find python-xlib. Cannot bind keys.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">o_keybinder</span> <span class="o">=</span> <span class="n">keybinder</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_modmask</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">commands</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">winman</span><span class="p">)</span>
+
+        <span class="c1"># Attempt to set up the D-Bus API</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">dbus_api</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="n">dbus_result</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Could not load DBus backend. &quot;</span>
+                            <span class="s2">&quot;Is python-dbus installed?&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dbus_result</span> <span class="o">=</span> <span class="n">dbus_api</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">commands</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">winman</span><span class="p">)</span>
+
+        <span class="c1"># If either persistent backend loaded, start the GTK main loop.</span>
+        <span class="k">if</span> <span class="n">o_keybinder</span> <span class="ow">or</span> <span class="n">dbus_result</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">Gtk</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="QuickTileApp.show_binds"><a class="viewcode-back" href="../../apidocs/__main__.html#quicktile.__main__.QuickTileApp.show_binds">[docs]</a>    <span class="k">def</span> <span class="nf">show_binds</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Print a formatted readout of defined keybindings and the modifier</span>
+<span class="sd">        mask to stdout.</span>
+
+<span class="sd">        .. todo:: Look into moving this keybind pretty-printing into</span>
+<span class="sd">            :class:`quicktile.keybinder.KeyBinder`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Keybindings defined for use with --daemonize:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Modifier: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_modmask</span> <span class="ow">or</span> <span class="s1">&#39;(none)&#39;</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">fmt_table</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keys</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;Key&#39;</span><span class="p">,</span> <span class="s1">&#39;Action&#39;</span><span class="p">)))</span></div></div>
+
+
+<div class="viewcode-block" id="load_config"><a class="viewcode-back" href="../../apidocs/__main__.html#quicktile.__main__.load_config">[docs]</a><span class="k">def</span> <span class="nf">load_config</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfigParser</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Load the config file from the given path, applying fixes as needed.</span>
+<span class="sd">    If it does not exist, create it from the configuration defaults.</span>
+
+<span class="sd">    :param path: The path to load or initialize.</span>
+
+<span class="sd">    :raises TypeError: Raised if the keys or values in the :ref:`[keys]`</span>
+<span class="sd">        section of the configuration file or what they resolve to via</span>
+<span class="sd">        :any:`KEYLOOKUP` are not :any:`str` instances.</span>
+
+<span class="sd">    .. todo:: Refactor config parsing. It&#39;s an ugly blob.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">first_run</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigParser</span><span class="p">(</span><span class="n">interpolation</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="c1"># Make keys case-sensitive because keysyms must be</span>
+    <span class="c1">#</span>
+    <span class="c1"># (``type: ignore`` to squash a false positive for something the Python 3.x</span>
+    <span class="c1"># documentation specifically *recommends* over using RawConfigParser)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">optionxform</span> <span class="o">=</span> <span class="nb">str</span>  <span class="c1"># type: ignore</span>
+
+    <span class="n">config</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">dirty</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">has_section</span><span class="p">(</span><span class="s1">&#39;general&#39;</span><span class="p">):</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">add_section</span><span class="p">(</span><span class="s1">&#39;general&#39;</span><span class="p">)</span>
+        <span class="c1"># Change this if you make backwards-incompatible changes to the</span>
+        <span class="c1"># section and key naming in the config file.</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="s1">&#39;cfg_schema&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span>
+        <span class="n">dirty</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">DEFAULTS</span><span class="p">[</span><span class="s1">&#39;general&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">has_option</span><span class="p">(</span><span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
+            <span class="n">dirty</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">mk_raw</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="s1">&#39;ModMask&#39;</span><span class="p">)</span>
+    <span class="n">modkeys</span> <span class="o">=</span> <span class="n">mk_raw</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>  <span class="c1"># pylint: disable=E1101</span>
+    <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">modkeys</span> <span class="ow">and</span> <span class="s1">&#39;&lt;&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">modkeys</span><span class="p">:</span>
+        <span class="n">modkeys</span> <span class="o">=</span> <span class="s1">&#39;&lt;</span><span class="si">%s</span><span class="s1">&gt;&#39;</span> <span class="o">%</span> <span class="s1">&#39;&gt;&lt;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">modkeys</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Updating modkeys format:</span><span class="se">\n</span><span class="s2"> </span><span class="si">%r</span><span class="s2"> --&gt; </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">mk_raw</span><span class="p">,</span> <span class="n">modkeys</span><span class="p">)</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="s1">&#39;ModMask&#39;</span><span class="p">,</span> <span class="n">modkeys</span><span class="p">)</span>
+        <span class="n">dirty</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># Either load the keybindings or use and save the defaults</span>
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">has_section</span><span class="p">(</span><span class="s1">&#39;keys&#39;</span><span class="p">):</span>
+        <span class="n">keymap</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="s1">&#39;keys&#39;</span><span class="p">))</span>  <span class="c1"># type: CfgDict</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">keymap</span> <span class="o">=</span> <span class="n">DEFAULTS</span><span class="p">[</span><span class="s1">&#39;keys&#39;</span><span class="p">]</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">add_section</span><span class="p">(</span><span class="s1">&#39;keys&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="n">keymap</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Hotkey name must be a str: </span><span class="si">{!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Command name must be a str: </span><span class="si">{!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cmd</span><span class="p">))</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;keys&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span>
+        <span class="n">dirty</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># Migrate from the deprecated syntax for punctuation keysyms</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keymap</span><span class="p">:</span>
+        <span class="c1"># Look up unrecognized shortkeys in a hardcoded dict and</span>
+        <span class="c1"># replace with valid names like &#39;,&#39; -&gt; &#39;comma&#39;</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">KEYLOOKUP</span><span class="p">:</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="n">keymap</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Command name must be a str: </span><span class="si">{!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cmd</span><span class="p">))</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Updating config file from deprecated keybind &quot;</span>
+                <span class="s2">&quot;syntax:</span><span class="se">\n\t</span><span class="si">%r</span><span class="s2"> --&gt; </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">KEYLOOKUP</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">remove_option</span><span class="p">(</span><span class="s1">&#39;keys&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;keys&#39;</span><span class="p">,</span> <span class="n">KEYLOOKUP</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">cmd</span><span class="p">)</span>
+            <span class="n">dirty</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># Automatically update the old &#39;middle&#39; command to &#39;center&#39;</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keymap</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">keymap</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;middle&#39;</span><span class="p">:</span>
+            <span class="n">keymap</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;center&#39;</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Updating old command in config file:&quot;</span>
+                    <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">middle --&gt; center&quot;</span><span class="p">)</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;keys&#39;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span>
+            <span class="n">dirty</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="n">dirty</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">cfg_file</span><span class="p">:</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">cfg_file</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">first_run</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Wrote default config file to </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">config</span></div>
+
+
+<div class="viewcode-block" id="wnck_log_filter"><a class="viewcode-back" href="../../apidocs/__main__.html#quicktile.__main__.wnck_log_filter">[docs]</a><span class="k">def</span> <span class="nf">wnck_log_filter</span><span class="p">(</span><span class="n">domain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="n">GLib</span><span class="o">.</span><span class="n">LogLevelFlags</span><span class="p">,</span>
+        <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">userdata</span><span class="p">:</span> <span class="nb">object</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A custom function for :func:`GLib.log_set_handler` which filters out</span>
+<span class="sd">    the spurious error about ``_OB_WM_ACTION_UNDECORATE`` being un-handled.</span>
+
+<span class="sd">    :param domain: The logging domain. Should be ``Wnck``.</span>
+<span class="sd">    :param level: The logging level Should be</span>
+<span class="sd">        :py:attr:`GLib.LogLevelFlags.LEVEL_WARNING`.</span>
+<span class="sd">    :param message: The error message</span>
+<span class="sd">    :param userdata: Required by the API but unused.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="s1">&#39;_OB_WM_ACTION_UNDECORATE&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">message</span><span class="p">:</span>
+        <span class="c1"># The &quot;or 0&quot; works around a bug where it&#39;s documented as accepting</span>
+        <span class="c1"># `object` or `None` and says `None` is one of the only valid values</span>
+        <span class="c1"># if you try to pass `{}`, but it refuses to accept `None`.</span>
+        <span class="n">GLib</span><span class="o">.</span><span class="n">log_default_handler</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">userdata</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="argparser"><a class="viewcode-back" href="../../apidocs/__main__.html#quicktile.__main__.argparser">[docs]</a><span class="k">def</span> <span class="nf">argparser</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">ArgumentParser</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;:class:`argparse.ArgumentParser` definition that is compatible with</span>
+<span class="sd">        `sphinxcontrib.autoprogram</span>
+<span class="sd">        &lt;https://sphinxcontrib-autoprogram.readthedocs.io/en/stable/&gt;`_&quot;&quot;&quot;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;Window Tiling addon for X11-based &#39;</span>
+        <span class="s1">&#39;desktops&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-V&#39;</span><span class="p">,</span> <span class="s1">&#39;--version&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;version&#39;</span><span class="p">,</span>
+            <span class="n">version</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%%</span><span class="s2">(prog)s v</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">__version__</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="s1">&#39;--daemonize&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Attempt to set up global &quot;</span>
+        <span class="s2">&quot;keybindings using python-xlib and a D-Bus service using dbus-python. &quot;</span>
+        <span class="s2">&quot;Exit if neither succeeds.&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-b&#39;</span><span class="p">,</span> <span class="s1">&#39;--bindkeys&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;daemonize&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Old alias for --daemonize&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--debug&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Display debug messages&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--no-excepthook&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Disable the error-handling dialog to allow for &quot;</span>
+        <span class="s2">&quot;use in unattended scripting.&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--no-workarea&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;No effect. Retained for compatibility.&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;command&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store&quot;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Window-tiling command to execute&quot;</span><span class="p">)</span>
+
+    <span class="n">help_group</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="s2">&quot;Additional Help&quot;</span><span class="p">)</span>
+    <span class="n">help_group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--show-bindings&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;List all configured keybinds&quot;</span><span class="p">)</span>
+    <span class="n">help_group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--show-actions&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;List valid arguments for use without --daemonize&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">parser</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../apidocs/__main__.html#quicktile.__main__.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;setuptools-compatible entry point</span>
+
+<span class="sd">    :raises XInitError: Failed to connect to the X server.</span>
+
+<span class="sd">    .. todo:: :func:`quicktile.__main__.main` is an overly complex blob and</span>
+<span class="sd">        needs to be refactored.</span>
+<span class="sd">    .. todo:: Rearchitect so the hack with registering</span>
+<span class="sd">        :func:`quicktile.commands.cycle_dimensions` inside</span>
+<span class="sd">        :func:`quicktile.__main__.main` isn&#39;t necessary.</span>
+<span class="sd">    .. todo:: Rework ``python-xlib`` failure model so QuickTile will know to</span>
+<span class="sd">        exit if all keybinding attempts failed and D-Bus also couldn&#39;t</span>
+<span class="sd">        be bound.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparser</span><span class="p">()</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="c1"># Set up the output verbosity</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">debug</span> <span class="k">else</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
+                        <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(levelname)s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">cfg_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">XDG_CONFIG_DIR</span><span class="p">,</span> <span class="s1">&#39;quicktile.cfg&#39;</span><span class="p">)</span>
+    <span class="n">first_run</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">cfg_path</span><span class="p">)</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">load_config</span><span class="p">(</span><span class="n">cfg_path</span><span class="p">)</span>
+
+    <span class="n">commands</span><span class="o">.</span><span class="n">cycle_dimensions</span> <span class="o">=</span> <span class="n">commands</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">add_many</span><span class="p">(</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">make_winsplit_positions</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">getint</span><span class="p">(</span><span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="s1">&#39;ColumnCount&#39;</span><span class="p">))</span>
+    <span class="p">)(</span><span class="n">commands</span><span class="o">.</span><span class="n">cycle_dimensions</span><span class="p">)</span>
+    <span class="n">commands</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">extra_state</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;config&#39;</span><span class="p">:</span> <span class="n">config</span><span class="p">}</span>
+
+    <span class="n">GLib</span><span class="o">.</span><span class="n">log_set_handler</span><span class="p">(</span><span class="s1">&#39;Wnck&#39;</span><span class="p">,</span> <span class="n">GLib</span><span class="o">.</span><span class="n">LogLevelFlags</span><span class="o">.</span><span class="n">LEVEL_WARNING</span><span class="p">,</span>
+        <span class="n">wnck_log_filter</span><span class="p">)</span>
+
+    <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">gtkexcepthook</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">no_excepthook</span><span class="p">:</span>
+        <span class="n">gtkexcepthook</span><span class="o">.</span><span class="n">enable</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">x_display</span> <span class="o">=</span> <span class="n">XDisplay</span><span class="p">()</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">UnicodeDecodeError</span><span class="p">,</span> <span class="n">DisplayConnectionError</span><span class="p">)</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">XInitError</span><span class="p">(</span><span class="s2">&quot;python-xlib failed with </span><span class="si">%s</span><span class="s2"> when asked to open&quot;</span>
+                        <span class="s2">&quot; a connection to the X server. Cannot bind keys.&quot;</span>
+                        <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">It&#39;s unclear why this happens, but it is&quot;</span>
+                        <span class="s2">&quot; usually fixed by deleting your ~/.Xauthority&quot;</span>
+                        <span class="s2">&quot; file and rebooting.&quot;</span>
+                        <span class="o">%</span> <span class="n">err</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">winman</span> <span class="o">=</span> <span class="n">WindowManager</span><span class="p">(</span><span class="n">x_display</span><span class="o">=</span><span class="n">x_display</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">XInitError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QuickTileApp</span><span class="p">(</span><span class="n">winman</span><span class="p">,</span>
+                       <span class="n">commands</span><span class="o">.</span><span class="n">commands</span><span class="p">,</span>
+                       <span class="n">keys</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="s1">&#39;keys&#39;</span><span class="p">)),</span>
+                       <span class="n">modmask</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="s1">&#39;ModMask&#39;</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">show_bindings</span><span class="p">:</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">show_binds</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">show_actions</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">commands</span><span class="o">.</span><span class="n">commands</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">daemonize</span><span class="p">:</span>
+        <span class="c1"># Restore PyGTK-like Ctrl+C behaviour for easy development</span>
+        <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIG_DFL</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">():</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s2">&quot;Neither the Xlib nor the D-Bus backends were &quot;</span>
+                             <span class="s2">&quot;available&quot;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">errno</span><span class="o">.</span><span class="n">ELIBACC</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="n">first_run</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">args</span><span class="p">:</span>
+            <span class="n">winman</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">force_update</span><span class="p">()</span>
+
+            <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="o">.</span><span class="n">command</span><span class="p">:</span>
+                <span class="n">commands</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">winman</span><span class="p">)</span>
+            <span class="k">while</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">events_pending</span><span class="p">():</span>
+                <span class="n">Gtk</span><span class="o">.</span><span class="n">main_iteration</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">show_actions</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">show_bindings</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">commands</span><span class="o">.</span><span class="n">commands</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Use --help for a list of valid options.&quot;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">errno</span><span class="o">.</span><span class="n">ENOENT</span><span class="p">)</span></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+
+<span class="c1"># vim: set sw=4 sts=4 expandtab :</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2009-2020, Stephan Sokolow.
+      
+    </div>
+
+    
+    <a href="https://github.com/ssokolow/quicktile" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

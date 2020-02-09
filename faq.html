@@ -1,68 +1,409 @@
----
-layout: default
-title: FAQ
----
 
-<h2>Frequently/Potentially Asked Questions</h2>
+<!DOCTYPE html>
 
-<dl class="big">
-    <dt>QuickTile complains about <code>WINDOW_CHANGE_X</code> and doesn't work. How do I fix this?</dt>
-    <dd><p>Do the errors you see look like this?</p>
-        <pre>** (quicktile.py:1855): WARNING **: Trying to register gtype 'WnckWindowState' as enum when in fact it is of type 'GFlags'
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Frequently Asked Questions &#8212; QuickTile 0.4 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Documentation" href="apidocs/index.html" />
+    <link rel="prev" title="Command-Line Arguments" href="cli.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+    <link rel="canonical" href="http://ssokolow.com/quicktile/faq.html"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-** (quicktile.py:1855): WARNING **: Trying to register gtype 'WnckWindowActions' as enum when in fact it is of type 'GFlags'
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
 
-** (quicktile.py:1855): WARNING **: Trying to register gtype 'WnckWindowMoveResizeMask' as enum when in fact it is of type 'GFlags'
-<i>[some other stuff]</i>
-AttributeError: 'module' object has no attribute 'WINDOW_CHANGE_X'
-</pre>
-    <p>If so, then your Python bindings for libwnck are broken and you need to report the problem on your distro's issue tracker.</p>
-    <p>(Specifically, the bindings were built against a copy of libwnck with a different ABI than the one you're trying to use them with.)</p>
-    <p> While you wait for them to fix it, you should be able to solve the issue yourself by rebuilding the bindings from <a href="http://ftp.gnome.org/pub/GNOME/sources/gnome-python-desktop/">source</a>.</p>
-    </dd>
+<h1 class="logo"><a href="index.html">QuickTile</a></h1>
 
-    <dt>I'm on Ubuntu's Unity desktop and tiled windows are misaligned. How do I fix this?</dt>
-    <dd>This is <a href="https://github.com/ssokolow/quicktile/issues/70#issuecomment-270127825">apparently</a> caused by bad interactions between QuickTile and the Compiz Grid plugin, which provides similar functionality. Make sure you've disabled the Grid plugin in <acronym title="CompizConfig Settings Manager"><a href="http://wiki.compiz.org/CCSM">CCSM</a></acronym> and then restart Compiz (eg. log out and back in) if the problem persists.</dd>
 
-    <dt>I set <code>ModMask = Control Shift Mod1</code> but QuickTile isn't responding. Help?</dt>
-    <dd>This usually happens when the Compiz Grid plugin is still consuming keystrokes. Make sure you've disabled the Grid plugin in <acronym title="CompizConfig Settings Manager"><a href="http://wiki.compiz.org/CCSM">CCSM</a></acronym> and then restart Compiz (eg. log out and back in) to make sure it's let go of the keybindings.</dd>
 
-    <dt>How do I keep QuickTile from positioning windows over/under my panels?</dt>
-    <dd><p>You've got an old <code>~/.config/quicktile.cfg</code> with a workaround for another problem that no longer exists.</p>
-        <p>Open it up and change <code>UseWorkarea = False</code> to <code>UseWorkarea = True</code></p>
-    </dd>
+<p class="blurb">Keyboard-driven Window Tiling for your existing X11 window manager</p>
 
-    <dt>QuickTile resizes but doesn't move my windows. What do I do?</dt>
-    <dd>
-        <p>Some window managers can be set to ignore requests by applications to move your windows. This used to be a problem before QuickTile started announcing itself to the system as a window-management utility, but it shouldn't be any longer.</p>
-        <p>If you are still experiencing this, please <a href="https://github.com/ssokolow/quicktile/issues">report it</a> so the cause can be invetigated. While you wait, you can work around it by disabling the misbehaving application protection in your window manager.</p>
-        <p>Under Metacity, for example, that is accomplished using the following command:</p>
 
-        {% highlight bash %}gconftool-2 --set "/apps/metacity/general/disable_workarounds" false --type bool{% endhighlight %}
-    </dd>
 
-    <dt>How do I stop Terminator from animating to a zero-width/height window under Xfce?</dt>
-    <dd>This is a <a href="https://bugs.launchpad.net/terminator/+bug/1361252/comments/1">bug</a> in Terminator that both QuickTile and Xfwm's more limited built-in tiling support can trigger. Right-click your Terminator window, select Preferences, and then uncheck "Window geomtry hints" in the Global tab.</dd>
 
-    <dt>When are you going to port this to Python/GTK+ 3.x?</dt>
-    <dd><p>Probably never. It would be less helpful than you think:</p>
-        <ol>
-            <li>Everything I need, I already get from GTK+ 2.x</li>
-            <li>There are no viable GTK+ 2.x bindings for Python 3.x</li>
-            <li>libWNCK requires GTK+, so porting to Qt would be a <strong>big</strong> hassle.</li>
-            <li>The shim to ease porting PyGTK apps to GTK+ 3.x crashes QuickTile on startup.</li>
-            <li>GTK+ 3.x's main advantage outside GNOME 3 is Wayland support... Wayland doesn't allow applications (like QuickTile) to meddle with each other's windows.</li>
-            <li>GTK+ 2.x is lighter and more common in desktops which don't offer their own window-tiling support.</li>
-        </ol>
-    </dd>
 
-    <dt>Does QuickTile run on MacOS X?</dt>
-    <dd><p>It's not a primary target, since I don't have a Mac to test with, but if <a href="https://opensource.conformal.com/wiki/spectrwm">SpectrWM</a> can run via X11.app, QuickTile isn't out of the question.</p>
-        <p>libwnck fails to retrieve the active window but a workaround is currently being developed in <a href="https://github.com/ssokolow/quicktile/issues/28">issue 28</a> and the <a href="https://github.com/ssokolow/quicktile/tree/xquartz">xquartz</a> branch.</p>
-        <p> A list of shareware alternatives with official OSX support is also available on <a href="http://stackoverflow.com/questions/273242/is-there-anything-like-winsplit-revolution-for-mac-os-x">StackOverflow</a>.</p>
-    </dd>
-    <dt>QuickTile doesn't meet my needs. What can I do?</dt>
-    <dd>
-        <p>Assuming you don't feel like either contributing code or <a href="https://github.com/ssokolow/quicktile/issues">filing a feature request</a> and waiting, the Wikipedia <a href="https://secure.wikimedia.org/wikipedia/en/wiki/Tiling_window_manager">Tiling window manager</a> page does contain a section listing tiling utilities for X11 desktops. (Windows too, for that matter)</p>
-    </dd>
-</dl>
+
+
+
+    
+
+<p>
+<a class="badge" href="https://travis-ci.org/ssokolow/quicktile">
+    <img
+        alt="CI Test Status"
+        src="https://secure.travis-ci.org/ssokolow/quicktile.svg?branch=master"
+    />
+</a>
+</p>
+
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="cli.html" title="previous chapter">Command-Line Arguments</a></li>
+      <li>Next: <a href="apidocs/index.html" title="next chapter">API Documentation</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script><div class="badges">
+    <p><a href="apt:python3,python3-pip,python3-setuptools,python3-gi,python3-xlib,python3-dbus,gir1.2-glib-2.0,gir1.2-gtk-3.0,gir1.2-wnck-3.0" class="btn" title="Install from configured repositories on Debian-based distros"><img src="_static/img/debian_12.png" alt="Debian"><img src="_static/img/ubuntu_12.png" alt="Ubuntu"><img src="_static/img/mint_12.png" alt="Mint"> Install Dependencies</a></p>
+    <p><a href="http://github.com/ssokolow/quicktile/zipball/master" class="btn">Download QuickTile</a></p>
+    <p><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img src="_static/license.svg" alt="License: GPLv2" /></a></p>
+</div><div class="contrib_box">
+    <h3>Tip Jar</h3>
+    <dl>
+        <dt>Code (Best)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://github.com/ssokolow/quicktile"
+                        title="GitHub Repo"><img
+                        src="_static/contrib_box/github.png"
+                        alt="GitHub" /></a></li>
+                <li><a href="https://github.com/ssokolow/quicktile/issues"
+                        title="Bug Tracker"><img
+                        src="_static/contrib_box/bug.png"
+                        alt="Bug Tracker" /></a></li>
+            </ul>
+        </dd>
+        <dt>Publicity (Better)</dt>
+        <dd>Show your friends</dd>
+        <dt>Snacks (Good)</dt>
+        <dd class="icons">
+            <ul class="icons">
+                <li><a href="https://flattr.com/thing/674146"
+                        title="Flattr"><img
+                        src="_static/contrib_box/flattr.png"
+                        alt="Flattr" /></a></li>
+                <li><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="EFWRR7EAQ993S"><input type="image" src="_static/contrib_box/paypal.png" name="submit" alt="PayPal" title="PayPal"></form></li>
+                <li><a title="BitCoin"
+                    href="bitcoin:1Kp1i3nahunzzFs5a3mMF46uzca4oANH5C?label=QuickTile%20Donations"
+                    ><img
+                    src="_static/contrib_box/bitcoin.png"
+                    alt="BitCoin"
+                /></a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<!--
+    bug.png and wrench.png from the Silk Icons set by Mark James, available at
+    http://www.famfamfam.com/lab/icons/silk/
+    are used under the Creative Commons Attribution 2.5 license.
+-->
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="frequently-asked-questions">
+<h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#troubleshooting" id="id7">Troubleshooting</a></p>
+<ul>
+<li><p><a class="reference internal" href="#modmask-control-shift-mod1-doesn-t-work" id="id8"><code class="docutils literal notranslate"><span class="pre">ModMask</span> <span class="pre">=</span> <span class="pre">Control</span> <span class="pre">Shift</span> <span class="pre">Mod1</span></code> doesn’t work</a></p></li>
+<li><p><a class="reference internal" href="#quicktile-positions-windows-over-under-my-panels" id="id9">QuickTile positions windows over/under my panels</a></p></li>
+<li><p><a class="reference internal" href="#quicktile-treats-all-panels-as-if-they-re-full-width-height" id="id10">Quicktile treats all panels as if they’re full-width/height</a></p></li>
+<li><p><a class="reference internal" href="#quicktile-resizes-windows-but-doesn-t-move-them" id="id11">QuickTile resizes windows but doesn’t move them</a></p></li>
+<li><p><a class="reference internal" href="#terminator-animates-to-zero-width-height-when-resized" id="id12">Terminator animates to zero width/height when resized</a></p></li>
+<li><p><a class="reference internal" href="#tiled-windows-are-misaligned-on-a-compiz-based-desktop" id="id13">Tiled windows are misaligned on a Compiz-based desktop</a></p></li>
+<li><p><a class="reference internal" href="#tiled-windows-have-huge-margins-on-elementary-os" id="id14">Tiled windows have huge margins on Elementary OS</a></p></li>
+<li><p><a class="reference internal" href="#firefox-windows-have-huge-margins" id="id15">Firefox windows have huge margins</a></p></li>
+<li><p><a class="reference internal" href="#i-get-an-error-when-i-try-to-run-quicktile" id="id16">I get an error when I try to run QuickTile</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#other-questions" id="id17">Other Questions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#when-will-you-support-wayland" id="id18">When will you support Wayland?</a></p></li>
+<li><p><a class="reference internal" href="#does-quicktile-run-on-macos" id="id19">Does QuickTile run on macOS?</a></p></li>
+<li><p><a class="reference internal" href="#quicktile-doesn-t-meet-my-needs-what-can-i-do" id="id20">QuickTile doesn’t meet my needs. What can I do?</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="troubleshooting">
+<h2><a class="toc-backref" href="#id7">Troubleshooting</a><a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="modmask-control-shift-mod1-doesn-t-work">
+<h3><a class="toc-backref" href="#id8"><code class="docutils literal notranslate"><span class="pre">ModMask</span> <span class="pre">=</span> <span class="pre">Control</span> <span class="pre">Shift</span> <span class="pre">Mod1</span></code> doesn’t work</a><a class="headerlink" href="#modmask-control-shift-mod1-doesn-t-work" title="Permalink to this headline">¶</a></h3>
+<p>This usually happens when something else is still holding a grab on the key
+combinations you want to use.</p>
+<p>The most common culprit is the Grid plugin for the Compiz window manager. To
+resolve the conflict, disable the Grid plugin (or just the offending
+keybindings) in <abbr title="CompizConfig Settings Manager">CCSM</abbr> and then log out
+and back in to ensure that the changes get applied.</p>
+<p>To help in diagnosing this problem, QuickTile will attempt to report failure to
+grab hotkeys when you start it with
+<a class="reference external" href="cli.html#cmdoption-quicktile-d">--daemonize</a> in a terminal.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>WARNING: Failed to bind key. It may already be in use: &lt;Ctrl&gt;&lt;Alt&gt;KP_5
+</pre></div>
+</div>
+<p>(However, this isn’t 100% reliable because it is possible for your compositor
+to implement global hotkeys by intercepting events before they reach
+<a class="reference external" href="https://tronche.com/gui/x/xlib/input/XGrabKey.html">XGrabKey</a>)</p>
+</div>
+<div class="section" id="quicktile-positions-windows-over-under-my-panels">
+<h3><a class="toc-backref" href="#id9">QuickTile positions windows over/under my panels</a><a class="headerlink" href="#quicktile-positions-windows-over-under-my-panels" title="Permalink to this headline">¶</a></h3>
+<p>The GTK+ 3.x version of QuickTile hasn’t yet regained the ability to notice
+changes to the available region of the desktop after it’s started. Make sure
+QuickTile gets launched after your panels have appeared.</p>
+<p>Follow <a class="reference external" href="https://github.com/ssokolow/quicktile/issues/107">Issue 107</a> for
+status updates.</p>
+</div>
+<div class="section" id="quicktile-treats-all-panels-as-if-they-re-full-width-height">
+<h3><a class="toc-backref" href="#id10">Quicktile treats all panels as if they’re full-width/height</a><a class="headerlink" href="#quicktile-treats-all-panels-as-if-they-re-full-width-height" title="Permalink to this headline">¶</a></h3>
+<p>In the move from GTK+ 2.x to GTK 3.x, the <a class="reference external" href="https://developer.gnome.org/pygtk/stable/class-gdkregion.html">gtk.gdk.Region</a> class got replaced
+with <a class="reference external" href="https://pycairo.readthedocs.io/en/latest/reference/region.html#cairo.Region" title="(in Pycairo)"><code class="xref py py-class docutils literal notranslate"><span class="pre">cairo.Region</span></code></a> and I’ve run into so many bugs while attempting to
+use it from Python that I had to settle for implementing my own solution, which
+doesn’t yet know how to do anything fancier than calculating a “largest usable
+rectangle” separately for each monitor.</p>
+<p>Follow <a class="reference external" href="https://github.com/ssokolow/quicktile/issues/108">Issue 108</a> for
+status updates.</p>
+</div>
+<div class="section" id="quicktile-resizes-windows-but-doesn-t-move-them">
+<h3><a class="toc-backref" href="#id11">QuickTile resizes windows but doesn’t move them</a><a class="headerlink" href="#quicktile-resizes-windows-but-doesn-t-move-them" title="Permalink to this headline">¶</a></h3>
+<p>Some window managers can be set to ignore requests by applications to move your
+windows. This used to be a problem before QuickTile started announcing itself
+to the system as a window-management utility, but it shouldn’t be any longer.</p>
+<p>If you are still experiencing this, please
+<a class="reference external" href="https://github.com/ssokolow/quicktile/issues">report it</a> so the cause can
+be investigated. While you wait, you can work around it by disabling the
+misbehaving application protection in your window manager.</p>
+<p>Under GNOME 2’s Metacity WM, this was accomplished using the following
+command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>gconftool-2 --set <span class="s2">&quot;/apps/metacity/general/disable_workarounds&quot;</span> <span class="nb">false</span> --type bool
+</pre></div>
+</div>
+</div>
+<div class="section" id="terminator-animates-to-zero-width-height-when-resized">
+<h3><a class="toc-backref" href="#id12">Terminator animates to zero width/height when resized</a><a class="headerlink" href="#terminator-animates-to-zero-width-height-when-resized" title="Permalink to this headline">¶</a></h3>
+<p>This is a <a class="reference external" href="https://bugs.launchpad.net/terminator/+bug/1361252/comments/1">bug</a>
+in Terminator that both QuickTile and Xfwm’s more limited built-in tiling
+support can trigger.</p>
+<p>Right-click your Terminator window, select Preferences, and then uncheck
+“Window geomtry hints” in the Global tab.</p>
+<p>It is my hope that QuickTile will become immune to it when I find time to
+implement full support for taking windows’ requested size restrictions into
+account when calculating destination shapes.</p>
+</div>
+<div class="section" id="tiled-windows-are-misaligned-on-a-compiz-based-desktop">
+<h3><a class="toc-backref" href="#id13">Tiled windows are misaligned on a Compiz-based desktop</a><a class="headerlink" href="#tiled-windows-are-misaligned-on-a-compiz-based-desktop" title="Permalink to this headline">¶</a></h3>
+<p>This is <a class="reference external" href="https://github.com/ssokolow/quicktile/issues/70#issuecomment-270127825">apparently</a>
+a symptom of a conflict between QuickTile and the Compiz Grid plugin.</p>
+<p>Make sure you’ve disabled the Grid plugin in
+<abbr title="CompizConfig Settings Manager">CCSM</abbr>. If the problem persists, log out
+and back in to ensure that the changes have taken effect.</p>
+</div>
+<div class="section" id="tiled-windows-have-huge-margins-on-elementary-os">
+<h3><a class="toc-backref" href="#id14">Tiled windows have huge margins on Elementary OS</a><a class="headerlink" href="#tiled-windows-have-huge-margins-on-elementary-os" title="Permalink to this headline">¶</a></h3>
+<p>This happens because, from QuickTile’s perspective, the pretty shadows are
+part of the window decorations.</p>
+<p>I don’t know of a proper fix, but you can work around this by removing them. To
+do so, open <code class="file docutils literal notranslate"><span class="pre">/usr/share/themes/elementary/gtk-3.0/gtk-widgets.css</span></code> and
+make the following change:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Before</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-css notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>4033
+4034
+4035
+4036
+4037
+4038
+4039
+4040</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">decoration</span> <span class="p">{</span>
+    <span class="k">border-radius</span><span class="p">:</span> <span class="mi">4</span><span class="kt">px</span> <span class="mi">4</span><span class="kt">px</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">box-shadow</span><span class="p">:</span>
+        <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span><span class="kt">px</span> <span class="o">@</span><span class="n">decoration_border_color</span><span class="p">,</span>
+        <span class="mi">0</span> <span class="mi">14</span><span class="kt">px</span> <span class="mi">28</span><span class="kt">px</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">),</span>
+        <span class="mi">0</span> <span class="mi">10</span><span class="kt">px</span> <span class="mi">10</span><span class="kt">px</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.22</span><span class="p">);</span>
+    <span class="k">margin</span><span class="p">:</span> <span class="mi">12</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">After</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-css notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>4033
+4034
+4035
+4036
+4037
+4038</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">decoration</span> <span class="p">{</span>
+        <span class="k">box-shadow</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+        <span class="k">border</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+        <span class="k">padding</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">margin</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+<div class="section" id="firefox-windows-have-huge-margins">
+<h3><a class="toc-backref" href="#id15">Firefox windows have huge margins</a><a class="headerlink" href="#firefox-windows-have-huge-margins" title="Permalink to this headline">¶</a></h3>
+<p>As with Elementary OS, this is a bug related to how windows draw shadows.</p>
+<p>I haven’t narrowed down the specific conditions which trigger it yet, but it
+can be worked around by disabling Firefox’s support for using
+<abbr title="Client-Side Decorations">CSD</abbr> to put the tabs in the titlebar.
+To do so:</p>
+<ol class="arabic simple">
+<li><p>Choose <span class="menuselection"><span class="accelerator">C</span>ustomize</span> from the context menu for any toolbar or
+tab widget which does not define a custom context menu.</p></li>
+<li><p>Uncheck the <span class="guilabel">Title Bar</span> checkbox in the bottom-left corner.</p></li>
+<li><p>Click the <span class="guilabel">Done</span> button.</p></li>
+</ol>
+<p>(Be aware that, when I enabled CSD for test purposes, it reset all my Firefox
+window positions to my center monitor. I’m not sure if this is because it is my
+primary monitor or if it’s because it was the monitor containing the active
+window.)</p>
+<p>You can then recover the ability to have the top-most row of pixels on your
+screen pass mouse events to the tab bar by disabling window decorations and
+relying on <kbd class="kbd docutils literal notranslate">Alt</kbd> and the left and right mouse buttons to move and resize
+your Firefox windows in situations where you want mouse-based window
+manipulation.</p>
+<p>Under KDE, this can be accomplished through the <span class="guilabel">Window Rules</span>
+control panel, accessible through the titlebar context menu (<kbd class="kbd docutils literal notranslate">Alt</kbd>
++ <kbd class="kbd docutils literal notranslate">F3</kbd>) as <span class="menuselection"><span class="accelerator">M</span>ore Actions ‣ Special <span class="accelerator">W</span>indow Settings…</span>.</p>
+<p>For Openbox-based desktops, the equivalent can be achieved by making this
+modification to your Openbox configuration file:</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">~/.config/openbox/whatever.xml</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;openbox_config&gt;</span>
+  <span class="c">&lt;!-- ... --&gt;</span>
+  <span class="nt">&lt;applications&gt;</span>
+    <span class="c">&lt;!-- ... --&gt;</span>
+    <span class="nt">&lt;application</span> <span class="na">name=</span><span class="s">&quot;Firefox&quot;</span> <span class="na">title=</span><span class="s">&quot;*Mozilla Firefox*&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;decor&gt;</span>no<span class="nt">&lt;/decor&gt;</span>
+    <span class="nt">&lt;/application&gt;</span>
+  <span class="nt">&lt;/applications&gt;</span>
+<span class="nt">&lt;/openbox_config&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>As a more generic solution, the <a class="reference external" href="https://wiki.gnome.org/Projects/DevilsPie">Devil’s Pie</a> or <a class="reference external" href="https://www.nongnu.org/devilspie2/">Devil’s Pie 2</a> utilities
+can retrofit window rules onto any window manager. (Devil’s Pie 2 replaces the
+original Devil’s Pie’s syntax with an embedded Lua runtime.)</p>
+<p>The following script will serve the purpose for Devil’s Pie:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">~/.devilspie/firefox.ds</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
+<div class="highlight-lisp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="nv">is</span> <span class="p">(</span><span class="nv">application_name</span><span class="p">)</span> <span class="s">&quot;Firefox&quot;</span><span class="p">)</span> <span class="nb">and</span> <span class="p">(</span><span class="nv">contains</span> <span class="p">(</span><span class="nv">window_name</span><span class="p">)</span> <span class="s">&quot;Mozilla Firefox&quot;</span><span class="p">)</span>
+            <span class="p">(</span><span class="nv">begin</span>
+                <span class="p">(</span><span class="nv">undecorate</span><span class="p">)</span>
+            <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="i-get-an-error-when-i-try-to-run-quicktile">
+<h3><a class="toc-backref" href="#id16">I get an error when I try to run QuickTile</a><a class="headerlink" href="#i-get-an-error-when-i-try-to-run-quicktile" title="Permalink to this headline">¶</a></h3>
+<p>You probably either lack a dependency or have bits of a previous installation
+lying around. Follow the <a class="reference internal" href="installation.html#removal"><span class="std std-ref">Removal</span></a> instructions, make sure you have all
+required dependencies installed, and try installing again.</p>
+<p>If this does not fix it, try running QuickTile via <code class="docutils literal notranslate"><span class="pre">./quicktile.sh</span></code> or
+or <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">quicktile</span></code> instead.</p>
+<p>If that works, then your <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> is breaking when asked to install
+packages which declare <code class="docutils literal notranslate"><span class="pre">console_scripts</span></code>.</p>
+<p>If it does not work, then <a class="reference external" href="https://github.com/ssokolow/quicktile/issues">open an issue</a> and I’ll try to help you.</p>
+</div>
+</div>
+<div class="section" id="other-questions">
+<h2><a class="toc-backref" href="#id17">Other Questions</a><a class="headerlink" href="#other-questions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="when-will-you-support-wayland">
+<h3><a class="toc-backref" href="#id18">When will you support Wayland?</a><a class="headerlink" href="#when-will-you-support-wayland" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Never. Wayland’s security model makes it impossible to move and resize
+windows belonging to other applications unless you are the compositor
+itself.</p>
+<p>You’ll have to poke the creators of your compositor to improve tiling
+support or switch to a different compositor.</p>
+<p>Depending on how your compositor works, running QuickTile under XWayland
+may or may not allow it to see other X11 applications running under
+XWayland.</p>
+</div></blockquote>
+</div>
+<div class="section" id="does-quicktile-run-on-macos">
+<span id="quicktile-macos"></span><h3><a class="toc-backref" href="#id19">Does QuickTile run on macOS?</a><a class="headerlink" href="#does-quicktile-run-on-macos" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>It’s not a primary target, since I don’t have a Mac to test with, but if
+<a class="reference external" href="https://github.com/conformal/spectrwm/wiki/OSX">SpectrWM</a> can run via
+X11.app, QuickTile isn’t out of the question.</p>
+<p>The GTK+ 2.x version of libwnck failed to retrieve the active window and
+development of a workaround
+<a class="reference external" href="https://github.com/ssokolow/quicktile/issues/28">[1]</a>
+<a class="reference external" href="https://github.com/ssokolow/quicktile/tree/xquartz">[2]</a> stalled when I
+fell out of contact with the person who wanted it and no longer had anyone
+to test changes.</p>
+<p>I don’t know whether the GTK 3.x version of libwnck is any better, but, if
+not and you’re willing to test rapid-fire changes to the code, macOS
+support isn’t out of the question.</p>
+<p>A list of shareware alternatives with official OSX support is also
+available on <a class="reference external" href="http://stackoverflow.com/questions/273242/is-there-anything-like-winsplit-revolution-for-mac-os-x">StackOverflow</a></p>
+</div></blockquote>
+</div>
+<div class="section" id="quicktile-doesn-t-meet-my-needs-what-can-i-do">
+<span id="quicktile-windows"></span><h3><a class="toc-backref" href="#id20">QuickTile doesn’t meet my needs. What can I do?</a><a class="headerlink" href="#quicktile-doesn-t-meet-my-needs-what-can-i-do" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>You could contribute code or <a class="reference external" href="https://github.com/ssokolow/quicktile/issues">file a feature request</a> and wait.</p>
+<p>If that’s not good enough, Wikipedia’s <a class="reference external" href="https://secure.wikimedia.org/wikipedia/en/wiki/Tiling_window_manager">Tiling window manager</a>
+page does contain a section listing other tools that might meet your needs.
+(Ones for other platforms like Windows too, for that matter)</p>
+<p>Another useful place for Windows users to look is the <a class="reference external" href="https://alternativeto.net/software/winsplit-revolution/?license=free">alternativeTo page</a>
+for WinSplit Revolution.</p>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2009-2020, Stephan Sokolow.
+      
+      |
+      <a href="_sources/faq.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/ssokolow/quicktile" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>
