@@ -133,21 +133,19 @@
 <li><p><a class="reference internal" href="#troubleshooting" id="id7">Troubleshooting</a></p>
 <ul>
 <li><p><a class="reference internal" href="#modmask-control-shift-mod1-doesn-t-work" id="id8"><code class="docutils literal notranslate"><span class="pre">ModMask</span> <span class="pre">=</span> <span class="pre">Control</span> <span class="pre">Shift</span> <span class="pre">Mod1</span></code> doesn’t work</a></p></li>
-<li><p><a class="reference internal" href="#quicktile-positions-windows-over-under-my-panels" id="id9">QuickTile positions windows over/under my panels</a></p></li>
-<li><p><a class="reference internal" href="#quicktile-treats-all-panels-as-if-they-re-full-width-height" id="id10">Quicktile treats all panels as if they’re full-width/height</a></p></li>
-<li><p><a class="reference internal" href="#quicktile-resizes-windows-but-doesn-t-move-them" id="id11">QuickTile resizes windows but doesn’t move them</a></p></li>
-<li><p><a class="reference internal" href="#terminator-animates-to-zero-width-height-when-resized" id="id12">Terminator animates to zero width/height when resized</a></p></li>
-<li><p><a class="reference internal" href="#tiled-windows-are-misaligned-on-a-compiz-based-desktop" id="id13">Tiled windows are misaligned on a Compiz-based desktop</a></p></li>
-<li><p><a class="reference internal" href="#tiled-windows-have-huge-margins-on-elementary-os" id="id14">Tiled windows have huge margins on Elementary OS</a></p></li>
-<li><p><a class="reference internal" href="#firefox-windows-have-huge-margins" id="id15">Firefox windows have huge margins</a></p></li>
-<li><p><a class="reference internal" href="#i-get-an-error-when-i-try-to-run-quicktile" id="id16">I get an error when I try to run QuickTile</a></p></li>
+<li><p><a class="reference internal" href="#quicktile-resizes-windows-but-doesn-t-move-them" id="id9">QuickTile resizes windows but doesn’t move them</a></p></li>
+<li><p><a class="reference internal" href="#terminator-animates-to-zero-width-height-when-resized" id="id10">Terminator animates to zero width/height when resized</a></p></li>
+<li><p><a class="reference internal" href="#tiled-windows-are-misaligned-on-a-compiz-based-desktop" id="id11">Tiled windows are misaligned on a Compiz-based desktop</a></p></li>
+<li><p><a class="reference internal" href="#tiled-windows-have-huge-margins-on-elementary-os" id="id12">Tiled windows have huge margins on Elementary OS</a></p></li>
+<li><p><a class="reference internal" href="#firefox-windows-have-huge-margins" id="id13">Firefox windows have huge margins</a></p></li>
+<li><p><a class="reference internal" href="#i-get-an-error-when-i-try-to-run-quicktile" id="id14">I get an error when I try to run QuickTile</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#other-questions" id="id17">Other Questions</a></p>
+<li><p><a class="reference internal" href="#other-questions" id="id15">Other Questions</a></p>
 <ul>
-<li><p><a class="reference internal" href="#when-will-you-support-wayland" id="id18">When will you support Wayland?</a></p></li>
-<li><p><a class="reference internal" href="#does-quicktile-run-on-macos" id="id19">Does QuickTile run on macOS?</a></p></li>
-<li><p><a class="reference internal" href="#quicktile-doesn-t-meet-my-needs-what-can-i-do" id="id20">QuickTile doesn’t meet my needs. What can I do?</a></p></li>
+<li><p><a class="reference internal" href="#when-will-you-support-wayland" id="id16">When will you support Wayland?</a></p></li>
+<li><p><a class="reference internal" href="#does-quicktile-run-on-macos" id="id17">Does QuickTile run on macOS?</a></p></li>
+<li><p><a class="reference internal" href="#quicktile-doesn-t-meet-my-needs-what-can-i-do" id="id18">QuickTile doesn’t meet my needs. What can I do?</a></p></li>
 </ul>
 </li>
 </ul>
@@ -172,26 +170,8 @@ grab hotkeys when you start it with
 to implement global hotkeys by intercepting events before they reach
 <a class="reference external" href="https://tronche.com/gui/x/xlib/input/XGrabKey.html">XGrabKey</a>)</p>
 </div>
-<div class="section" id="quicktile-positions-windows-over-under-my-panels">
-<h3><a class="toc-backref" href="#id9">QuickTile positions windows over/under my panels</a><a class="headerlink" href="#quicktile-positions-windows-over-under-my-panels" title="Permalink to this headline">¶</a></h3>
-<p>The GTK+ 3.x version of QuickTile hasn’t yet regained the ability to notice
-changes to the available region of the desktop after it’s started. Make sure
-QuickTile gets launched after your panels have appeared.</p>
-<p>Follow <a class="reference external" href="https://github.com/ssokolow/quicktile/issues/107">Issue 107</a> for
-status updates.</p>
-</div>
-<div class="section" id="quicktile-treats-all-panels-as-if-they-re-full-width-height">
-<h3><a class="toc-backref" href="#id10">Quicktile treats all panels as if they’re full-width/height</a><a class="headerlink" href="#quicktile-treats-all-panels-as-if-they-re-full-width-height" title="Permalink to this headline">¶</a></h3>
-<p>In the move from GTK+ 2.x to GTK 3.x, the <a class="reference external" href="https://developer.gnome.org/pygtk/stable/class-gdkregion.html">gtk.gdk.Region</a> class got replaced
-with <a class="reference external" href="https://pycairo.readthedocs.io/en/latest/reference/region.html#cairo.Region" title="(in Pycairo)"><code class="xref py py-class docutils literal notranslate"><span class="pre">cairo.Region</span></code></a> and I’ve run into so many bugs while attempting to
-use it from Python that I had to settle for implementing my own solution, which
-doesn’t yet know how to do anything fancier than calculating a “largest usable
-rectangle” separately for each monitor.</p>
-<p>Follow <a class="reference external" href="https://github.com/ssokolow/quicktile/issues/108">Issue 108</a> for
-status updates.</p>
-</div>
 <div class="section" id="quicktile-resizes-windows-but-doesn-t-move-them">
-<h3><a class="toc-backref" href="#id11">QuickTile resizes windows but doesn’t move them</a><a class="headerlink" href="#quicktile-resizes-windows-but-doesn-t-move-them" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id9">QuickTile resizes windows but doesn’t move them</a><a class="headerlink" href="#quicktile-resizes-windows-but-doesn-t-move-them" title="Permalink to this headline">¶</a></h3>
 <p>Some window managers can be set to ignore requests by applications to move your
 windows. This used to be a problem before QuickTile started announcing itself
 to the system as a window-management utility, but it shouldn’t be any longer.</p>
@@ -206,7 +186,7 @@ command:</p>
 </div>
 </div>
 <div class="section" id="terminator-animates-to-zero-width-height-when-resized">
-<h3><a class="toc-backref" href="#id12">Terminator animates to zero width/height when resized</a><a class="headerlink" href="#terminator-animates-to-zero-width-height-when-resized" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id10">Terminator animates to zero width/height when resized</a><a class="headerlink" href="#terminator-animates-to-zero-width-height-when-resized" title="Permalink to this headline">¶</a></h3>
 <p>This is a <a class="reference external" href="https://bugs.launchpad.net/terminator/+bug/1361252/comments/1">bug</a>
 in Terminator that both QuickTile and Xfwm’s more limited built-in tiling
 support can trigger.</p>
@@ -217,7 +197,7 @@ implement full support for taking windows’ requested size restrictions into
 account when calculating destination shapes.</p>
 </div>
 <div class="section" id="tiled-windows-are-misaligned-on-a-compiz-based-desktop">
-<h3><a class="toc-backref" href="#id13">Tiled windows are misaligned on a Compiz-based desktop</a><a class="headerlink" href="#tiled-windows-are-misaligned-on-a-compiz-based-desktop" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id11">Tiled windows are misaligned on a Compiz-based desktop</a><a class="headerlink" href="#tiled-windows-are-misaligned-on-a-compiz-based-desktop" title="Permalink to this headline">¶</a></h3>
 <p>This is <a class="reference external" href="https://github.com/ssokolow/quicktile/issues/70#issuecomment-270127825">apparently</a>
 a symptom of a conflict between QuickTile and the Compiz Grid plugin.</p>
 <p>Make sure you’ve disabled the Grid plugin in
@@ -225,7 +205,7 @@ a symptom of a conflict between QuickTile and the Compiz Grid plugin.</p>
 and back in to ensure that the changes have taken effect.</p>
 </div>
 <div class="section" id="tiled-windows-have-huge-margins-on-elementary-os">
-<h3><a class="toc-backref" href="#id14">Tiled windows have huge margins on Elementary OS</a><a class="headerlink" href="#tiled-windows-have-huge-margins-on-elementary-os" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">Tiled windows have huge margins on Elementary OS</a><a class="headerlink" href="#tiled-windows-have-huge-margins-on-elementary-os" title="Permalink to this headline">¶</a></h3>
 <p>This happens because, from QuickTile’s perspective, the pretty shadows are
 part of the window decorations.</p>
 <p>I don’t know of a proper fix, but you can work around this by removing them. To
@@ -269,7 +249,7 @@ make the following change:</p>
 </div>
 </div>
 <div class="section" id="firefox-windows-have-huge-margins">
-<h3><a class="toc-backref" href="#id15">Firefox windows have huge margins</a><a class="headerlink" href="#firefox-windows-have-huge-margins" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id13">Firefox windows have huge margins</a><a class="headerlink" href="#firefox-windows-have-huge-margins" title="Permalink to this headline">¶</a></h3>
 <p>As with Elementary OS, this is a bug related to how windows draw shadows.</p>
 <p>I haven’t narrowed down the specific conditions which trigger it yet, but it
 can be worked around by disabling Firefox’s support for using
@@ -324,7 +304,7 @@ original Devil’s Pie’s syntax with an embedded Lua runtime.)</p>
 </div>
 </div>
 <div class="section" id="i-get-an-error-when-i-try-to-run-quicktile">
-<h3><a class="toc-backref" href="#id16">I get an error when I try to run QuickTile</a><a class="headerlink" href="#i-get-an-error-when-i-try-to-run-quicktile" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id14">I get an error when I try to run QuickTile</a><a class="headerlink" href="#i-get-an-error-when-i-try-to-run-quicktile" title="Permalink to this headline">¶</a></h3>
 <p>You probably either lack a dependency or have bits of a previous installation
 lying around. Follow the <a class="reference internal" href="installation.html#removal"><span class="std std-ref">Removal</span></a> instructions, make sure you have all
 required dependencies installed, and try installing again.</p>
@@ -336,9 +316,9 @@ packages which declare <code class="docutils literal notranslate"><span class="p
 </div>
 </div>
 <div class="section" id="other-questions">
-<h2><a class="toc-backref" href="#id17">Other Questions</a><a class="headerlink" href="#other-questions" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id15">Other Questions</a><a class="headerlink" href="#other-questions" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="when-will-you-support-wayland">
-<h3><a class="toc-backref" href="#id18">When will you support Wayland?</a><a class="headerlink" href="#when-will-you-support-wayland" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">When will you support Wayland?</a><a class="headerlink" href="#when-will-you-support-wayland" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>Never. Wayland’s security model makes it impossible to move and resize
 windows belonging to other applications unless you are the compositor
@@ -351,7 +331,7 @@ XWayland.</p>
 </div></blockquote>
 </div>
 <div class="section" id="does-quicktile-run-on-macos">
-<span id="quicktile-macos"></span><h3><a class="toc-backref" href="#id19">Does QuickTile run on macOS?</a><a class="headerlink" href="#does-quicktile-run-on-macos" title="Permalink to this headline">¶</a></h3>
+<span id="quicktile-macos"></span><h3><a class="toc-backref" href="#id17">Does QuickTile run on macOS?</a><a class="headerlink" href="#does-quicktile-run-on-macos" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>It’s not a primary target, since I don’t have a Mac to test with, but if
 <a class="reference external" href="https://github.com/conformal/spectrwm/wiki/OSX">SpectrWM</a> can run via
@@ -370,7 +350,7 @@ available on <a class="reference external" href="http://stackoverflow.com/questi
 </div></blockquote>
 </div>
 <div class="section" id="quicktile-doesn-t-meet-my-needs-what-can-i-do">
-<span id="quicktile-windows"></span><h3><a class="toc-backref" href="#id20">QuickTile doesn’t meet my needs. What can I do?</a><a class="headerlink" href="#quicktile-doesn-t-meet-my-needs-what-can-i-do" title="Permalink to this headline">¶</a></h3>
+<span id="quicktile-windows"></span><h3><a class="toc-backref" href="#id18">QuickTile doesn’t meet my needs. What can I do?</a><a class="headerlink" href="#quicktile-doesn-t-meet-my-needs-what-can-i-do" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>You could contribute code or <a class="reference external" href="https://github.com/ssokolow/quicktile/issues">file a feature request</a> and wait.</p>
 <p>If that’s not good enough, Wikipedia’s <a class="reference external" href="https://secure.wikimedia.org/wikipedia/en/wiki/Tiling_window_manager">Tiling window manager</a>
