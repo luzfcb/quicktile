@@ -14,6 +14,7 @@
     <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Authors" href="authors/index.html" />
     <link rel="prev" title="Environment Management (functional_harness/env_general.py)" href="apidocs/functional_harness/env_general.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -59,6 +60,7 @@
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="apidocs/functional_harness/env_general.html" title="previous chapter">Environment Management (<code class="docutils literal notranslate"><span class="pre">functional_harness/env_general.py</span></code>)</a></li>
+      <li>Next: <a href="authors/index.html" title="next chapter">Authors</a></li>
   </ul></li>
 </ul>
 </div>
@@ -146,6 +148,7 @@
 <li><p><a class="reference internal" href="#automated-testing" id="id14">Automated Testing</a></p></li>
 </ul>
 </li>
+<li><p><a class="reference internal" href="#adding-yourself-to-the-authors-list" id="id15">Adding Yourself to the <code class="file docutils literal notranslate"><span class="pre">AUTHORS</span></code> List</a></p></li>
 </ul>
 </div>
 <div class="section" id="setting-up-a-development-environment">
@@ -405,6 +408,48 @@ comfortable edit-test cycle.</p>
 commands which rely on code you’ve touched and watch for misbehaviour.</p>
 </div>
 </div>
+<div class="section" id="adding-yourself-to-the-authors-list">
+<h2><a class="toc-backref" href="#id15">Adding Yourself to the <code class="file docutils literal notranslate"><span class="pre">AUTHORS</span></code> List</a><a class="headerlink" href="#adding-yourself-to-the-authors-list" title="Permalink to this headline">¶</a></h2>
+<p>When making a contribution, please also add yourself to the
+<a class="reference internal" href="authors/index.html"><span class="doc">Authors</span></a> section and regenerate the <code class="file docutils literal notranslate"><span class="pre">AUTHORS</span></code> file in the
+root of the project.</p>
+<p>This can be done as follows:</p>
+<ol class="arabic simple">
+<li><p>Edit <code class="file docutils literal notranslate"><span class="pre">docs/authors/index.rst</span></code></p></li>
+<li><p>Regenerate the HTML version of the documentation and verify that it looks
+right. (Run <strong class="command">make html</strong> from inside the <code class="file docutils literal notranslate"><span class="pre">docs</span></code> folder.)</p></li>
+<li><p>Run <code class="file docutils literal notranslate"><span class="pre">./docs/update_authors.sh</span></code> to regenerate <code class="file docutils literal notranslate"><span class="pre">AUTHORS</span></code></p></li>
+<li><p>Verify that <code class="file docutils literal notranslate"><span class="pre">AUTHORS</span></code> looks right.</p></li>
+<li><p>Commit your changes.</p></li>
+</ol>
+<p>Additions to the “The Program” section should be phrased so that reading the
+definition list title and body together form a sentence in the <a class="reference external" href="https://en.wikipedia.org/wiki/Simple_past">simple past
+tense</a>. However, the body portion should still be capitalized as if it is
+a complete sentence.</p>
+<p>Please combine related changes into a single high-level description of the user-visible changes. This rule may be relaxed when it would unfairly downplay the
+amount of work involved.</p>
+<p>Please try to make proper use of Sphinx markup to indicate things such as
+command and function names. Constructs such as <code class="docutils literal notranslate"><span class="pre">:py:mod:`round`</span></code> may be used
+to reference identifiers within dependencies but be aware that, because
+generation of <code class="file docutils literal notranslate"><span class="pre">AUTHORS</span></code> considers the document in isolation,
+markup which attempts to generate cross-references to the rest of the manual
+will trigger warnings when <code class="file docutils literal notranslate"><span class="pre">update_authors.sh</span></code> is run and may <em>not</em> be
+be used.</p>
+<p>A Good Example:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>Yuting/Tim Xiao
+    Made the wndow-tiling heuristics more robust.
+</pre></div>
+</div>
+<p>A Bad Example:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>Yuting/Tim Xiao
+
+    <span class="m">*</span> Increase closest-dimension matching fuzziness to 100px.
+    <span class="m">*</span> Update min-distance calculation in cycleDimensions to use
+      lengths instead of area.
+    <span class="m">*</span> Always use the first given configuration for untiled windows.
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -415,7 +460,7 @@ commands which rely on code you’ve touched and watch for misbehaviour.</p>
     <div class="clearer"></div>
   </div>
     <div class="footer">
-      &copy;2009-2020, Stephan Sokolow.
+      &copy;2009-2020, Stephan Sokolow et al.
       
       |
       <a href="_sources/developing.rst.txt"
