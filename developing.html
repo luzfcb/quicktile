@@ -16,6 +16,9 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Authors" href="authors/index.html" />
     <link rel="prev" title="Environment Management (functional_harness/env_general.py)" href="apidocs/functional_harness/env_general.html" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' https://travis-ci.org https://*.travis-ci.org">
+  
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -23,6 +26,7 @@
     <link rel="canonical" href="http://ssokolow.com/quicktile/developing.html"/>
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
 
   </head><body>
   <div class="document">
@@ -134,21 +138,22 @@
 <li><p><a class="reference internal" href="#building-development-documentation" id="id7">Building Development Documentation</a></p>
 <ul>
 <li><p><a class="reference internal" href="#regenerating-documentation-graphics" id="id8">Regenerating Documentation Graphics</a></p></li>
+<li><p><a class="reference internal" href="#documentation-privacy-policy" id="id9">Documentation Privacy Policy</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#high-level-quicktile-architecture" id="id9">High-Level QuickTile Architecture</a></p>
+<li><p><a class="reference internal" href="#high-level-quicktile-architecture" id="id10">High-Level QuickTile Architecture</a></p>
 <ul>
-<li><p><a class="reference internal" href="#quirks-of-the-codebase-s-structure" id="id10">Quirks of the Codebase’s Structure</a></p></li>
+<li><p><a class="reference internal" href="#quirks-of-the-codebase-s-structure" id="id11">Quirks of the Codebase’s Structure</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#good-development-practice" id="id11">Good Development Practice</a></p></li>
-<li><p><a class="reference internal" href="#testing-your-changes" id="id12">Testing Your Changes</a></p>
+<li><p><a class="reference internal" href="#good-development-practice" id="id12">Good Development Practice</a></p></li>
+<li><p><a class="reference internal" href="#testing-your-changes" id="id13">Testing Your Changes</a></p>
 <ul>
-<li><p><a class="reference internal" href="#testing-environment-concerns" id="id13">Testing Environment Concerns</a></p></li>
-<li><p><a class="reference internal" href="#automated-testing" id="id14">Automated Testing</a></p></li>
+<li><p><a class="reference internal" href="#testing-environment-concerns" id="id14">Testing Environment Concerns</a></p></li>
+<li><p><a class="reference internal" href="#automated-testing" id="id15">Automated Testing</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#adding-yourself-to-the-authors-list" id="id15">Adding Yourself to the <code class="file docutils literal notranslate"><span class="pre">AUTHORS</span></code> List</a></p></li>
+<li><p><a class="reference internal" href="#adding-yourself-to-the-authors-list" id="id16">Adding Yourself to the <code class="file docutils literal notranslate"><span class="pre">AUTHORS</span></code> List</a></p></li>
 </ul>
 </div>
 <div class="section" id="setting-up-a-development-environment">
@@ -239,9 +244,23 @@ be searched for by running the following command in the project root:</p>
 </div>
 <p><strong>You only need to do this if you’ve modified the original SVG files.</strong></p>
 </div>
+<div class="section" id="documentation-privacy-policy">
+<h3><a class="toc-backref" href="#id9">Documentation Privacy Policy</a><a class="headerlink" href="#documentation-privacy-policy" title="Permalink to this headline">¶</a></h3>
+<p>Out of respect for user privacy and to make offline use of this documentation
+as robust as possible, this website/manual makes no external HTTP requests
+beyond those needed to ensure that the Travis-CI badge in the sidebar
+is current as of the page load.</p>
+<p>To mitigate the risk of such requests slipping in through non-obvious means,
+such as use of the Sphinx <code class="docutils literal notranslate"><span class="pre">:math:</span></code> role pulling in a CDN-hosted copy of
+<a class="reference external" href="https://www.mathjax.org/">MathJax</a>, a <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">Content Security Policy</a> meta-tag has been added to the header of
+the site template.</p>
+<p>It is preferred that you check your browser’s developer console for reports
+of requests blocked by the <abbr title="Content Security Policy">CSP</abbr> rules on the
+relevant pages before submitting changes to the manual or docstrings.</p>
+</div>
 </div>
 <div class="section" id="high-level-quicktile-architecture">
-<h2><a class="toc-backref" href="#id9">High-Level QuickTile Architecture</a><a class="headerlink" href="#high-level-quicktile-architecture" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">High-Level QuickTile Architecture</a><a class="headerlink" href="#high-level-quicktile-architecture" title="Permalink to this headline">¶</a></h2>
 <p>Quicktile is fundamentally built around a somewhat HTTP-like request-response
 model. The user requests an action, QuickTile performs that action, and then it
 goes back to waiting for another event.</p>
@@ -250,7 +269,7 @@ as X11 window properties using the
 <a class="reference internal" href="apidocs/wm.html#quicktile.wm.WindowManager.set_property" title="quicktile.wm.WindowManager.set_property"><code class="xref py py-meth docutils literal notranslate"><span class="pre">quicktile.wm.WindowManager.set_property()</span></code></a> and
 <a class="reference internal" href="apidocs/wm.html#quicktile.wm.WindowManager.get_property" title="quicktile.wm.WindowManager.get_property"><code class="xref py py-meth docutils literal notranslate"><span class="pre">quicktile.wm.WindowManager.get_property()</span></code></a> methods.</p>
 <div class="section" id="quirks-of-the-codebase-s-structure">
-<h3><a class="toc-backref" href="#id10">Quirks of the Codebase’s Structure</a><a class="headerlink" href="#quirks-of-the-codebase-s-structure" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id11">Quirks of the Codebase’s Structure</a><a class="headerlink" href="#quirks-of-the-codebase-s-structure" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p>The <a class="reference internal" href="apidocs/__main__.html#module-quicktile.__main__" title="quicktile.__main__"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quicktile.__main__</span></code></a> module is currently responsible for parsing
 configuration files and command-line arguments, migrating old configuration
@@ -283,7 +302,7 @@ without <code class="file docutils literal notranslate"><span class="pre">setup.
 </div>
 </div>
 <div class="section" id="good-development-practice">
-<h2><a class="toc-backref" href="#id11">Good Development Practice</a><a class="headerlink" href="#good-development-practice" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id12">Good Development Practice</a><a class="headerlink" href="#good-development-practice" title="Permalink to this headline">¶</a></h2>
 <p>Before making changes you intend to have merged back into QuickTile’s
 <code class="docutils literal notranslate"><span class="pre">master</span></code> branch, please open a feature request on the <a class="reference external" href="https://github.com/ssokolow/quicktile/issues">issue tracker</a> to
 propose them. This will allow me to bring up any non-obvious design concerns
@@ -321,9 +340,9 @@ continuous testing services that run on the QuickTile repository, as well
 as making it as simple as possible for me to examine and accept them.</p>
 </div>
 <div class="section" id="testing-your-changes">
-<span id="testing-quicktile"></span><h2><a class="toc-backref" href="#id12">Testing Your Changes</a><a class="headerlink" href="#testing-your-changes" title="Permalink to this headline">¶</a></h2>
+<span id="testing-quicktile"></span><h2><a class="toc-backref" href="#id13">Testing Your Changes</a><a class="headerlink" href="#testing-your-changes" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="testing-environment-concerns">
-<h3><a class="toc-backref" href="#id13">Testing Environment Concerns</a><a class="headerlink" href="#testing-environment-concerns" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id14">Testing Environment Concerns</a><a class="headerlink" href="#testing-environment-concerns" title="Permalink to this headline">¶</a></h3>
 <p>QuickTile’s current minimum compatibility target is Kubuntu Linux 16.04 LTS.</p>
 <p>If this is not what you are running, I suggest using <a class="reference external" href="https://www.virtualbox.org/">VirtualBox</a> for
 compatibility testing, as it is easy to set up and has support for virtual
@@ -362,7 +381,7 @@ calculating usable regions.</p>
 </ol>
 </div>
 <div class="section" id="automated-testing">
-<h3><a class="toc-backref" href="#id14">Automated Testing</a><a class="headerlink" href="#automated-testing" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">Automated Testing</a><a class="headerlink" href="#automated-testing" title="Permalink to this headline">¶</a></h3>
 <p>To run a complete set of everything that can be completed quickly, please use
 the following command from the root of the project:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./run_tests.sh
@@ -409,7 +428,7 @@ commands which rely on code you’ve touched and watch for misbehaviour.</p>
 </div>
 </div>
 <div class="section" id="adding-yourself-to-the-authors-list">
-<h2><a class="toc-backref" href="#id15">Adding Yourself to the <code class="file docutils literal notranslate"><span class="pre">AUTHORS</span></code> List</a><a class="headerlink" href="#adding-yourself-to-the-authors-list" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id16">Adding Yourself to the <code class="file docutils literal notranslate"><span class="pre">AUTHORS</span></code> List</a><a class="headerlink" href="#adding-yourself-to-the-authors-list" title="Permalink to this headline">¶</a></h2>
 <p>When making a contribution, please also add yourself to the
 <a class="reference internal" href="authors/index.html"><span class="doc">Authors</span></a> section and regenerate the <code class="file docutils literal notranslate"><span class="pre">AUTHORS</span></code> file in the
 root of the project.</p>
@@ -459,6 +478,7 @@ be used.</p>
       </div>
     <div class="clearer"></div>
   </div>
+    
     <div class="footer">
       &copy;2009-2020, Stephan Sokolow et al.
       
@@ -468,11 +488,8 @@ be used.</p>
     </div>
 
     
-    <a href="https://github.com/ssokolow/quicktile" class="github">
-        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
-    </a>
-    
 
     
+    <span id="forkongithub"><a href="https://github.com/ssokolow/quicktile">Fork me on GitHub</a></span>
   </body>
 </html>
