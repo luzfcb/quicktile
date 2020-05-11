@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Command Registry and Included Commands (commands.py) &#8212; QuickTile 0.4 documentation</title>
+    <title>Command Registry and Included Commands (commands.py) &#8212; QuickTile 0.4.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -290,8 +290,8 @@ floating-point values between 0 and 1, inclusive.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>winman</strong> (<a class="reference internal" href="wm.html#quicktile.wm.WindowManager" title="quicktile.wm.WindowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">WindowManager</span></code></a>) – </p></li>
 <li><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – </p></li>
+<li><p><strong>winman</strong> (<a class="reference internal" href="wm.html#quicktile.wm.WindowManager" title="quicktile.wm.WindowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">WindowManager</span></code></a>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -310,9 +310,9 @@ get placed outside the available space on the target monitor.</p>
 <li><p><strong>step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – How many monitors to step forward or backward.</p></li>
 <li><p><strong>force_wrap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – If :any`True`, this will override setting
 <a class="reference internal" href="../config.html#movementswrap"><span class="std std-ref">MovementsWrap</span></a> to <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">False</span></code></a>.</p></li>
+<li><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – </p></li>
 <li><p><strong>winman</strong> (<a class="reference internal" href="wm.html#quicktile.wm.WindowManager" title="quicktile.wm.WindowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">WindowManager</span></code></a>) – </p></li>
 <li><p><strong>n_monitors</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – </p></li>
-<li><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -334,8 +334,8 @@ get placed outside the available space on the target monitor.</p>
 <li><p><strong>win</strong> (<a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/classes/Window.html#Wnck.Window" title="(in Wnck 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wnck.Window</span></code></a>) – The window to operate on.</p></li>
 <li><p><strong>step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Passed to <a class="reference internal" href="#quicktile.commands.cycle_monitors" title="quicktile.commands.cycle_monitors"><code class="xref py py-func docutils literal notranslate"><span class="pre">cycle_monitors()</span></code></a></p></li>
 <li><p><strong>force_wrap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Passed to <a class="reference internal" href="#quicktile.commands.cycle_monitors" title="quicktile.commands.cycle_monitors"><code class="xref py py-func docutils literal notranslate"><span class="pre">cycle_monitors()</span></code></a></p></li>
-<li><p><strong>winman</strong> (<a class="reference internal" href="wm.html#quicktile.wm.WindowManager" title="quicktile.wm.WindowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">WindowManager</span></code></a>) – </p></li>
 <li><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – </p></li>
+<li><p><strong>winman</strong> (<a class="reference internal" href="wm.html#quicktile.wm.WindowManager" title="quicktile.wm.WindowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">WindowManager</span></code></a>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -353,9 +353,9 @@ dimensions.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>win</strong> (<a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/classes/Window.html#Wnck.Window" title="(in Wnck 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wnck.Window</span></code></a>) – The window to operate on.</p></li>
-<li><p><strong>winman</strong> (<a class="reference internal" href="wm.html#quicktile.wm.WindowManager" title="quicktile.wm.WindowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">WindowManager</span></code></a>) – </p></li>
 <li><p><strong>gravity</strong> (<a class="reference internal" href="util.html#quicktile.util.Gravity" title="quicktile.util.Gravity"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gravity</span></code></a>) – </p></li>
 <li><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – </p></li>
+<li><p><strong>winman</strong> (<a class="reference internal" href="wm.html#quicktile.wm.WindowManager" title="quicktile.wm.WindowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">WindowManager</span></code></a>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>

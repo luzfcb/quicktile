@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>D-Bus Interface (dbus_api.py) &#8212; QuickTile 0.4 documentation</title>
+    <title>D-Bus Interface (dbus_api.py) &#8212; QuickTile 0.4.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -142,10 +142,10 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>bus</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">SessionBus</span></code>) – The connection on which to export this object.
-See the <code class="xref py py-class docutils literal notranslate"><span class="pre">dbus.service.Object</span></code> documentation for details.</p></li>
-<li><p><strong>winman</strong> (<a class="reference internal" href="wm.html#quicktile.wm.WindowManager" title="quicktile.wm.WindowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">WindowManager</span></code></a>) – </p></li>
+<li><p><strong>bus</strong> (<a class="reference external" href="https://dbus.freedesktop.org/doc/dbus-python/dbus.html#dbus.SessionBus" title="(in dbus-python v1.2.16)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SessionBus</span></code></a>) – The connection on which to export this object.
+See the <a class="reference external" href="https://dbus.freedesktop.org/doc/dbus-python/dbus.service.html#dbus.service.Object" title="(in dbus-python v1.2.16)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dbus.service.Object</span></code></a> documentation for details.</p></li>
 <li><p><strong>commands</strong> (<a class="reference internal" href="commands.html#quicktile.commands.CommandRegistry" title="quicktile.commands.CommandRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandRegistry</span></code></a>) – </p></li>
+<li><p><strong>winman</strong> (<a class="reference internal" href="wm.html#quicktile.wm.WindowManager" title="quicktile.wm.WindowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">WindowManager</span></code></a>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -177,12 +177,12 @@ session bus, and creating a <a class="reference internal" href="#quicktile.dbus_
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>winman</strong> (<a class="reference internal" href="wm.html#quicktile.wm.WindowManager" title="quicktile.wm.WindowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">WindowManager</span></code></a>) – </p></li>
 <li><p><strong>commands</strong> (<a class="reference internal" href="commands.html#quicktile.commands.CommandRegistry" title="quicktile.commands.CommandRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandRegistry</span></code></a>) – </p></li>
+<li><p><strong>winman</strong> (<a class="reference internal" href="wm.html#quicktile.wm.WindowManager" title="quicktile.wm.WindowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">WindowManager</span></code></a>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">BusName</span></code>, <a class="reference internal" href="#quicktile.dbus_api.QuickTile" title="quicktile.dbus_api.QuickTile"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuickTile</span></code></a>]]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://dbus.freedesktop.org/doc/dbus-python/dbus.service.html#dbus.service.BusName" title="(in dbus-python v1.2.16)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BusName</span></code></a>, <a class="reference internal" href="#quicktile.dbus_api.QuickTile" title="quicktile.dbus_api.QuickTile"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuickTile</span></code></a>]]</p>
 </dd>
 </dl>
 </dd></dl>
