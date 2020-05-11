@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>Layout Calculations (layout.py) &#8212; QuickTile 0.4 documentation</title>
@@ -135,9 +135,9 @@
   <div class="section" id="module-quicktile.layout">
 <span id="layout-calculations-layout-py"></span><h1>Layout Calculations (<code class="docutils literal notranslate"><span class="pre">layout.py</span></code>)<a class="headerlink" href="#module-quicktile.layout" title="Permalink to this headline">¶</a></h1>
 <p>Layout calculation code</p>
-<dl class="class">
+<dl class="py class">
 <dt id="quicktile.layout.GravityLayout">
-<em class="property">class </em><code class="sig-name descname">GravityLayout</code><span class="sig-paren">(</span><em class="sig-param">margin_x=0</em>, <em class="sig-param">margin_y=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/layout.html#GravityLayout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.layout.GravityLayout" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">GravityLayout</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">margin_x</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">margin_y</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/layout.html#GravityLayout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.layout.GravityLayout" title="Permalink to this definition">¶</a></dt>
 <dd><p>Helper for translating top-left relative dimensions to other corners.</p>
 <p>Used to generate <a class="reference internal" href="commands.html#quicktile.commands.cycle_dimensions" title="quicktile.commands.cycle_dimensions"><code class="xref py py-func docutils literal notranslate"><span class="pre">quicktile.commands.cycle_dimensions()</span></code></a> presets.</p>
 <p>Expects to operate on decimal percentage values. (0 ≤ x ≤ 1)</p>
@@ -151,7 +151,7 @@ positions, as decimal percentage of screen height.</p></li>
 </ul>
 </dd>
 </dl>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="quicktile.layout.GravityLayout.GRAVITIES">
 <code class="sig-name descname">GRAVITIES</code><em class="property">: Dict[str, Gravity]</em><em class="property"> = {'bottom': &lt;Gravity.BOTTOM: (0.5, 1.0)&gt;, 'bottom-left': &lt;Gravity.BOTTOM_LEFT: (0.0, 1.0)&gt;, 'bottom-right': &lt;Gravity.BOTTOM_RIGHT: (1.0, 1.0)&gt;, 'center': &lt;Gravity.CENTER: (0.5, 0.5)&gt;, 'left': &lt;Gravity.LEFT: (0.0, 0.5)&gt;, 'right': &lt;Gravity.RIGHT: (1.0, 0.5)&gt;, 'top': &lt;Gravity.TOP: (0.5, 0.0)&gt;, 'top-left': &lt;Gravity.TOP_LEFT: (0.0, 0.0)&gt;, 'top-right': &lt;Gravity.TOP_RIGHT: (1.0, 0.0)&gt;}</em><a class="headerlink" href="#quicktile.layout.GravityLayout.GRAVITIES" title="Permalink to this definition">¶</a></dt>
 <dd><p>A mapping of possible window alignments relative to the monitor/desktop
@@ -159,9 +159,9 @@ as a mapping from formerly manually specified command names to values
 the <a class="reference internal" href="util.html#quicktile.util.Gravity" title="quicktile.util.Gravity"><code class="xref any py py-class docutils literal notranslate"><span class="pre">quicktile.util.Gravity</span></code></a> enum can take on.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.layout.GravityLayout.__call__">
-<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">width</em>, <em class="sig-param">height</em>, <em class="sig-param">gravity='top-left'</em>, <em class="sig-param">x=None</em>, <em class="sig-param">y=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/layout.html#GravityLayout.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.layout.GravityLayout.__call__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">gravity</span><span class="o">=</span><span class="default_value">'top-left'</span></em>, <em class="sig-param"><span class="n">x</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">y</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/layout.html#GravityLayout.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.layout.GravityLayout.__call__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a relative <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y,</span> <span class="pre">w,</span> <span class="pre">h)</span></code> tuple relative to <code class="docutils literal notranslate"><span class="pre">gravity</span></code>.</p>
 <p>This function takes and returns percentages, represented as decimals
 in the range <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">≤</span> <span class="pre">x</span> <span class="pre">≤</span> <span class="pre">1</span></code>, which can be multiplied by width and
@@ -197,9 +197,9 @@ percentages.</p>
 
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.layout.check_tolerance">
-<code class="sig-name descname">check_tolerance</code><span class="sig-paren">(</span><em class="sig-param">distance</em>, <em class="sig-param">monitor_geom</em>, <em class="sig-param">tolerance=0.1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/layout.html#check_tolerance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.layout.check_tolerance" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">check_tolerance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">distance</span></em>, <em class="sig-param"><span class="n">monitor_geom</span></em>, <em class="sig-param"><span class="n">tolerance</span><span class="o">=</span><span class="default_value">0.1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/layout.html#check_tolerance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.layout.check_tolerance" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Check whether a distance is within a tolerance value calculated as a</dt><dd><p>percentage of a monitor’s size.</p>
 </dd>
@@ -227,9 +227,9 @@ the window was repositioned/resized without QuickTile” code.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.layout.make_winsplit_positions">
-<code class="sig-name descname">make_winsplit_positions</code><span class="sig-paren">(</span><em class="sig-param">columns</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/layout.html#make_winsplit_positions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.layout.make_winsplit_positions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">make_winsplit_positions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">columns</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/layout.html#make_winsplit_positions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.layout.make_winsplit_positions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate the classic WinSplit Revolution tiling presets</p>
 <dl class="field-list simple">
 <dt class="field-odd">Params columns</dt>
@@ -253,9 +253,9 @@ manual for further details.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.layout.resolve_fractional_geom">
-<code class="sig-name descname">resolve_fractional_geom</code><span class="sig-paren">(</span><em class="sig-param">fract_geom</em>, <em class="sig-param">monitor_rect</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/layout.html#resolve_fractional_geom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.layout.resolve_fractional_geom" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">resolve_fractional_geom</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fract_geom</span></em>, <em class="sig-param"><span class="n">monitor_rect</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/layout.html#resolve_fractional_geom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.layout.resolve_fractional_geom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resolve proportional (eg. <code class="docutils literal notranslate"><span class="pre">0.5</span></code>) and preserved (<code class="docutils literal notranslate"><span class="pre">None</span></code>) coordinates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

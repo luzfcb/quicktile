@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>quicktile.wm &#8212; QuickTile 0.4 documentation</title>
@@ -251,7 +251,8 @@
         <span class="n">monitors</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_screens</span><span class="p">):</span>
             <span class="n">monitors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Rectangle</span><span class="o">.</span><span class="n">from_gdk</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">gdk_screen</span><span class="o">.</span><span class="n">get_monitor_geometry</span><span class="p">(</span><span class="n">idx</span><span class="p">)))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gdk_screen</span><span class="o">.</span><span class="n">get_monitor_geometry</span><span class="p">(</span><span class="n">idx</span><span class="p">))</span> <span class="o">*</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gdk_screen</span><span class="o">.</span><span class="n">get_monitor_scale_factor</span><span class="p">(</span><span class="n">idx</span><span class="p">))</span>
             <span class="c1"># TODO: Look into using python-xlib to match x_root use</span>
 
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Loaded monitor geometry: </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">monitors</span><span class="p">)</span>
@@ -312,7 +313,11 @@
         <span class="c1"># (Gdk.Display.get_default_screen().get_root_window()... now why did</span>
         <span class="c1"># I want to know?)</span>
         <span class="n">monitor_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gdk_screen</span><span class="o">.</span><span class="n">get_monitor_at_window</span><span class="p">(</span><span class="n">win</span><span class="p">)</span>
-        <span class="n">monitor_geom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gdk_screen</span><span class="o">.</span><span class="n">get_monitor_geometry</span><span class="p">(</span><span class="n">monitor_id</span><span class="p">)</span>
+        <span class="n">monitor_geom</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="o">.</span><span class="n">from_gdk</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gdk_screen</span><span class="o">.</span><span class="n">get_monitor_geometry</span><span class="p">(</span><span class="n">monitor_id</span><span class="p">))</span>
+
+        <span class="c1"># TODO: Unit test this</span>
+        <span class="n">monitor_geom</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gdk_screen</span><span class="o">.</span><span class="n">get_monitor_scale_factor</span><span class="p">(</span><span class="n">monitor_id</span><span class="p">)</span>
 
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot; Window is on monitor </span><span class="si">%s</span><span class="s2">, which has geometry </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
                       <span class="n">monitor_id</span><span class="p">,</span> <span class="n">Rectangle</span><span class="o">.</span><span class="n">from_gdk</span><span class="p">(</span><span class="n">monitor_geom</span><span class="p">))</span>

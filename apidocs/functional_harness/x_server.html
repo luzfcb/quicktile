@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>X Server Management (functional_harness/x_server.py) &#8212; QuickTile 0.4 documentation</title>
@@ -137,9 +137,9 @@
   <div class="section" id="module-functional_harness.x_server">
 <span id="x-server-management-functional-harness-x-server-py"></span><h1>X Server Management (<code class="docutils literal notranslate"><span class="pre">functional_harness/x_server.py</span></code>)<a class="headerlink" href="#module-functional_harness.x_server" title="Permalink to this headline">¶</a></h1>
 <p>Wrapper for easily setting up and tearing down a test X server</p>
-<dl class="function">
+<dl class="py function">
 <dt id="functional_harness.x_server._init_x_server">
-<code class="sig-name descname">_init_x_server</code><span class="sig-paren">(</span><em class="sig-param">argv</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/functional_harness/x_server.html#_init_x_server"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#functional_harness.x_server._init_x_server" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">_init_x_server</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">argv</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/functional_harness/x_server.html#_init_x_server"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#functional_harness.x_server._init_x_server" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for starting an X server with the given command line</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -162,9 +162,9 @@ unexpected error.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="functional_harness.x_server.x_server">
-<code class="sig-name descname">x_server</code><span class="sig-paren">(</span><em class="sig-param">argv</em>, <em class="sig-param">screens</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/functional_harness/x_server.html#x_server"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#functional_harness.x_server.x_server" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">x_server</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">argv</span></em>, <em class="sig-param"><span class="n">screens</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/functional_harness/x_server.html#x_server"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#functional_harness.x_server.x_server" title="Permalink to this definition">¶</a></dt>
 <dd><p>Context manager to launch and then clean up an X server.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

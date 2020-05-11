@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>Unit Tests (test_quicktile.py) &#8212; QuickTile 0.4 documentation</title>
@@ -137,11 +137,11 @@
   <div class="section" id="module-test_quicktile">
 <span id="unit-tests-test-quicktile-py"></span><h1>Unit Tests (<code class="docutils literal notranslate"><span class="pre">test_quicktile.py</span></code>)<a class="headerlink" href="#module-test_quicktile" title="Permalink to this headline">¶</a></h1>
 <p>Unit Test Suite for QuickTile using Nose test discovery</p>
-<dl class="class">
+<dl class="py class">
 <dt id="test_quicktile.TestHelpers">
-<em class="property">class </em><code class="sig-name descname">TestHelpers</code><span class="sig-paren">(</span><em class="sig-param">methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestHelpers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestHelpers" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">TestHelpers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">methodName</span><span class="o">=</span><span class="default_value">'runTest'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestHelpers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestHelpers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tests for loose functions</p>
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestHelpers.test_clamp_idx">
 <code class="sig-name descname">test_clamp_idx</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestHelpers.test_clamp_idx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestHelpers.test_clamp_idx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test that clamp_idx(wrap=False) saturates as expected</p>
@@ -152,13 +152,13 @@
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestHelpers.test_clamp_idx_default">
 <code class="sig-name descname">test_clamp_idx_default</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestHelpers.test_clamp_idx_default"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestHelpers.test_clamp_idx_default" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test that clamp_idx defaults to wrapping behaviour</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestHelpers.test_clamp_idx_wrap">
 <code class="sig-name descname">test_clamp_idx_wrap</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestHelpers.test_clamp_idx_wrap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestHelpers.test_clamp_idx_wrap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test that clamp_idx(wrap=True) wraps as expected</p>
@@ -169,7 +169,7 @@
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestHelpers.test_euclidean_dist">
 <code class="sig-name descname">test_euclidean_dist</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestHelpers.test_euclidean_dist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestHelpers.test_euclidean_dist" title="Permalink to this definition">¶</a></dt>
 <dd><p>euclidean_dist: basic functionality</p>
@@ -180,7 +180,7 @@
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestHelpers.test_powerset">
 <code class="sig-name descname">test_powerset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestHelpers.test_powerset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestHelpers.test_powerset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test that powerset() behaves as expected</p>
@@ -191,7 +191,7 @@
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestHelpers.test_xiniterror_str">
 <code class="sig-name descname">test_xiniterror_str</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestHelpers.test_xiniterror_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestHelpers.test_xiniterror_str" title="Permalink to this definition">¶</a></dt>
 <dd><p>XInitError.__str__ output contains provided text</p>
@@ -204,47 +204,47 @@
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="test_quicktile.TestRectangle">
-<em class="property">class </em><code class="sig-name descname">TestRectangle</code><span class="sig-paren">(</span><em class="sig-param">methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">TestRectangle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">methodName</span><span class="o">=</span><span class="default_value">'runTest'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tests for my custom <cite>Rectangle</cite> class</p>
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.setUp">
 <code class="sig-name descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.setUp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implicitly test positional and keyword construction during setup</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_bool">
 <code class="sig-name descname">test_bool</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_bool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_bool" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: only truthy if area is nonzero</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_contains">
 <code class="sig-name descname">test_contains</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_contains"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_contains" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: __contains__</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_float_input">
 <code class="sig-name descname">test_float_input</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_float_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_float_input" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: test truncating of float inputs to integers</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_gdk_round_tripping">
 <code class="sig-name descname">test_gdk_round_tripping</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_gdk_round_tripping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_gdk_round_tripping" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: from_gdk/to_gdk</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_gravity_conversion">
 <code class="sig-name descname">test_gravity_conversion</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_gravity_conversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_gravity_conversion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: basic gravity conversions</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_gravity_noop">
 <code class="sig-name descname">test_gravity_noop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_gravity_noop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_gravity_noop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: gravity conversions on top-left corner are no-ops.</p>
@@ -255,97 +255,97 @@
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_gravity_rounding">
 <code class="sig-name descname">test_gravity_rounding</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_gravity_rounding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_gravity_rounding" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: gravity conversions truncate predictably</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_intersect">
 <code class="sig-name descname">test_intersect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_intersect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_intersect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: intersection</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_member_access">
 <code class="sig-name descname">test_member_access</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_member_access"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_member_access" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: quacks like a namedtuple</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_moved_into">
 <code class="sig-name descname">test_moved_into</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_moved_into"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_moved_into" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: moved_into</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_moved_off_of">
 <code class="sig-name descname">test_moved_off_of</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_moved_off_of"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_moved_off_of" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: moved_off_of</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_negative_size">
 <code class="sig-name descname">test_negative_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_negative_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_negative_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: test normalization of negative sizes</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_none_safe">
 <code class="sig-name descname">test_none_safe</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_none_safe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_none_safe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: __new__ doesn’t attempt to compare None and int</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_properties">
 <code class="sig-name descname">test_properties</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_properties"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_properties" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: convenience properties</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_rel_conversion_symmetry">
 <code class="sig-name descname">test_rel_conversion_symmetry</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_rel_conversion_symmetry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_rel_conversion_symmetry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: converting to/from relative coordinates is symmetrical</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_relative_conversion_basic">
 <code class="sig-name descname">test_relative_conversion_basic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_relative_conversion_basic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_relative_conversion_basic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: converting to/from relative coordinates works</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_righthand_construction">
 <code class="sig-name descname">test_righthand_construction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_righthand_construction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_righthand_construction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: test construction using x2/y2 and width/height</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_subtract">
 <code class="sig-name descname">test_subtract</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_subtract"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_subtract" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: subtract</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_to_point">
 <code class="sig-name descname">test_to_point</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_to_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_to_point" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: to_point</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_two_point_form">
 <code class="sig-name descname">test_two_point_form</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_two_point_form"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_two_point_form" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: two-point-form properties function properly</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_twopoint_construction">
 <code class="sig-name descname">test_twopoint_construction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_twopoint_construction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_twopoint_construction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: test construction using two-point form</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestRectangle.test_union">
 <code class="sig-name descname">test_union</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestRectangle.test_union"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestRectangle.test_union" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rectangle: union finds bounding box for two rectangles</p>
@@ -353,23 +353,23 @@
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="test_quicktile.TestStrutPartial">
-<em class="property">class </em><code class="sig-name descname">TestStrutPartial</code><span class="sig-paren">(</span><em class="sig-param">methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestStrutPartial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestStrutPartial" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">TestStrutPartial</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">methodName</span><span class="o">=</span><span class="default_value">'runTest'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestStrutPartial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestStrutPartial" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tests for my custom <code class="docutils literal notranslate"><span class="pre">_NET_WM_STRUT_PARTIAL</span></code> wrapper class</p>
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestStrutPartial.test_as_rects">
 <code class="sig-name descname">test_as_rects</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestStrutPartial.test_as_rects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestStrutPartial.test_as_rects" title="Permalink to this definition">¶</a></dt>
 <dd><p>StrutPartial: as_rects (basic function)</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestStrutPartial.test_as_rects_pruning">
 <code class="sig-name descname">test_as_rects_pruning</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestStrutPartial.test_as_rects_pruning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestStrutPartial.test_as_rects_pruning" title="Permalink to this definition">¶</a></dt>
 <dd><p>StrutPartial: as_rects doesn’t return empty rects</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestStrutPartial.test_construction">
 <code class="sig-name descname">test_construction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestStrutPartial.test_construction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestStrutPartial.test_construction" title="Permalink to this definition">¶</a></dt>
 <dd><p>StrutPartial: construction</p>
@@ -377,36 +377,36 @@
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="test_quicktile.TestUsableRegion">
-<em class="property">class </em><code class="sig-name descname">TestUsableRegion</code><span class="sig-paren">(</span><em class="sig-param">methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestUsableRegion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestUsableRegion" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">TestUsableRegion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">methodName</span><span class="o">=</span><span class="default_value">'runTest'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestUsableRegion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestUsableRegion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tests for my per-monitor <code class="docutils literal notranslate"><span class="pre">_NET_WORKAREA</span></code> calculation class</p>
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestUsableRegion.test_bool">
 <code class="sig-name descname">test_bool</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestUsableRegion.test_bool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestUsableRegion.test_bool" title="Permalink to this definition">¶</a></dt>
 <dd><p>UsableRegion: __bool__</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestUsableRegion.test_clip_to_usable_region">
 <code class="sig-name descname">test_clip_to_usable_region</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestUsableRegion.test_clip_to_usable_region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestUsableRegion.test_clip_to_usable_region" title="Permalink to this definition">¶</a></dt>
 <dd><p>UsableRegion: clip_to_usable_region</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestUsableRegion.test_find_monitor_for">
 <code class="sig-name descname">test_find_monitor_for</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestUsableRegion.test_find_monitor_for"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestUsableRegion.test_find_monitor_for" title="Permalink to this definition">¶</a></dt>
 <dd><p>UsableRegion: find_monitor_for</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestUsableRegion.test_issue_108">
 <code class="sig-name descname">test_issue_108</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestUsableRegion.test_issue_108"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestUsableRegion.test_issue_108" title="Permalink to this definition">¶</a></dt>
 <dd><p>UsableRegion: windows use of space left free by narrow panels</p>
 <p>Regression test for #64, #65, and #108.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestUsableRegion.test_issue_45">
 <code class="sig-name descname">test_issue_45</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestUsableRegion.test_issue_45"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestUsableRegion.test_issue_45" title="Permalink to this definition">¶</a></dt>
 <dd><p>UsableRegion: struts on internal monitor edges work properly</p>
@@ -414,31 +414,31 @@
 accordance with how Unity actually implemented it.)</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestUsableRegion.test_move_to_usable_region">
 <code class="sig-name descname">test_move_to_usable_region</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestUsableRegion.test_move_to_usable_region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestUsableRegion.test_move_to_usable_region" title="Permalink to this definition">¶</a></dt>
 <dd><p>UsableRegion: move_to_usable_region</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestUsableRegion.test_repr">
 <code class="sig-name descname">test_repr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestUsableRegion.test_repr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestUsableRegion.test_repr" title="Permalink to this definition">¶</a></dt>
 <dd><p>UsableRegion: __repr__</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestUsableRegion.test_update_no_valid_monitors">
 <code class="sig-name descname">test_update_no_valid_monitors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestUsableRegion.test_update_no_valid_monitors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestUsableRegion.test_update_no_valid_monitors" title="Permalink to this definition">¶</a></dt>
 <dd><p>UsableRegion: Empty list of monitors doesn’t raise exception</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestUsableRegion.test_update_nonempty">
 <code class="sig-name descname">test_update_nonempty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestUsableRegion.test_update_nonempty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestUsableRegion.test_update_nonempty" title="Permalink to this definition">¶</a></dt>
 <dd><p>UsableRegion: only add non-empty entries to _usable</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="test_quicktile.TestUsableRegion.test_update_typecheck">
 <code class="sig-name descname">test_update_typecheck</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/test_quicktile.html#TestUsableRegion.test_update_typecheck"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#test_quicktile.TestUsableRegion.test_update_typecheck" title="Permalink to this definition">¶</a></dt>
 <dd><p>UsableRegion: type enforcement for internal _update function</p>

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>Window Manager API Wrapper (wm.py) &#8212; QuickTile 0.4 documentation</title>
@@ -135,9 +135,9 @@
   <div class="section" id="module-quicktile.wm">
 <span id="window-manager-api-wrapper-wm-py"></span><h1>Window Manager API Wrapper (<code class="docutils literal notranslate"><span class="pre">wm.py</span></code>)<a class="headerlink" href="#module-quicktile.wm" title="Permalink to this headline">¶</a></h1>
 <p>Wrapper around libwnck for interacting with the window manager</p>
-<dl class="class">
+<dl class="py class">
 <dt id="quicktile.wm.WindowManager">
-<em class="property">class </em><code class="sig-name descname">WindowManager</code><span class="sig-paren">(</span><em class="sig-param">screen=None</em>, <em class="sig-param">x_display=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">WindowManager</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">screen</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">x_display</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager" title="Permalink to this definition">¶</a></dt>
 <dd><p>A simple API-wrapper class for manipulating window positioning.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -154,9 +154,9 @@ be used.</p></li>
 attempt to open a new X connection failed.</p>
 </dd>
 </dl>
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.wm.WindowManager._property_prep">
-<code class="sig-name descname">_property_prep</code><span class="sig-paren">(</span><em class="sig-param">win</em>, <em class="sig-param">name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager._property_prep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager._property_prep" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">_property_prep</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">win</span></em>, <em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager._property_prep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager._property_prep" title="Permalink to this definition">¶</a></dt>
 <dd><p>Common code for <cite>get_property</cite> and <cite>set_property</cite></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -169,9 +169,9 @@ attempt to open a new X connection failed.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.wm.WindowManager.get_monitor">
-<code class="sig-name descname">get_monitor</code><span class="sig-paren">(</span><em class="sig-param">win</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.get_monitor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.get_monitor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_monitor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">win</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.get_monitor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.get_monitor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a window, retrieve the ID and geometry of the monitor it’s on.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -186,9 +186,9 @@ attempt to open a new X connection failed.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.wm.WindowManager.get_property">
-<code class="sig-name descname">get_property</code><span class="sig-paren">(</span><em class="sig-param">win</em>, <em class="sig-param">name</em>, <em class="sig-param">prop_type</em>, <em class="sig-param">empty=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.get_property"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.get_property" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_property</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">win</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">prop_type</span></em>, <em class="sig-param"><span class="n">empty</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.get_property"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.get_property" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the value of the X11 property <code class="docutils literal notranslate"><span class="pre">name</span></code> on window <code class="docutils literal notranslate"><span class="pre">win</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -210,9 +210,9 @@ simpler API.</p>
 the data it receives.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.wm.WindowManager.get_relevant_windows">
-<code class="sig-name descname">get_relevant_windows</code><span class="sig-paren">(</span><em class="sig-param">workspace</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.get_relevant_windows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.get_relevant_windows" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_relevant_windows</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">workspace</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.get_relevant_windows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.get_relevant_windows" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for <a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/classes/Screen.html#Wnck.Screen.get_windows" title="(in Wnck 3.0 v3.0)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Wnck.Screen.get_windows()</span></code></a> that filters out windows
 of type <a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/enums.html#Wnck.WindowType.DESKTOP" title="(in Wnck 3.0 v3.0)"><code class="xref any docutils literal notranslate"><span class="pre">Wnck.WindowType.DESKTOP</span></code></a> or <a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/enums.html#Wnck.WindowType.DOCK" title="(in Wnck 3.0 v3.0)"><code class="xref any docutils literal notranslate"><span class="pre">Wnck.WindowType.DOCK</span></code></a>.</p>
 <dl class="field-list simple">
@@ -225,9 +225,9 @@ of type <a class="reference external" href="https://lazka.github.io/pgi-docs/Wnc
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.wm.WindowManager.get_workspace">
-<code class="sig-name descname">get_workspace</code><span class="sig-paren">(</span><em class="sig-param">window=None</em>, <em class="sig-param">direction=None</em>, <em class="sig-param">wrap_around=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.get_workspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.get_workspace" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_workspace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">direction</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">wrap_around</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.get_workspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.get_workspace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a workspace (virtual desktop) relative to the one containing
 the given or active window.</p>
 <dl class="field-list simple">
@@ -257,9 +257,9 @@ around when it reaches the edge)</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.wm.WindowManager.is_relevant">
-<em class="property">static </em><code class="sig-name descname">is_relevant</code><span class="sig-paren">(</span><em class="sig-param">window</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.is_relevant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.is_relevant" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">is_relevant</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.is_relevant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.is_relevant" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">False</span></code></a> if the window should be ignored.</p>
 <p>(i.e. If it’s the desktop or a panel)</p>
 <dl class="field-list simple">
@@ -272,7 +272,7 @@ around when it reaches the edge)</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.wm.WindowManager.reposition">
 <code class="sig-name descname">reposition</code><span class="sig-paren">(</span><em class="sig-param">win</em>, <em class="sig-param">geom=None</em>, <em class="sig-param">monitor=Rectangle(x=0</em>, <em class="sig-param">y=0</em>, <em class="sig-param">width=0</em>, <em class="sig-param">height=0)</em>, <em class="sig-param">keep_maximize=False</em>, <em class="sig-param">geometry_mask=&lt;flags WNCK_WINDOW_CHANGE_X | WNCK_WINDOW_CHANGE_Y | WNCK_WINDOW_CHANGE_WIDTH | WNCK_WINDOW_CHANGE_HEIGHT of type Wnck.WindowMoveResizeMask&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.reposition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.reposition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Move and resize a window, decorations inclusive, according to the
@@ -304,9 +304,9 @@ operations like move and resize.)</p></li>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.wm.WindowManager.set_property">
-<code class="sig-name descname">set_property</code><span class="sig-paren">(</span><em class="sig-param">win</em>, <em class="sig-param">name</em>, <em class="sig-param">value</em>, <em class="sig-param">prop_type=31</em>, <em class="sig-param">format_size=8</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.set_property"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.set_property" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_property</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">win</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">prop_type</span><span class="o">=</span><span class="default_value">31</span></em>, <em class="sig-param"><span class="n">format_size</span><span class="o">=</span><span class="default_value">8</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.set_property"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.set_property" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the value of X11 property <code class="docutils literal notranslate"><span class="pre">name</span></code> on window <code class="docutils literal notranslate"><span class="pre">win</span></code> to the
 contents of <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
 <dl class="field-list simple">
@@ -339,7 +339,7 @@ byte-swap the values.</p>
 think that <code class="docutils literal notranslate"><span class="pre">prop_type</span></code> would be enough to describe the data type.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.wm.WindowManager.update_geometry_cache">
 <code class="sig-name descname">update_geometry_cache</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#WindowManager.update_geometry_cache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.WindowManager.update_geometry_cache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the internal cache of monitor &amp; panel shapes by querying
@@ -354,9 +354,9 @@ them from the desktop and processing them into a
 
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.wm.persist_maximization">
-<code class="sig-name descname">persist_maximization</code><span class="sig-paren">(</span><em class="sig-param">win</em>, <em class="sig-param">keep_maximize=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#persist_maximization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.persist_maximization" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">persist_maximization</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">win</span></em>, <em class="sig-param"><span class="n">keep_maximize</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/wm.html#persist_maximization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.wm.persist_maximization" title="Permalink to this definition">¶</a></dt>
 <dd><p>Context manager to persist maximization state after a call to
 <a class="reference internal" href="#quicktile.wm.WindowManager.reposition" title="quicktile.wm.WindowManager.reposition"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">WindowManager.reposition</span></code></a>.</p>
 <dl class="field-list simple">

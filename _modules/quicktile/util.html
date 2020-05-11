@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>quicktile.util &#8212; QuickTile 0.4 documentation</title>
@@ -529,6 +529,20 @@
         <span class="c1"># MyPy complains but this is thoroughly unit-tested as working</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__bases__</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span>  <span class="c1"># type: ignore</span>
             <span class="bp">cls</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+
+    <span class="c1"># TODO: Automated tests</span>
+<div class="viewcode-block" id="Rectangle.__mul__"><a class="viewcode-back" href="../../apidocs/util.html#quicktile.util.Rectangle.__mul__">[docs]</a>    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">factor</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;Rectangle&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a new Rectangle with all dimensions multiplied by ``factor``</span>
+
+<span class="sd">        This is used to apply scaling factors to monitor rectangles returned by</span>
+<span class="sd">        GDK so they&#39;ll be in the device pixel coordinates that the Wnck APIs</span>
+<span class="sd">        expect.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_replace</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">factor</span><span class="p">),</span>
+            <span class="n">y</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">factor</span><span class="p">),</span>
+            <span class="n">width</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">factor</span><span class="p">),</span>
+            <span class="n">height</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="n">factor</span><span class="p">))</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">xy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>  <span class="c1"># pylint: disable=invalid-name</span>

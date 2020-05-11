@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>Command Registry and Included Commands (commands.py) &#8212; QuickTile 0.4 documentation</title>
@@ -135,11 +135,11 @@
   <div class="section" id="module-quicktile.commands">
 <span id="command-registry-and-included-commands-commands-py"></span><h1>Command Registry and Included Commands (<code class="docutils literal notranslate"><span class="pre">commands.py</span></code>)<a class="headerlink" href="#module-quicktile.commands" title="Permalink to this headline">¶</a></h1>
 <p>Available window-management commands</p>
-<dl class="class">
+<dl class="py class">
 <dt id="quicktile.commands.CommandRegistry">
 <em class="property">class </em><code class="sig-name descname">CommandRegistry</code><a class="reference internal" href="../_modules/quicktile/commands.html#CommandRegistry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.CommandRegistry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lookup and dispatch boilerplate for window management commands.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.commands.CommandRegistry.__str__">
 <code class="sig-name descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#CommandRegistry.__str__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.CommandRegistry.__str__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pretty-print a table of registered commands</p>
@@ -150,9 +150,9 @@
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.commands.CommandRegistry.add">
-<code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">*p_args</em>, <em class="sig-param">**p_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#CommandRegistry.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.CommandRegistry.add" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">p_args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">p_kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#CommandRegistry.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.CommandRegistry.add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decorator to wrap a function in boilerplate and add it to the
 command registry under the given name.</p>
 <dl class="field-list simple">
@@ -183,9 +183,9 @@ docstring.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.commands.CommandRegistry.add_many">
-<code class="sig-name descname">add_many</code><span class="sig-paren">(</span><em class="sig-param">command_map</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#CommandRegistry.add_many"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.CommandRegistry.add_many" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_many</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">command_map</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#CommandRegistry.add_many"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.CommandRegistry.add_many" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience decorator to call <a class="reference internal" href="#quicktile.commands.CommandRegistry.add" title="quicktile.commands.CommandRegistry.add"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add()</span></code></a> repeatedly to assing
 multiple command names to the same function which differ only in
 their arguments.</p>
@@ -202,9 +202,9 @@ arguments.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.commands.CommandRegistry.call">
-<code class="sig-name descname">call</code><span class="sig-paren">(</span><em class="sig-param">command</em>, <em class="sig-param">winman</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#CommandRegistry.call"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.CommandRegistry.call" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">call</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">command</span></em>, <em class="sig-param"><span class="n">winman</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#CommandRegistry.call"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.CommandRegistry.call" title="Permalink to this definition">¶</a></dt>
 <dd><p>Look up a registered command by name and execute it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -225,15 +225,15 @@ arguments.</p>
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="quicktile.commands.CommandRegistry.extra_state">
 <code class="sig-name descname">extra_state</code><em class="property">: Dict[str, Any]</em><em class="property"> = {}</em><a class="headerlink" href="#quicktile.commands.CommandRegistry.extra_state" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fields to be added to the <code class="docutils literal notranslate"><span class="pre">state</span></code> argument when calling commands</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.commands.CommandRegistry.get_window_meta">
-<em class="property">static </em><code class="sig-name descname">get_window_meta</code><span class="sig-paren">(</span><em class="sig-param">window</em>, <em class="sig-param">state</em>, <em class="sig-param">winman</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#CommandRegistry.get_window_meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.CommandRegistry.get_window_meta" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">get_window_meta</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window</span></em>, <em class="sig-param"><span class="n">state</span></em>, <em class="sig-param"><span class="n">winman</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#CommandRegistry.get_window_meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.CommandRegistry.get_window_meta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gather information about <code class="docutils literal notranslate"><span class="pre">window</span></code> to pass to the command</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -259,15 +259,15 @@ values.</p></li>
 
 </dd></dl>
 
-<dl class="data">
+<dl class="py data">
 <dt id="quicktile.commands.commands">
 <code class="sig-name descname">commands</code><em class="property"> = &lt;quicktile.commands.CommandRegistry object&gt;</em><a class="headerlink" href="#quicktile.commands.commands" title="Permalink to this definition">¶</a></dt>
 <dd><p>The instance of <a class="reference internal" href="#quicktile.commands.CommandRegistry" title="quicktile.commands.CommandRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandRegistry</span></code></a> to be used in 99.9% of use cases.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.commands.cycle_dimensions">
-<code class="sig-name descname">cycle_dimensions</code><span class="sig-paren">(</span><em class="sig-param">winman</em>, <em class="sig-param">win</em>, <em class="sig-param">state</em>, <em class="sig-param">*dimensions</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#cycle_dimensions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.cycle_dimensions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cycle_dimensions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">winman</span></em>, <em class="sig-param"><span class="n">win</span></em>, <em class="sig-param"><span class="n">state</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">dimensions</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#cycle_dimensions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.cycle_dimensions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cycle the active window through a list of positions and shapes.</p>
 <p>Takes one step each time this function is called.</p>
 <p>Keeps track of its position by storing the index in an X11 property on
@@ -297,9 +297,9 @@ floating-point values between 0 and 1, inclusive.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.commands.cycle_monitors">
-<code class="sig-name descname">cycle_monitors</code><span class="sig-paren">(</span><em class="sig-param">winman</em>, <em class="sig-param">win</em>, <em class="sig-param">state</em>, <em class="sig-param">step=1</em>, <em class="sig-param">force_wrap=False</em>, <em class="sig-param">n_monitors=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#cycle_monitors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.cycle_monitors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cycle_monitors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">winman</span></em>, <em class="sig-param"><span class="n">win</span></em>, <em class="sig-param"><span class="n">state</span></em>, <em class="sig-param"><span class="n">step</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">force_wrap</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">n_monitors</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#cycle_monitors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.cycle_monitors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cycle the active window between monitors.</p>
 <p>Attempts to preserve each window’s position but will ensure that it doesn’t
 get placed outside the available space on the target monitor.</p>
@@ -321,9 +321,9 @@ get placed outside the available space on the target monitor.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.commands.cycle_monitors_all">
-<code class="sig-name descname">cycle_monitors_all</code><span class="sig-paren">(</span><em class="sig-param">winman</em>, <em class="sig-param">win</em>, <em class="sig-param">state</em>, <em class="sig-param">step=1</em>, <em class="sig-param">force_wrap=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#cycle_monitors_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.cycle_monitors_all" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cycle_monitors_all</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">winman</span></em>, <em class="sig-param"><span class="n">win</span></em>, <em class="sig-param"><span class="n">state</span></em>, <em class="sig-param"><span class="n">step</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">force_wrap</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#cycle_monitors_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.cycle_monitors_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cycle all windows between monitors.</p>
 <p>(Apply <a class="reference internal" href="#quicktile.commands.cycle_monitors" title="quicktile.commands.cycle_monitors"><code class="xref py py-func docutils literal notranslate"><span class="pre">cycle_monitors()</span></code></a> to all windows.)</p>
 <p>Attempts to preserve each window’s position but will ensure that it doesn’t
@@ -344,18 +344,18 @@ get placed outside the available space on the target monitor.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.commands.move_to_position">
-<code class="sig-name descname">move_to_position</code><span class="sig-paren">(</span><em class="sig-param">winman</em>, <em class="sig-param">win</em>, <em class="sig-param">state</em>, <em class="sig-param">gravity</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#move_to_position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.move_to_position" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">move_to_position</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">winman</span></em>, <em class="sig-param"><span class="n">win</span></em>, <em class="sig-param"><span class="n">state</span></em>, <em class="sig-param"><span class="n">gravity</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#move_to_position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.move_to_position" title="Permalink to this definition">¶</a></dt>
 <dd><p>Move the active window to a position on the screen, preserving its
 dimensions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>win</strong> (<a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/classes/Window.html#Wnck.Window" title="(in Wnck 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wnck.Window</span></code></a>) – The window to operate on.</p></li>
+<li><p><strong>winman</strong> (<a class="reference internal" href="wm.html#quicktile.wm.WindowManager" title="quicktile.wm.WindowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">WindowManager</span></code></a>) – </p></li>
 <li><p><strong>gravity</strong> (<a class="reference internal" href="util.html#quicktile.util.Gravity" title="quicktile.util.Gravity"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gravity</span></code></a>) – </p></li>
 <li><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]) – </p></li>
-<li><p><strong>winman</strong> (<a class="reference internal" href="wm.html#quicktile.wm.WindowManager" title="quicktile.wm.WindowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">WindowManager</span></code></a>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -364,9 +364,9 @@ dimensions.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.commands.toggle_decorated">
-<code class="sig-name descname">toggle_decorated</code><span class="sig-paren">(</span><em class="sig-param">winman</em>, <em class="sig-param">win</em>, <em class="sig-param">state</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#toggle_decorated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.toggle_decorated" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">toggle_decorated</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">winman</span></em>, <em class="sig-param"><span class="n">win</span></em>, <em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#toggle_decorated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.toggle_decorated" title="Permalink to this definition">¶</a></dt>
 <dd><p>Toggle window decoration state on the active window.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -382,9 +382,9 @@ dimensions.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.commands.toggle_desktop">
-<code class="sig-name descname">toggle_desktop</code><span class="sig-paren">(</span><em class="sig-param">winman</em>, <em class="sig-param">win</em>, <em class="sig-param">state</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#toggle_desktop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.toggle_desktop" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">toggle_desktop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">winman</span></em>, <em class="sig-param"><span class="n">win</span></em>, <em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#toggle_desktop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.toggle_desktop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Toggle “all windows minimized” to view the desktop.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -400,9 +400,9 @@ dimensions.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.commands.toggle_state">
-<code class="sig-name descname">toggle_state</code><span class="sig-paren">(</span><em class="sig-param">winman</em>, <em class="sig-param">win</em>, <em class="sig-param">state</em>, <em class="sig-param">command</em>, <em class="sig-param">check</em>, <em class="sig-param">takes_bool=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#toggle_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.toggle_state" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">toggle_state</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">winman</span></em>, <em class="sig-param"><span class="n">win</span></em>, <em class="sig-param"><span class="n">state</span></em>, <em class="sig-param"><span class="n">command</span></em>, <em class="sig-param"><span class="n">check</span></em>, <em class="sig-param"><span class="n">takes_bool</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#toggle_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.toggle_state" title="Permalink to this definition">¶</a></dt>
 <dd><p>Toggle window state on the active window.</p>
 <p>This is an abstraction to unify a bunch of different <a class="reference external" href="https://lazka.github.io/pgi-docs/Wnck-3.0/classes/Window.html#Wnck.Window" title="(in Wnck 3.0 v3.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Wnck.Window</span></code></a>
 methods behind a common wrapper.</p>
@@ -429,9 +429,9 @@ before resolving.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.commands.trigger_keyboard_action">
-<code class="sig-name descname">trigger_keyboard_action</code><span class="sig-paren">(</span><em class="sig-param">winman</em>, <em class="sig-param">win</em>, <em class="sig-param">state</em>, <em class="sig-param">command</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#trigger_keyboard_action"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.trigger_keyboard_action" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">trigger_keyboard_action</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">winman</span></em>, <em class="sig-param"><span class="n">win</span></em>, <em class="sig-param"><span class="n">state</span></em>, <em class="sig-param"><span class="n">command</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#trigger_keyboard_action"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.trigger_keyboard_action" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ask the Window Manager to begin a keyboard-driven operation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -449,9 +449,9 @@ method name to look up on <code class="docutils literal notranslate"><span class
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.commands.workspace_go">
-<code class="sig-name descname">workspace_go</code><span class="sig-paren">(</span><em class="sig-param">winman</em>, <em class="sig-param">win</em>, <em class="sig-param">state</em>, <em class="sig-param">motion</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#workspace_go"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.workspace_go" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">workspace_go</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">winman</span></em>, <em class="sig-param"><span class="n">win</span></em>, <em class="sig-param"><span class="n">state</span></em>, <em class="sig-param"><span class="n">motion</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#workspace_go"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.workspace_go" title="Permalink to this definition">¶</a></dt>
 <dd><p>Switch the active workspace.</p>
 <p>(Integer values for <code class="docutils literal notranslate"><span class="pre">motion</span></code> may cause wrap-around behaviour depending
 on the value of <a class="reference internal" href="../config.html#movementswrap"><span class="std std-ref">MovementsWrap</span></a>.)</p>
@@ -473,9 +473,9 @@ the distance to move it by numerical ordering. Accepts
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.commands.workspace_send_window">
-<code class="sig-name descname">workspace_send_window</code><span class="sig-paren">(</span><em class="sig-param">winman</em>, <em class="sig-param">win</em>, <em class="sig-param">state</em>, <em class="sig-param">motion</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#workspace_send_window"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.workspace_send_window" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">workspace_send_window</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">winman</span></em>, <em class="sig-param"><span class="n">win</span></em>, <em class="sig-param"><span class="n">state</span></em>, <em class="sig-param"><span class="n">motion</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/commands.html#workspace_send_window"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.commands.workspace_send_window" title="Permalink to this definition">¶</a></dt>
 <dd><p>Move the active window to another workspace.</p>
 <p>(Integer values for <code class="docutils literal notranslate"><span class="pre">motion</span></code> may cause wrap-around behaviour depending
 on the value of <a class="reference internal" href="../config.html#movementswrap"><span class="std std-ref">MovementsWrap</span></a>.)</p>

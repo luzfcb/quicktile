@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>quicktile.commands &#8212; QuickTile 0.4 documentation</title>
@@ -456,6 +456,9 @@
     <span class="n">new_mon_id</span> <span class="o">=</span> <span class="n">clamp_idx</span><span class="p">(</span><span class="n">old_mon_id</span> <span class="o">+</span> <span class="n">step</span><span class="p">,</span> <span class="n">n_monitors</span><span class="p">,</span> <span class="n">do_wrapping</span><span class="p">)</span>
     <span class="n">new_mon_geom</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="o">.</span><span class="n">from_gdk</span><span class="p">(</span>
         <span class="n">winman</span><span class="o">.</span><span class="n">gdk_screen</span><span class="o">.</span><span class="n">get_monitor_geometry</span><span class="p">(</span><span class="n">new_mon_id</span><span class="p">))</span>
+
+    <span class="c1"># TODO: Unit test this</span>
+    <span class="n">new_mon_geom</span> <span class="o">*=</span> <span class="n">winman</span><span class="o">.</span><span class="n">gdk_screen</span><span class="o">.</span><span class="n">get_monitor_scale_factor</span><span class="p">(</span><span class="n">new_mon_id</span><span class="p">)</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Moving window to monitor </span><span class="si">%s</span><span class="s2">, which has geometry </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
                   <span class="n">new_mon_id</span><span class="p">,</span> <span class="n">new_mon_geom</span><span class="p">)</span>
 

@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>Index &#8212; QuickTile 0.4 documentation</title>
@@ -222,7 +222,7 @@
     --version
 
       <ul>
-        <li><a href="cli.html#cmdoption-quicktile-v">quicktile command line option</a>
+        <li><a href="cli.html#cmdoption-quicktile-V">quicktile command line option</a>
 </li>
       </ul></li>
       <li>
@@ -250,7 +250,7 @@
     -V
 
       <ul>
-        <li><a href="cli.html#cmdoption-quicktile-v">quicktile command line option</a>
+        <li><a href="cli.html#cmdoption-quicktile-V">quicktile command line option</a>
 </li>
       </ul></li>
   </ul></td>
@@ -272,6 +272,8 @@
 </li>
       </ul></li>
       <li><a href="apidocs/util.html#quicktile.util.Rectangle.__contains__">__contains__() (Rectangle method)</a>
+</li>
+      <li><a href="apidocs/util.html#quicktile.util.Rectangle.__mul__">__mul__() (Rectangle method)</a>
 </li>
       <li><a href="apidocs/util.html#quicktile.util.UsableRegion.__repr__">__repr__() (UsableRegion method)</a>
 </li>
@@ -425,16 +427,26 @@
 </li>
       <li><a href="apidocs/util.html#quicktile.util.Rectangle.from_gdk">from_gdk() (Rectangle class method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidocs/util.html#quicktile.util.Rectangle.from_gravity">from_gravity() (Rectangle method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidocs/util.html#quicktile.util.Rectangle.from_relative">from_relative() (Rectangle method)</a>
 </li>
-      <li><a href="apidocs/functional_harness/env_general.html#module-functional_harness.env_general">functional_harness.env_general (module)</a>
+      <li>
+    functional_harness.env_general
+
+      <ul>
+        <li><a href="apidocs/functional_harness/env_general.html#module-functional_harness.env_general">module</a>
 </li>
-      <li><a href="apidocs/functional_harness/x_server.html#module-functional_harness.x_server">functional_harness.x_server (module)</a>
+      </ul></li>
+      <li>
+    functional_harness.x_server
+
+      <ul>
+        <li><a href="apidocs/functional_harness/x_server.html#module-functional_harness.x_server">module</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -541,10 +553,39 @@
 </li>
       <li><a href="apidocs/gtkexcepthook.html#quicktile.gtkexcepthook.ExceptionHandler.make_info_dialog">make_info_dialog() (ExceptionHandler method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidocs/layout.html#quicktile.layout.make_winsplit_positions">make_winsplit_positions() (in module quicktile.layout)</a>
 </li>
+      <li>
+    module
+
+      <ul>
+        <li><a href="apidocs/functional_harness/env_general.html#module-functional_harness.env_general">functional_harness.env_general</a>
+</li>
+        <li><a href="apidocs/functional_harness/x_server.html#module-functional_harness.x_server">functional_harness.x_server</a>
+</li>
+        <li><a href="apidocs/__main__.html#module-quicktile.__main__">quicktile.__main__</a>
+</li>
+        <li><a href="apidocs/commands.html#module-quicktile.commands">quicktile.commands</a>
+</li>
+        <li><a href="apidocs/dbus_api.html#module-quicktile.dbus_api">quicktile.dbus_api</a>
+</li>
+        <li><a href="apidocs/gtkexcepthook.html#module-quicktile.gtkexcepthook">quicktile.gtkexcepthook</a>
+</li>
+        <li><a href="apidocs/keybinder.html#module-quicktile.keybinder">quicktile.keybinder</a>
+</li>
+        <li><a href="apidocs/layout.html#module-quicktile.layout">quicktile.layout</a>
+</li>
+        <li><a href="apidocs/util.html#module-quicktile.util">quicktile.util</a>
+</li>
+        <li><a href="apidocs/wm.html#module-quicktile.wm">quicktile.wm</a>
+</li>
+        <li><a href="apidocs/test_functional.html#module-test_functional">test_functional</a>
+</li>
+        <li><a href="apidocs/test_quicktile.html#module-test_quicktile">test_quicktile</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidocs/commands.html#quicktile.commands.move_to_position">move_to_position() (in module quicktile.commands)</a>
 </li>
       <li><a href="apidocs/util.html#quicktile.util.UsableRegion.move_to_usable_region">move_to_usable_region() (UsableRegion method)</a>
@@ -605,7 +646,7 @@
 </li>
         <li><a href="cli.html#cmdoption-quicktile-show-bindings">--show-bindings</a>
 </li>
-        <li><a href="cli.html#cmdoption-quicktile-v">--version</a>
+        <li><a href="cli.html#cmdoption-quicktile-V">--version</a>
 </li>
         <li><a href="cli.html#cmdoption-quicktile-b">-b</a>
 </li>
@@ -613,29 +654,69 @@
 </li>
         <li><a href="cli.html#cmdoption-quicktile-h">-h</a>
 </li>
-        <li><a href="cli.html#cmdoption-quicktile-v">-V</a>
+        <li><a href="cli.html#cmdoption-quicktile-V">-V</a>
 </li>
         <li><a href="cli.html#cmdoption-quicktile-arg-command">command</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="apidocs/__main__.html#module-quicktile.__main__">quicktile.__main__ (module)</a>
+      <li>
+    quicktile.__main__
+
+      <ul>
+        <li><a href="apidocs/__main__.html#module-quicktile.__main__">module</a>
 </li>
-      <li><a href="apidocs/commands.html#module-quicktile.commands">quicktile.commands (module)</a>
+      </ul></li>
+      <li>
+    quicktile.commands
+
+      <ul>
+        <li><a href="apidocs/commands.html#module-quicktile.commands">module</a>
 </li>
-      <li><a href="apidocs/dbus_api.html#module-quicktile.dbus_api">quicktile.dbus_api (module)</a>
+      </ul></li>
+      <li>
+    quicktile.dbus_api
+
+      <ul>
+        <li><a href="apidocs/dbus_api.html#module-quicktile.dbus_api">module</a>
 </li>
-      <li><a href="apidocs/gtkexcepthook.html#module-quicktile.gtkexcepthook">quicktile.gtkexcepthook (module)</a>
+      </ul></li>
+      <li>
+    quicktile.gtkexcepthook
+
+      <ul>
+        <li><a href="apidocs/gtkexcepthook.html#module-quicktile.gtkexcepthook">module</a>
 </li>
-      <li><a href="apidocs/keybinder.html#module-quicktile.keybinder">quicktile.keybinder (module)</a>
+      </ul></li>
+      <li>
+    quicktile.keybinder
+
+      <ul>
+        <li><a href="apidocs/keybinder.html#module-quicktile.keybinder">module</a>
 </li>
-      <li><a href="apidocs/layout.html#module-quicktile.layout">quicktile.layout (module)</a>
+      </ul></li>
+      <li>
+    quicktile.layout
+
+      <ul>
+        <li><a href="apidocs/layout.html#module-quicktile.layout">module</a>
 </li>
-      <li><a href="apidocs/util.html#module-quicktile.util">quicktile.util (module)</a>
+      </ul></li>
+      <li>
+    quicktile.util
+
+      <ul>
+        <li><a href="apidocs/util.html#module-quicktile.util">module</a>
 </li>
-      <li><a href="apidocs/wm.html#module-quicktile.wm">quicktile.wm (module)</a>
+      </ul></li>
+      <li>
+    quicktile.wm
+
+      <ul>
+        <li><a href="apidocs/wm.html#module-quicktile.wm">module</a>
 </li>
+      </ul></li>
       <li><a href="apidocs/__main__.html#quicktile.__main__.QuickTileApp">QuickTileApp (class in quicktile.__main__)</a>
 </li>
   </ul></td>
@@ -720,8 +801,13 @@
 </li>
       <li><a href="apidocs/test_quicktile.html#test_quicktile.TestRectangle.test_float_input">test_float_input() (TestRectangle method)</a>
 </li>
-      <li><a href="apidocs/test_functional.html#module-test_functional">test_functional (module)</a>
+      <li>
+    test_functional
+
+      <ul>
+        <li><a href="apidocs/test_functional.html#module-test_functional">module</a>
 </li>
+      </ul></li>
       <li><a href="apidocs/test_quicktile.html#test_quicktile.TestRectangle.test_gdk_round_tripping">test_gdk_round_tripping() (TestRectangle method)</a>
 </li>
       <li><a href="apidocs/test_quicktile.html#test_quicktile.TestRectangle.test_gravity_conversion">test_gravity_conversion() (TestRectangle method)</a>
@@ -752,8 +838,13 @@
 </li>
       <li><a href="apidocs/test_quicktile.html#test_quicktile.TestRectangle.test_properties">test_properties() (TestRectangle method)</a>
 </li>
-      <li><a href="apidocs/test_quicktile.html#module-test_quicktile">test_quicktile (module)</a>
+      <li>
+    test_quicktile
+
+      <ul>
+        <li><a href="apidocs/test_quicktile.html#module-test_quicktile">module</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="apidocs/test_quicktile.html#test_quicktile.TestRectangle.test_rel_conversion_symmetry">test_rel_conversion_symmetry() (TestRectangle method)</a>

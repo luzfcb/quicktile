@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>D-Bus Interface (dbus_api.py) &#8212; QuickTile 0.4 documentation</title>
@@ -135,23 +135,23 @@
   <div class="section" id="module-quicktile.dbus_api">
 <span id="d-bus-interface-dbus-api-py"></span><h1>D-Bus Interface (<code class="docutils literal notranslate"><span class="pre">dbus_api.py</span></code>)<a class="headerlink" href="#module-quicktile.dbus_api" title="Permalink to this headline">¶</a></h1>
 <p>D-Bus API for controlling QuickTile</p>
-<dl class="class">
+<dl class="py class">
 <dt id="quicktile.dbus_api.QuickTile">
-<em class="property">class </em><code class="sig-name descname">QuickTile</code><span class="sig-paren">(</span><em class="sig-param">bus</em>, <em class="sig-param">commands</em>, <em class="sig-param">winman</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/dbus_api.html#QuickTile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.dbus_api.QuickTile" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">QuickTile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bus</span></em>, <em class="sig-param"><span class="n">commands</span></em>, <em class="sig-param"><span class="n">winman</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/dbus_api.html#QuickTile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.dbus_api.QuickTile" title="Permalink to this definition">¶</a></dt>
 <dd><p>D-Bus endpoint definition</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>bus</strong> (<a class="reference external" href="https://dbus.freedesktop.org/doc/dbus-python/dbus.html#dbus.SessionBus" title="(in dbus-python v1.2.16)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SessionBus</span></code></a>) – The connection on which to export this object.
-See the <a class="reference external" href="https://dbus.freedesktop.org/doc/dbus-python/dbus.service.html#dbus.service.Object" title="(in dbus-python v1.2.16)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dbus.service.Object</span></code></a> documentation for details.</p></li>
+<li><p><strong>bus</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">SessionBus</span></code>) – The connection on which to export this object.
+See the <code class="xref py py-class docutils literal notranslate"><span class="pre">dbus.service.Object</span></code> documentation for details.</p></li>
 <li><p><strong>winman</strong> (<a class="reference internal" href="wm.html#quicktile.wm.WindowManager" title="quicktile.wm.WindowManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">WindowManager</span></code></a>) – </p></li>
 <li><p><strong>commands</strong> (<a class="reference internal" href="commands.html#quicktile.commands.CommandRegistry" title="quicktile.commands.CommandRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandRegistry</span></code></a>) – </p></li>
 </ul>
 </dd>
 </dl>
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.dbus_api.QuickTile.doCommand">
-<code class="sig-name descname">doCommand</code><span class="sig-paren">(</span><em class="sig-param">command</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/dbus_api.html#QuickTile.doCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.dbus_api.QuickTile.doCommand" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">doCommand</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">command</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/dbus_api.html#QuickTile.doCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.dbus_api.QuickTile.doCommand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute a QuickTile tiling command</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -168,9 +168,9 @@ See the <a class="reference external" href="https://dbus.freedesktop.org/doc/dbu
 
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.dbus_api.init">
-<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">commands</em>, <em class="sig-param">winman</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/dbus_api.html#init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.dbus_api.init" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">commands</span></em>, <em class="sig-param"><span class="n">winman</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/dbus_api.html#init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.dbus_api.init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize the DBus backend</p>
 <p>This handles hooking D-Bus into the Glib main loop, connecting to the
 session bus, and creating a <a class="reference internal" href="#quicktile.dbus_api.QuickTile" title="quicktile.dbus_api.QuickTile"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuickTile</span></code></a> instance.</p>
@@ -182,7 +182,7 @@ session bus, and creating a <a class="reference internal" href="#quicktile.dbus_
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://dbus.freedesktop.org/doc/dbus-python/dbus.service.html#dbus.service.BusName" title="(in dbus-python v1.2.16)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BusName</span></code></a>, <a class="reference internal" href="#quicktile.dbus_api.QuickTile" title="quicktile.dbus_api.QuickTile"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuickTile</span></code></a>]]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">BusName</span></code>, <a class="reference internal" href="#quicktile.dbus_api.QuickTile" title="quicktile.dbus_api.QuickTile"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuickTile</span></code></a>]]</p>
 </dd>
 </dl>
 </dd></dl>

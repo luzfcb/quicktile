@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>Developer’s Guide &#8212; QuickTile 0.4 documentation</title>
@@ -410,7 +410,7 @@ when I examine your contribution:</p>
 <li><p><a class="reference external" href="https://github.com/PyCQA/bandit">Bandit</a> (You can run this as <code class="docutils literal notranslate"><span class="pre">bandit</span> <span class="pre">quicktile</span></code> after installation.)</p></li>
 <li><p><a class="reference external" href="https://www.pylint.org/">PyLint</a> (Assuming you have your system configured to complain about
 deprecation warnings as I do, I suggest running PyLint as
-<code class="docutils literal notranslate"><span class="pre">pylint3</span> <span class="pre">quicktile</span> <span class="pre">2&gt;/dev/null</span></code>)</p></li>
+<code class="docutils literal notranslate"><span class="pre">pylint3</span> <span class="pre">--rcfile=pylintrc</span> <span class="pre">quicktile</span> <span class="pre">2&gt;/dev/null</span></code>)</p></li>
 </ul>
 <p>While it currently relies on an ugly hack which hard-codes Openbox and
 Zenity as dependencies, and does not yet assert that windows wind up

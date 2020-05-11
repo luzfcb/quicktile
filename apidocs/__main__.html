@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>Core Application Code (__main__.py) &#8212; QuickTile 0.4 documentation</title>
@@ -135,15 +135,15 @@
   <div class="section" id="module-quicktile.__main__">
 <span id="core-application-code-main-py"></span><h1>Core Application Code (<code class="docutils literal notranslate"><span class="pre">__main__.py</span></code>)<a class="headerlink" href="#module-quicktile.__main__" title="Permalink to this headline">¶</a></h1>
 <p>Entry point, configuration parser, and main loop</p>
-<dl class="data">
+<dl class="py data">
 <dt id="quicktile.__main__.KEYLOOKUP">
 <code class="sig-name descname">KEYLOOKUP</code><em class="property"> = {'+': 'plus', ',': 'comma', '-': 'minus', '.': 'period'}</em><a class="headerlink" href="#quicktile.__main__.KEYLOOKUP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Used for resolving certain keysyms</p>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="quicktile.__main__.QuickTileApp">
-<em class="property">class </em><code class="sig-name descname">QuickTileApp</code><span class="sig-paren">(</span><em class="sig-param">winman</em>, <em class="sig-param">commands</em>, <em class="sig-param">keys</em>, <em class="sig-param">modmask=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/__main__.html#QuickTileApp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.__main__.QuickTileApp" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">QuickTileApp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">winman</span></em>, <em class="sig-param"><span class="n">commands</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">modmask</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/__main__.html#QuickTileApp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.__main__.QuickTileApp" title="Permalink to this definition">¶</a></dt>
 <dd><p>The basic Glib application itself.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -156,7 +156,7 @@ command names.</p></li>
 </ul>
 </dd>
 </dl>
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.__main__.QuickTileApp.run">
 <code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/__main__.html#QuickTileApp.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.__main__.QuickTileApp.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize keybinding and D-Bus if available, then call
@@ -172,7 +172,7 @@ were available.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.__main__.QuickTileApp.show_binds">
 <code class="sig-name descname">show_binds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/__main__.html#QuickTileApp.show_binds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.__main__.QuickTileApp.show_binds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print a formatted readout of defined keybindings and the modifier
@@ -186,7 +186,7 @@ mask to stdout.</p>
 
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.__main__.argparser">
 <code class="sig-name descname">argparser</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/__main__.html#argparser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.__main__.argparser" title="Permalink to this definition">¶</a></dt>
 <dd><p><a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">argparse.ArgumentParser</span></code></a> definition that is compatible with
@@ -198,9 +198,9 @@ mask to stdout.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.__main__.load_config">
-<code class="sig-name descname">load_config</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/__main__.html#load_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.__main__.load_config" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">load_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/__main__.html#load_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.__main__.load_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load the config file from the given path, applying fixes as needed.
 If it does not exist, create it from the configuration defaults.</p>
 <dl class="field-list simple">
@@ -220,7 +220,7 @@ section of the configuration file or what they resolve to via
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.__main__.main">
 <code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/__main__.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.__main__.main" title="Permalink to this definition">¶</a></dt>
 <dd><p>setuptools-compatible entry point</p>
@@ -236,9 +236,9 @@ section of the configuration file or what they resolve to via
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.__main__.wnck_log_filter">
-<code class="sig-name descname">wnck_log_filter</code><span class="sig-paren">(</span><em class="sig-param">domain</em>, <em class="sig-param">level</em>, <em class="sig-param">message</em>, <em class="sig-param">userdata=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/__main__.html#wnck_log_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.__main__.wnck_log_filter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">wnck_log_filter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">domain</span></em>, <em class="sig-param"><span class="n">level</span></em>, <em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">userdata</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/__main__.html#wnck_log_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.__main__.wnck_log_filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>A custom function for <a class="reference external" href="https://lazka.github.io/pgi-docs/GLib-2.0/functions.html#GLib.log_set_handler" title="(in GLib 2.0 v2.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">GLib.log_set_handler()</span></code></a> which filters out
 the spurious error about <code class="docutils literal notranslate"><span class="pre">_OB_WM_ACTION_UNDECORATE</span></code> being un-handled.</p>
 <dl class="field-list simple">

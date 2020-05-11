@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>GUI Exception Handler (gtkexcepthook.py) &#8212; QuickTile 0.4 documentation</title>
@@ -170,9 +170,9 @@ false positives. (Borrowed naming convention from cgitb)</p></li>
 </div>
 <div class="section" id="api-documentation">
 <h2>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="quicktile.gtkexcepthook.ExceptionHandler">
-<em class="property">class </em><code class="sig-name descname">ExceptionHandler</code><span class="sig-paren">(</span><em class="sig-param">reporting_cb=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#ExceptionHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.ExceptionHandler" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">ExceptionHandler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reporting_cb</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#ExceptionHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.ExceptionHandler" title="Permalink to this definition">¶</a></dt>
 <dd><p>GTK-based graphical exception handler</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -180,24 +180,24 @@ false positives. (Borrowed naming convention from cgitb)</p></li>
 button which will receive the formatted traceback as a string.</p>
 </dd>
 </dl>
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.gtkexcepthook.ExceptionHandler.__call__">
-<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">exctyp</em>, <em class="sig-param">value</em>, <em class="sig-param">tback</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#ExceptionHandler.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.ExceptionHandler.__call__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exctyp</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">tback</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#ExceptionHandler.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.ExceptionHandler.__call__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Custom <a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.excepthook" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">sys.excepthook</span></code></a> callback which displays a GTK dialog</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/exceptions.html#BaseException" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseException</span></code></a>) – </p></li>
 <li><p><strong>exctyp</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/exceptions.html#BaseException" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseException</span></code></a>]) – </p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/exceptions.html#BaseException" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseException</span></code></a>) – </p></li>
 <li><p><strong>tback</strong> (<a class="reference external" href="https://docs.python.org/3/library/types.html#types.TracebackType" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TracebackType</span></code></a>) – </p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.gtkexcepthook.ExceptionHandler.make_details_dialog">
-<em class="property">static </em><code class="sig-name descname">make_details_dialog</code><span class="sig-paren">(</span><em class="sig-param">parent</em>, <em class="sig-param">text</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#ExceptionHandler.make_details_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.ExceptionHandler.make_details_dialog" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">make_details_dialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#ExceptionHandler.make_details_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.ExceptionHandler.make_details_dialog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize and return the details dialog</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -212,7 +212,7 @@ button which will receive the formatted traceback as a string.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.gtkexcepthook.ExceptionHandler.make_info_dialog">
 <code class="sig-name descname">make_info_dialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#ExceptionHandler.make_info_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.ExceptionHandler.make_info_dialog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize and return the top-level dialog</p>
@@ -225,35 +225,35 @@ button which will receive the formatted traceback as a string.</p>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="quicktile.gtkexcepthook.Scope">
 <em class="property">class </em><code class="sig-name descname">Scope</code><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#Scope"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.Scope" title="Permalink to this definition">¶</a></dt>
 <dd><p>The scope of a variable looked up by <a class="reference internal" href="#quicktile.gtkexcepthook.lookup" title="quicktile.gtkexcepthook.lookup"><code class="xref any py py-func docutils literal notranslate"><span class="pre">lookup</span></code></a></p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="quicktile.gtkexcepthook.Scope.Builtin">
 <code class="sig-name descname">Builtin</code><em class="property"> = 1</em><a class="headerlink" href="#quicktile.gtkexcepthook.Scope.Builtin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="quicktile.gtkexcepthook.Scope.Global">
 <code class="sig-name descname">Global</code><em class="property"> = 2</em><a class="headerlink" href="#quicktile.gtkexcepthook.Scope.Global" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="quicktile.gtkexcepthook.Scope.Local">
 <code class="sig-name descname">Local</code><em class="property"> = 3</em><a class="headerlink" href="#quicktile.gtkexcepthook.Scope.Local" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="quicktile.gtkexcepthook.Scope.NONE">
 <code class="sig-name descname">NONE</code><em class="property"> = None</em><a class="headerlink" href="#quicktile.gtkexcepthook.Scope.NONE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.gtkexcepthook.analyse">
-<code class="sig-name descname">analyse</code><span class="sig-paren">(</span><em class="sig-param">exctyp</em>, <em class="sig-param">value</em>, <em class="sig-param">tracebk</em>, <em class="sig-param">context_lines=3</em>, <em class="sig-param">max_width=80</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#analyse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.analyse" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">analyse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exctyp</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">tracebk</span></em>, <em class="sig-param"><span class="n">context_lines</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">max_width</span><span class="o">=</span><span class="default_value">80</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#analyse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.analyse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a traceback, including the contents of variables in each
 stack frame.</p>
 <dl class="field-list simple">
@@ -276,9 +276,9 @@ stack frame.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.gtkexcepthook.enable">
-<code class="sig-name descname">enable</code><span class="sig-paren">(</span><em class="sig-param">reporting_cb=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#enable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.enable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">enable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reporting_cb</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#enable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.enable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call this to set gtkexcepthook as the default exception handler</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -291,9 +291,9 @@ the <span class="guilabel">Details…</span> button.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.gtkexcepthook.gather_vars">
-<code class="sig-name descname">gather_vars</code><span class="sig-paren">(</span><em class="sig-param">frame_rec</em>, <em class="sig-param">local_vars</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#gather_vars"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.gather_vars" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">gather_vars</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame_rec</span></em>, <em class="sig-param"><span class="n">local_vars</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#gather_vars"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.gather_vars" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract all the local variables from the given traceback frame using
 <a class="reference internal" href="#quicktile.gtkexcepthook.lookup" title="quicktile.gtkexcepthook.lookup"><code class="xref py py-func docutils literal notranslate"><span class="pre">lookup()</span></code></a>.</p>
 <dl class="field-list simple">
@@ -314,9 +314,9 @@ the <span class="guilabel">Details…</span> button.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.gtkexcepthook.lookup">
-<code class="sig-name descname">lookup</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">frame</em>, <em class="sig-param">local_vars</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#lookup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.lookup" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">lookup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">frame</span></em>, <em class="sig-param"><span class="n">local_vars</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#lookup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.lookup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find the value for a given name in the given frame</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -337,9 +337,9 @@ the <span class="guilabel">Details…</span> button.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.gtkexcepthook.tokenize_frame">
-<code class="sig-name descname">tokenize_frame</code><span class="sig-paren">(</span><em class="sig-param">frame_rec</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#tokenize_frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.tokenize_frame" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">tokenize_frame</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame_rec</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/gtkexcepthook.html#tokenize_frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.gtkexcepthook.tokenize_frame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generator which produces a lexical token stream from a frame record</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

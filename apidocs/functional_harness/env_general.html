@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>Environment Management (functional_harness/env_general.py) &#8212; QuickTile 0.4 documentation</title>
@@ -137,9 +137,9 @@
   <div class="section" id="module-functional_harness.env_general">
 <span id="environment-management-functional-harness-env-general-py"></span><h1>Environment Management (<code class="docutils literal notranslate"><span class="pre">functional_harness/env_general.py</span></code>)<a class="headerlink" href="#module-functional_harness.env_general" title="Permalink to this headline">¶</a></h1>
 <p>Assorted context managers for setting up the test environment</p>
-<dl class="function">
+<dl class="py function">
 <dt id="functional_harness.env_general.background_proc">
-<code class="sig-name descname">background_proc</code><span class="sig-paren">(</span><em class="sig-param">argv</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/functional_harness/env_general.html#background_proc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#functional_harness.env_general.background_proc" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">background_proc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">argv</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/functional_harness/env_general.html#background_proc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#functional_harness.env_general.background_proc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Context manager for scoping the lifetime of a <code class="docutils literal notranslate"><span class="pre">subprocess.Popen</span></code> call</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -157,9 +157,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="functional_harness.env_general.env_vars">
-<code class="sig-name descname">env_vars</code><span class="sig-paren">(</span><em class="sig-param">new</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/functional_harness/env_general.html#env_vars"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#functional_harness.env_general.env_vars" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">env_vars</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/functional_harness/env_general.html#env_vars"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#functional_harness.env_general.env_vars" title="Permalink to this definition">¶</a></dt>
 <dd><p>Context manager to temporarily change environment variables</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

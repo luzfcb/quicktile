@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>Internal Global Hotkey Support (keybinder.py) &#8212; QuickTile 0.4 documentation</title>
@@ -135,9 +135,9 @@
   <div class="section" id="module-quicktile.keybinder">
 <span id="internal-global-hotkey-support-keybinder-py"></span><h1>Internal Global Hotkey Support (<code class="docutils literal notranslate"><span class="pre">keybinder.py</span></code>)<a class="headerlink" href="#module-quicktile.keybinder" title="Permalink to this headline">¶</a></h1>
 <p>Xlib-based global hotkey-binding code</p>
-<dl class="class">
+<dl class="py class">
 <dt id="quicktile.keybinder.KeyBinder">
-<em class="property">class </em><code class="sig-name descname">KeyBinder</code><span class="sig-paren">(</span><em class="sig-param">x_display=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">KeyBinder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x_display</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder" title="Permalink to this definition">¶</a></dt>
 <dd><p>A convenience class for wrapping <a class="reference external" href="https://tronche.com/gui/x/xlib/input/XGrabKey.html">XGrabKey</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -148,9 +148,9 @@ will be opened.</p>
 <dd class="field-even"><p><a class="reference internal" href="util.html#quicktile.util.XInitError" title="quicktile.util.XInitError"><strong>XInitError</strong></a> – Failed to open a new X connection.</p>
 </dd>
 </dl>
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.keybinder.KeyBinder._vary_modmask">
-<em class="property">static </em><code class="sig-name descname">_vary_modmask</code><span class="sig-paren">(</span><em class="sig-param">modmask</em>, <em class="sig-param">ignored</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder._vary_modmask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder._vary_modmask" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">_vary_modmask</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">modmask</span></em>, <em class="sig-param"><span class="n">ignored</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder._vary_modmask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder._vary_modmask" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate all possible variations on <code class="docutils literal notranslate"><span class="pre">modmask</span></code> that need to be
 taken into consideration if we can’t properly ignore the modifiers in
 <code class="docutils literal notranslate"><span class="pre">ignored</span></code>. (Typically NumLock and CapsLock)</p>
@@ -173,9 +173,9 @@ with <code class="docutils literal notranslate"><span class="pre">modmask</span>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.keybinder.KeyBinder.bind">
-<code class="sig-name descname">bind</code><span class="sig-paren">(</span><em class="sig-param">accel</em>, <em class="sig-param">callback</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder.bind"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder.bind" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">bind</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">accel</span></em>, <em class="sig-param"><span class="n">callback</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder.bind"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder.bind" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bind a global key combination to a callback.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -195,9 +195,9 @@ parsed successfully and didn’t provoke an error from <a class="reference exter
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.keybinder.KeyBinder.cb_xerror">
-<code class="sig-name descname">cb_xerror</code><span class="sig-paren">(</span><em class="sig-param">err</em>, <em class="sig-param">request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder.cb_xerror"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder.cb_xerror" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cb_xerror</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">err</span></em>, <em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder.cb_xerror"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder.cb_xerror" title="Permalink to this definition">¶</a></dt>
 <dd><p>Callback used to identify when attempts to bind keys fail.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -209,9 +209,9 @@ parsed successfully and didn’t provoke an error from <a class="reference exter
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.keybinder.KeyBinder.cb_xevent">
-<code class="sig-name descname">cb_xevent</code><span class="sig-paren">(</span><em class="sig-param">src</em>, <em class="sig-param">cond</em>, <em class="sig-param">handle=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder.cb_xevent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder.cb_xevent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cb_xevent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">src</span></em>, <em class="sig-param"><span class="n">cond</span></em>, <em class="sig-param"><span class="n">handle</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder.cb_xevent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder.cb_xevent" title="Permalink to this definition">¶</a></dt>
 <dd><p><a class="reference external" href="https://lazka.github.io/pgi-docs/GLib-2.0/functions.html#GLib.io_add_watch" title="(in GLib 2.0 v2.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">GLib.io_add_watch()</span></code></a> callback to dispatch X events to more
 specific handlers.</p>
 <dl class="field-list simple">
@@ -233,9 +233,9 @@ the watch.</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.keybinder.KeyBinder.handle_keypress">
-<code class="sig-name descname">handle_keypress</code><span class="sig-paren">(</span><em class="sig-param">xevent</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder.handle_keypress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder.handle_keypress" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">handle_keypress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xevent</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder.handle_keypress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder.handle_keypress" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resolve <code class="xref py py-class docutils literal notranslate"><span class="pre">Xlib.protocol.event.KeyPress</span></code> events to the
 <a class="reference internal" href="commands.html#quicktile.commands.CommandRegistry" title="quicktile.commands.CommandRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">quicktile.commands.CommandRegistry</span></code></a> commands associated with
 them and then call the commands.</p>
@@ -246,13 +246,13 @@ them and then call the commands.</p>
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="quicktile.keybinder.KeyBinder.ignored_modifiers">
 <code class="sig-name descname">ignored_modifiers</code><em class="property"> = ['Mod2Mask', 'LockMask']</em><a class="headerlink" href="#quicktile.keybinder.KeyBinder.ignored_modifiers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Modifiers whose state should not affect whether a binding fires</p>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="quicktile.keybinder.KeyBinder.keybind_failed">
 <code class="sig-name descname">keybind_failed</code><em class="property"> = False</em><a class="headerlink" href="#quicktile.keybinder.KeyBinder.keybind_failed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Used in concert with <code class="xref py py-meth docutils literal notranslate"><span class="pre">Xlib.display.Display.sync()</span></code> to pass state
@@ -260,9 +260,9 @@ from <a class="reference internal" href="#quicktile.keybinder.KeyBinder.cb_xerro
 reported.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="quicktile.keybinder.KeyBinder.parse_accel">
-<code class="sig-name descname">parse_accel</code><span class="sig-paren">(</span><em class="sig-param">accel</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder.parse_accel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder.parse_accel" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">parse_accel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">accel</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#KeyBinder.parse_accel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.KeyBinder.parse_accel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert an <a class="reference internal" href="../config.html#keybinding-syntax"><span class="std std-ref">accelerator string</span></a> into the
 form <a class="reference external" href="https://tronche.com/gui/x/xlib/input/XGrabKey.html">XGrabKey</a> needs.</p>
 <dl class="field-list simple">
@@ -280,9 +280,9 @@ form <a class="reference external" href="https://tronche.com/gui/x/xlib/input/XG
 
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="quicktile.keybinder.init">
-<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">modmask</em>, <em class="sig-param">mappings</em>, <em class="sig-param">commands</em>, <em class="sig-param">winman</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.init" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">modmask</span></em>, <em class="sig-param"><span class="n">mappings</span></em>, <em class="sig-param"><span class="n">commands</span></em>, <em class="sig-param"><span class="n">winman</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quicktile/keybinder.html#init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#quicktile.keybinder.init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize the keybinder and bind the requested mappings</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
